@@ -1,0 +1,8 @@
+Contest Name, Website, Duration
+<month> Easy, Hackerearth, 3 hours
+<month> Long Challenge, Codechef, 10 days
+HourRank <number>, HackerRank, 1 hour
+<month> Cook Off, Codechef, 2.5 hours
+<month> Circuits, Hackerearth, 9 days
+Week of Code <number>, HackerRank, 7 days
+<month> Lunchtime, Codechef, 3 hours
