@@ -5,19 +5,15 @@ from json import load
 if __name__ == "__main__" :
 	with open("database.json","r") as f:
 		database = load(f)
-	table = []
+	table = [["SRN", "Name", "Rating", "Best"]]
 	for student in database :
-		row = []
+		row = [rank]
 		row.append(student)
 		row.append(database[student]["name"])
 		row.append(database[student]["rating"])
 		row.append(database[student]["best"])
 		table.append(row[:])
-	table.sort(key = lambda x : x[2])
-	rank = 1
-	for i in range(len(table)) :
-		table[i].insert(0, rank)
-		rank += 1
+	table.sort(key = lambda x : x[2], reverse = True)
 
 	with io.open("output.csv",'w', encoding = "utf-8", newline = "") as resultFile:
 		wr = csv.writer(resultFile, dialect='excel')
