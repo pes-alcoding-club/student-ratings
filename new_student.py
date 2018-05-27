@@ -9,11 +9,11 @@ def add_new_student() :
 	srn = input("SRN : ").strip()
 	name = input("Name : ").strip()
 	email = input("Email : ").strip()
-	print("Enter 0 to skip any of the following information")
-	hackerearth = input("Hackerearth Username : ").strip()
-	hackerrank = input("Hackerrank Username : ").strip()
-	codechef = input("Codechef Username : ").strip()
-	kickstart = input("Google Kickstart Username : ").strip()
+	# print("Enter 0 to skip any of the following information")
+	# hackerearth = input("Hackerearth Username : ").strip()
+	# hackerrank = input("Hackerrank Username : ").strip()
+	# codechef = input("Codechef Username : ").strip()
+	# kickstart = input("Google Kickstart Username : ").strip()
 	codejam = input("Google Codejam Username : ").strip()
 
 	with open("database.json","r") as f:
@@ -24,16 +24,16 @@ def add_new_student() :
 	new_dict = dict()
 	new_dict["name"] = name
 	new_dict["email"] = email
-	if len(hackerearth) > 2 :
-		new_dict["hackerearth"] = hackerearth
-	if len(hackerrank) > 2 :
-		new_dict["hackerrank"] = hackerrank
-	if len(codechef) > 2 :
-		new_dict["codechef"] = codechef
+	# if len(hackerearth) > 2 :
+	# 	new_dict["hackerearth"] = hackerearth
+	# if len(hackerrank) > 2 :
+	# 	new_dict["hackerrank"] = hackerrank
+	# if len(codechef) > 2 :
+	# 	new_dict["codechef"] = codechef
 	if len(codejam) > 2 : 
 		new_dict["codejam"] = codejam
-	if len(kickstart) > 2 :
-		new_dict["kickstart"] = kickstart
+	# if len(kickstart) > 2 :
+	# 	new_dict["kickstart"] = kickstart
 	
 	new_dict["rating"] = default_rating
 	new_dict["volatility"] = default_volatility
@@ -44,7 +44,7 @@ def add_new_student() :
 	database[srn] = new_dict
 
 	with open("database.json","w") as f:
-		database = dump(database, f)
+		dump(database, f)
 
 def update_student() :
 	# default_rating = 1500

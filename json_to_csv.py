@@ -15,7 +15,7 @@ if __name__ == "__main__" :
 		row.append(database[student]["rating"])
 		row.append(database[student]["best"])
 		table.append(row[:])
-	table.sort(key = lambda x : x[2])
+	table.sort(key = lambda x : x[2], reverse = True)
 	rank = 1
 	for i in range(len(table)) :
 		table[i].insert(0, rank)

@@ -7,6 +7,7 @@
 
 from math import sqrt, log
 from json import load, dump
+from copy import deepcopy
 from sys import stdin
 
 Eab = lambda Ra, Va, Rb, Vb : 1/(1 + pow(4, ((Ra-Rb)/(sqrt(pow(Va,2) + pow(Vb, 2))))))
@@ -51,23 +52,26 @@ def update_database(database, site, scores) :
 	#participants = set([x[1] for x in scores])
 	#assert N == len(participants)
 	R_list, V_list, S_list = [], [], []
+	new_database = deepcopy(database)
 	for student in database : #student = SRN
 		if site in database[student] and database[student][site] in scores :
 			R_list.append(database[student]["rating"])
 			V_list.append(database[student]["volatility"])
 			S_list.append(student)
 		else :
-			database[student]["lastFive"] = max(database[student]["lastFive"]-1, 0)
-			if database[student]["lastFive"] == 0 :
-				database[student]["rating"] = 0.9 * database[student]["rating"]
-				database[student]["volatility"] = 125
+			new_database[student]["lastFive"] = max(database[student]["lastFive"]-1, 0)
+			if new_database[student]["lastFive"] == 0 :
+				new_database[student]["rating"] = 0.9 * database[student]["rating"]
+				new_database[student]["volatility"] = 125
 	if N > len(R_list) :
 		print("Some students are not in the database yet but have taken part")
 		print("Add them to the database to have their scores updated")
+		N = len(R_list)
 	Rb_Vb_list = zip(R_list, V_list)
 	# print(Rb_Vb_list)
-	# print(R_list, V_list, N)
+	#print(R_list, V_list, N)
 	var_Cf = Cf(R_list, V_list, N)
+	#print(S_list)
 	for student in S_list :
 		Ra = database[student]["rating"]
 		Va = database[student]["volatility"]
@@ -80,19 +84,19 @@ def update_database(database, site, scores) :
 						RWa(timesPlayed)
 						)
 		new_volatility = NVa(VWa(timesPlayed), new_rating, Ra,	Va)
-
+		print(student, new_rating)
 		if new_rating > Ra : #a cap to how much the rating can change
 			new_rating = min(new_rating, Ra + Rcap(Ra, timesPlayed))
 		else :
 			new_rating = max(new_rating, Ra - Rcap(Ra, timesPlayed))
 		new_volatility = Vcap(new_volatility) # a cap to how much volatility can change
 
-		database[student]["rating"] = new_rating
-		database[student]["best"] = max(database[student]["best"], new_rating)
-		database[student]["volatility"] = new_volatility
-		database[student]["timesPlayed"] += 1
-		database[student]["lastFive"] = 5 #now student can choose to not participate in next 5 contests
-	return database
+		new_database[student]["rating"] = new_rating
+		new_database[student]["best"] = max(database[student]["best"], new_rating)
+		new_database[student]["volatility"] = new_volatility
+		new_database[student]["timesPlayed"] += 1
+		new_database[student]["lastFive"] = 5 #now student can choose to not participate in next 5 contests
+	return new_database
 
 if __name__ == "__main__" :
 	with open("database.json","r") as f:
