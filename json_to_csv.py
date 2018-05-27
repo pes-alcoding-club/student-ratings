@@ -12,8 +12,8 @@ if __name__ == "__main__" :
 		row = []
 		row.append(student)
 		row.append(database[student]["name"])
-		row.append(database[student]["rating"])
-		row.append(database[student]["best"])
+		row.append(round(database[student]["rating"]))
+		row.append(round(database[student]["best"]))
 		table.append(row[:])
 	table.sort(key = lambda x : x[2], reverse = True)
 	rank = 1
