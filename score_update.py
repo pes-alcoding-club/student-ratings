@@ -11,7 +11,8 @@ from copy import deepcopy
 from sys import stdin
 
 Eab = lambda Ra, Va, Rb, Vb : 1/(1 + pow(4, ((Ra-Rb)/(sqrt(pow(Va,2) + pow(Vb, 2))))))
-ERank = lambda Ra, Va, Rb_Vb_list : sum([Eab(Ra, Va, Rb, Vb) for Rb, Vb in Rb_Vb_list])
+#ERank = lambda Ra, Va, Rb_Vb_list : sum([Eab(Ra, Va, Rb, Vb) for Rb, Vb in Rb_Vb_list])
+ERank = lambda Ra, Va, Rb_Vb_list : sum([Eab(Ra, Va, X[0], X[1]) for X in Rb_Vb_list])
 #Perf = lambda rank, N :  log(N/(rank-1)) / log(4) causes division by zero
 Perf = lambda rank, N :  log(N/(max(0.01,rank-0.99))) / log(4)
 EPerf = lambda ERank, N : Perf(ERank, N)
@@ -28,7 +29,7 @@ RWa = lambda timesPlayed : (0.4*timesPlayed + 0.2) / (0.7*timesPlayed + 0.6)
 VWa = lambda timesPlayed : (0.5*timesPlayed + 0.8) / (timesPlayed + 0.6)
 
 NRa = lambda Ra, APerf, EPerf, Cf, RWa : Ra + (APerf - EPerf)*Cf*RWa
-NVa = lambda VWa, NRa, Ra, Va : (VWa*((NRa - Ra)**2) + (Va**2)) / (VWa + 1.1)
+NVa = lambda VWa, NRa, Ra, Va : sqrt((VWa*((NRa - Ra)**2) + (Va**2)) / (VWa + 1.1))
 
 Rcap = lambda Ra, timesPlayed : 100 + (75/(timesPlayed + 1)) + ((100*500)/(abs(Ra-1500) + 500))
 Vcap = lambda Va : max(75, min(Va, 200)) #(75, 200) #the volatility can change maximum by these two
@@ -67,11 +68,10 @@ def update_database(database, site, scores) :
 		print("Some students are not in the database yet but have taken part")
 		print("Add them to the database to have their scores updated")
 		N = len(R_list)
-	Rb_Vb_list = zip(R_list, V_list)
-	# print(Rb_Vb_list)
-	#print(R_list, V_list, N)
+	Rb_Vb_list = list(zip(R_list, V_list))
 	var_Cf = Cf(R_list, V_list, N)
-	#print(S_list)
+	from random import shuffle
+	shuffle(S_list)
 	for student in S_list :
 		Ra = database[student]["rating"]
 		Va = database[student]["volatility"]
@@ -84,7 +84,6 @@ def update_database(database, site, scores) :
 						RWa(timesPlayed)
 						)
 		new_volatility = NVa(VWa(timesPlayed), new_rating, Ra,	Va)
-		print(student, new_rating)
 		if new_rating > Ra : #a cap to how much the rating can change
 			new_rating = min(new_rating, Ra + Rcap(Ra, timesPlayed))
 		else :
