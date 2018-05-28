@@ -10,11 +10,11 @@ def add_new_student() :
 	name = input("Name : ").strip()
 	email = input("Email : ").strip()
 	# print("Enter 0 to skip any of the following information")
-	# hackerearth = input("Hackerearth Username : ").strip()
+	hackerearth = input("Hackerearth Username : ").strip()
 	# hackerrank = input("Hackerrank Username : ").strip()
 	# codechef = input("Codechef Username : ").strip()
 	# kickstart = input("Google Kickstart Username : ").strip()
-	codejam = input("Google Codejam Username : ").strip()
+	#codejam = input("Google Codejam Username : ").strip()
 
 	with open("database.json","r") as f:
 		database = load(f)
