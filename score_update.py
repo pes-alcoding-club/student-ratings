@@ -64,14 +64,13 @@ def update_database(database, site, scores) :
 			if new_database[student]["lastFive"] == 0 :
 				new_database[student]["rating"] = 0.9 * database[student]["rating"]
 				new_database[student]["volatility"] = 125
+				new_database[student]["lastFive"] = 5
 	if N > len(R_list) :
 		print("Some students are not in the database yet but have taken part")
 		print("Add them to the database to have their scores updated")
 		N = len(R_list)
 	Rb_Vb_list = list(zip(R_list, V_list))
 	var_Cf = Cf(R_list, V_list, N)
-	from random import shuffle
-	shuffle(S_list)
 	for student in S_list :
 		Ra = database[student]["rating"]
 		Va = database[student]["volatility"]
