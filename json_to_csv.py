@@ -12,15 +12,16 @@ if __name__ == "__main__" :
 		row = []
 		row.append(student)
 		row.append(database[student]["name"])
+		row.append(round(database[student]["timesPlayed"]))
 		row.append(round(database[student]["rating"]))
 		row.append(round(database[student]["best"]))
 		table.append(row[:])
-	table.sort(key = lambda x : x[2], reverse = True)
+	table.sort(key = lambda x : x[3], reverse = True)
 	rank = 1
 	for i in range(len(table)) :
 		table[i].insert(0, rank)
 		rank += 1
-	table.insert(0, ["Rank","SRN", "Name", "Rating", "Best"])
+	table.insert(0, ["Rank","SRN", "Name", "Contests", "Rating", "Best"])
 
 	with io.open("output.csv",'w', encoding = "utf-8", newline = "") as resultFile:
 		wr = csv.writer(resultFile, dialect='excel')
