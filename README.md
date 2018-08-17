@@ -5,7 +5,7 @@ Alcoding Club of [PES University](https://pes.edu/) maintains ratings of its stu
 
 
 ## Purpose
-An intra-college rating is maintained so that the club can identify good coders.  The club will group these students and help them improve at competitive programming by organizing meetups, providing resources, arranging contests and develop a coding community in the University.
+An intra-college rating is maintained so that the club can identify good coders.  The club will group these students and help them improve at competitive programming by organizing meet-ups, providing resources, arranging contests and develop a coding community in the University.
 
 
 ## Ratings
@@ -18,10 +18,12 @@ A rank list of registered students is generated at the end of each contest. A ra
 The only way you can improve your rating is by consistently scoring more than those who are rated higher than you. The club will provide you with the necessary guidance and resources for the same.
 
 ### Verification
-The code that generates the rating is open. Along with that we have provided a script with which you can verify that the displayed ratings are correct. This script resets all students' ratings, and computes the ratings after all the contest ranks are considered. You may report an issue if you find any discrepancy.
+The code that generates the rating is open. Along with that we have provided a script with which you can verify that the displayed ratings are correct. This script resets all students' ratings, and computes the ratings after all the contest ranks are considered. You may [report an issue](https://github.com/varunvora/alcoding/issues) if you find any discrepancy.
 
 ## Contribute
-This project is still very small so there are no strict guidelines for contribution. You can report an issue if you find a bug or any other change you would like to make. You may also make a pull request. Be sure to clearly document and describe any issues or changes.
+This project is still very small so there are no strict guidelines for contribution. For now we are following [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
+
+You can report an issue if you find a bug or any other change you would like to make. You may also make a pull request. Be sure to clearly document and describe any issues or changes.
 
 ## FAQ
 
