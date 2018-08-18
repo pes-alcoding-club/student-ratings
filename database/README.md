@@ -5,9 +5,16 @@ This module contains the data about students' performances in contests.
 It also contains functions necessary to query and update this data.
 
 #### Description
-1. Filename and its purpose
-2. db_pass.txt : Password to access the database. This version of the file is accessible only to those managing the repository.
+1. contest_ranks: Each file contains rank list of students
+2. db_pass.txt: Password to access the database. This version of the file is accessible only to those managing the repository.
+3. db_tools.py: Variables and functions to read, write and reset database
 
 ##### Contest Ranks
-1. some_Contest.in: Sitename contest name year with url
-2. codechef_jul17.in: [Codechef July Long Challenge 2017](http://codechef.com/JULY17) 
+Following is the list of contests that have been considered for rating so far
+
+1. codejam_qualification-2018.in: [Google Codejam 2018 Qualification Round]()
+2. codejam-1a-2018.in: [Google Codejam 2018 Round 1A]()
+3. codejam-1b-2018.in: [Google Codejam 2018 Round 1B]() 
+4. codejam-1c-2018.in: [Google Codejam 2018 Round 1C]()
+5. codejam-2-2018.in: [Google Codejam 2018 Round 2]()
+6. alcoding-april-2018.in: [PESU Alcoding Club April 2018]()

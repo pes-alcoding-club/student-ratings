@@ -5,6 +5,9 @@ Source: https://www.codechef.com/ratings
 
 from math import log, sqrt
 
+DEFAULT_RATING = 1500
+DEFAULT_VOLATILITY = 125
+
 
 def Eab(Ra, Va, Rb, Vb):  # Probability that player A performs worse than player B
     return 1 / (1 + pow(4, ((Ra - Rb) / (sqrt(pow(Va, 2) + pow(Vb, 2))))))
@@ -88,3 +91,6 @@ def process(Ra, Va, timesPlayed, actual_rank, Rb_Vb_list, N, Cf):
     new_volatility = Vcap(new_volatility)
 
     return new_rating, new_volatility
+
+if __name__ == "__main__":
+    print(Eab(10, 3, 5, 4))

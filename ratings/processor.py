@@ -1,7 +1,7 @@
 import sys
 import logging
 from ratings import elo
-from database import json, db_tools
+from database import db_tools as db
 
 
 class RatingProcessor:
@@ -57,8 +57,8 @@ class RatingProcessor:
         vol_list = []
 
         for srn in srn_rank_dict:
-            rating = self.player_dict_dict[srn][json.RATING]
-            volatility = self.player_dict_dict[srn][json.VOLATILITY]
+            rating = self.player_dict_dict[srn][db.RATING]
+            volatility = self.player_dict_dict[srn][db.VOLATILITY]
             rating_list.append(rating)
             vol_list.append(volatility)
 
@@ -75,19 +75,19 @@ class RatingProcessor:
         :return: dictionary of player's details after processing rank
         """
 
-        old_rating = player_dict[json.RATING]
-        old_volatility = player_dict[json.VOLATILITY]
-        times_played = player_dict[json.TIMES_PLAYED]
-        old_best = player_dict[json.BEST]
+        old_rating = player_dict[db.RATING]
+        old_volatility = player_dict[db.VOLATILITY]
+        times_played = player_dict[db.TIMES_PLAYED]
+        old_best = player_dict[db.BEST]
 
         new_rating, new_volatility = elo.process(
             old_rating, old_volatility, times_played, actual_rank, self.Rb_Vb_list, self.N, self.Cf)
 
-        player_dict[json.RATING] = new_rating
-        player_dict[json.VOLATILITY] = new_volatility
-        player_dict[json.TIMES_PLAYED] = times_played + 1
-        player_dict[json.BEST] = max(old_best, new_rating)
-        player_dict[json.LAST_FIVE] = 5
+        player_dict[db.RATING] = new_rating
+        player_dict[db.VOLATILITY] = new_volatility
+        player_dict[db.TIMES_PLAYED] = times_played + 1
+        player_dict[db.BEST] = max(old_best, new_rating)
+        player_dict[db.LAST_FIVE] = 5
 
         return player_dict
 
@@ -98,19 +98,29 @@ class RatingProcessor:
             player_dict = self._process_player(player_dict, actual_rank)
             self.player_dict_dict[player_srn] = player_dict
 
+        logging.info('Successfully processed competition')
+
     def decay_ratings(self, srn_rank_dict):
+        """
+        Reduces ratings by 10% for those who have competed at least once
+        but have not taken part in the past 5 contests
+        :param srn_rank_dict:
+        :return:
+        """
         for player_srn in self.player_dict_dict:
             if player_srn not in srn_rank_dict:
-                rating = self.player_dict_dict[player_srn][json.RATING]
-                times_played = self.player_dict_dict[player_srn][json.TIMES_PLAYED]
-                last_five = self.player_dict_dict[player_srn][json.LAST_FIVE]-1
+                rating = self.player_dict_dict[player_srn][db.RATING]
+                times_played = self.player_dict_dict[player_srn][db.TIMES_PLAYED]
+                last_five = self.player_dict_dict[player_srn][db.LAST_FIVE]-1
 
                 if last_five == 0 and times_played > 0:
                     rating = rating*0.9
                     last_five = 5
 
-                self.player_dict_dict[player_srn][json.RATING] = rating
-                self.player_dict_dict[player_srn][json.LAST_FIVE] = last_five
+                self.player_dict_dict[player_srn][db.RATING] = rating
+                self.player_dict_dict[player_srn][db.LAST_FIVE] = last_five
+
+        logging.info('Successfully decayed ratings')
 
 
 def read_argv(argv_format_alert):
@@ -135,7 +145,8 @@ def read_argv(argv_format_alert):
 if __name__ == "__main__":
     argv_format = 'processor.py rank_file_path contest_site_str'
     rank_file_path, contest_site_str = read_argv(argv_format)
-    old_db = db_tools.read_database()
+    old_db = db.read_database()
     rp = RatingProcessor(old_db, rank_file_path, contest_site_str)
     new_db = rp.player_dict_dict
-    db_tools.write_database(new_db)
+    db.write_database(new_db)
+    logging.info('Ratings processed successfully')
