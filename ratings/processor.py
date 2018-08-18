@@ -5,9 +5,12 @@ from database import db_tools as db
 
 
 class RatingProcessor:
+    """
+    Uses database and rank file, and uses ELO to update the database with new ratings
+    """
 
-    def __init__(self, player_dict_dict, rank_file, contest_site):
-        self.player_dict_dict = player_dict_dict
+    def __init__(self, database, rank_file, contest_site):
+        self.database = database
         handle_rank_dict = self.read_contest_ranks(rank_file)
         srn_rank_dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
         self.N, self.Cf, self.Rb_Vb_list = self.get_contest_details(srn_rank_dict)
@@ -16,6 +19,11 @@ class RatingProcessor:
 
     @staticmethod
     def read_contest_ranks(file_path):
+        """
+        Reads the file containing rank list and builds a dict
+        :param file_path: .in file containing the rank list
+        :return: dict with key as player's handle of the website and value as rank
+        """
         handle_rank_dict = dict()
 
         with open(file_path, 'r') as f:
@@ -27,25 +35,27 @@ class RatingProcessor:
             assert len(handle_rank_dict) == rank
         except AssertionError:
             logging.error('Duplicate handles provided in ' + file_path)
+            quit()
 
         return handle_rank_dict
 
     def create_srn_rank_dict(self, handle_rank_dict, contest_site):
 
         handle_srn_dict = dict()
-        for player_srn in self.player_dict_dict:
-            if contest_site in self.player_dict_dict[player_srn]:
-                handle = self.player_dict_dict[player_srn][contest_site]
-                handle_srn_dict[handle] = player_srn
+        for srn in self.database:
+            if contest_site in self.database[srn]:
+                handle = self.database[srn][contest_site]
+                handle_srn_dict[handle] = srn
 
         unassigned_handles = set(handle_rank_dict.keys()) - set(handle_srn_dict.keys())
         if unassigned_handles:
             logging.error('Following handles are provided in rank list but not mapped to any player:\n{0}'.format(
                 str(unassigned_handles)))
+            quit()
 
         srn_rank_dict = dict()
 
-        for handle in handle_rank_dict:  # Joining the 2 dictionaries
+        for handle in handle_rank_dict:  # Joining the 2 dictionaries using handle
             srn = handle_srn_dict[handle]
             rank = handle_rank_dict[handle]
             srn_rank_dict[srn] = rank
@@ -57,8 +67,8 @@ class RatingProcessor:
         vol_list = []
 
         for srn in srn_rank_dict:
-            rating = self.player_dict_dict[srn][db.RATING]
-            volatility = self.player_dict_dict[srn][db.VOLATILITY]
+            rating = self.database[srn][db.RATING]
+            volatility = self.database[srn][db.VOLATILITY]
             rating_list.append(rating)
             vol_list.append(volatility)
 
@@ -92,11 +102,11 @@ class RatingProcessor:
         return player_dict
 
     def process_competition(self, srn_rank_dict):
-        for player_srn in srn_rank_dict:
-            actual_rank = srn_rank_dict[player_srn]
-            player_dict = self.player_dict_dict[player_srn]
+        for srn in srn_rank_dict:
+            actual_rank = srn_rank_dict[srn]
+            player_dict = self.database[srn]
             player_dict = self._process_player(player_dict, actual_rank)
-            self.player_dict_dict[player_srn] = player_dict
+            self.database[srn] = player_dict
 
         logging.info('Successfully processed competition')
 
@@ -104,21 +114,21 @@ class RatingProcessor:
         """
         Reduces ratings by 10% for those who have competed at least once
         but have not taken part in the past 5 contests
-        :param srn_rank_dict:
-        :return:
+        :param srn_rank_dict: dict with key as srn and value as rank
+        :return: None
         """
-        for player_srn in self.player_dict_dict:
-            if player_srn not in srn_rank_dict:
-                rating = self.player_dict_dict[player_srn][db.RATING]
-                times_played = self.player_dict_dict[player_srn][db.TIMES_PLAYED]
-                last_five = self.player_dict_dict[player_srn][db.LAST_FIVE]-1
+        for srn in self.database:
+            if srn not in srn_rank_dict:
+                rating = self.database[srn][db.RATING]
+                times_played = self.database[srn][db.TIMES_PLAYED]
+                last_five = self.database[srn][db.LAST_FIVE] - 1
 
                 if last_five == 0 and times_played > 0:
                     rating = rating*0.9
                     last_five = 5
 
-                self.player_dict_dict[player_srn][db.RATING] = rating
-                self.player_dict_dict[player_srn][db.LAST_FIVE] = last_five
+                self.database[srn][db.RATING] = rating
+                self.database[srn][db.LAST_FIVE] = last_five
 
         logging.info('Successfully decayed ratings')
 
@@ -141,12 +151,15 @@ def read_argv(argv_format_alert):
     except AssertionError:
         logging.error('Invalid command line arguments.\n' + argv_format_alert)
 
+    finally:
+        quit()
+
 
 if __name__ == "__main__":
     argv_format = 'processor.py rank_file_path contest_site_str'
     rank_file_path, contest_site_str = read_argv(argv_format)
     old_db = db.read_database()
     rp = RatingProcessor(old_db, rank_file_path, contest_site_str)
-    new_db = rp.player_dict_dict
+    new_db = rp.database
     db.write_database(new_db)
     logging.info('Ratings processed successfully')

@@ -12,7 +12,7 @@ TIMES_PLAYED = 'timesPlayed'
 BEST = 'best'
 LAST_FIVE = 'lastFive'
 
-# Following attriabutes are optional in the database
+# Following attributes are optional in the database
 CODEJAM = 'codejam'
 KICKSTART = 'kickstart'
 HACKEREARTH = 'hackerearth'
@@ -22,78 +22,101 @@ CODECHEF = 'codechef'
 
 
 def read_database(filename=DB_FILE):
+    """
+    Reads json file and returns database of all players
+    :param filename: json file
+    :return: A dictionary with key as SRN and values as dicts with player details
+    """
     try:
         with open(filename, 'r') as f:
-            player_dict_dict = load(f)
+            database = load(f)
             try:
-                assert isinstance(player_dict_dict, dict)
-                assert all(isinstance(player_dict_dict[x], dict) for x in player_dict_dict)
-                assert all(RATING in player_dict_dict[x] for x in player_dict_dict)
-                assert all(VOLATILITY in player_dict_dict[x] for x in player_dict_dict)
-                assert all(TIMES_PLAYED in player_dict_dict[x] for x in player_dict_dict)
-                assert all(BEST in player_dict_dict[x] for x in player_dict_dict)
-                assert all(LAST_FIVE in player_dict_dict[x] for x in player_dict_dict)
+                assert isinstance(database, dict)
+                assert all(isinstance(database[x], dict) for x in database)
+                assert all(RATING in database[x] for x in database)
+                assert all(VOLATILITY in database[x] for x in database)
+                assert all(TIMES_PLAYED in database[x] for x in database)
+                assert all(BEST in database[x] for x in database)
+                assert all(LAST_FIVE in database[x] for x in database)
+                logging.info('Successfully read database from json')
+
             except AssertionError:
                 logging.error('Database not read in expected format. Missing some fields.')
-            return player_dict_dict
+                quit()
+            return database
 
     except IOError:
         logging.error('Could not open ' + filename)
+        quit()
 
 
-def write_database(player_dict_dict, filename=DB_FILE):
+def write_database(database, filename=DB_FILE):
+    """
+    Writes database object to a json file
+    :param database: data represented as a dict of dicts
+    :param filename: json file where database is saved
+    :return: None
+    """
     try:
         with open(filename, 'w') as f:
-            dump(player_dict_dict, f)
+            dump(database, f)
+        logging.info('Successfully written database to ' + filename)
 
     except IOError:
         logging.error('Could not open ' + filename)
+        quit()
 
 
 def reset_database(filename=DB_FILE, outfile=DB_FILE):
-    try:
-        with open(filename, 'r') as f:
-            player_dict_dict = load(f)
+    """
+    Resets all players' attributes to default values
+    :param filename: json file where database is stored
+    :param outfile: json file where reset database is to be written
+    :return: None
+    """
+    database = read_database(filename)
 
-        for player_srn in player_dict_dict:
-            player_dict_dict[player_srn][RATING] = elo.DEFAULT_RATING
-            player_dict_dict[player_srn][VOLATILITY] = elo.DEFAULT_VOLATILITY
-            player_dict_dict[player_srn][BEST] = elo.DEFAULT_RATING
-            player_dict_dict[player_srn][TIMES_PLAYED] = 0
-            player_dict_dict[player_srn][LAST_FIVE] = 5
+    for srn in database:
+        database[srn][RATING] = elo.DEFAULT_RATING
+        database[srn][VOLATILITY] = elo.DEFAULT_VOLATILITY
+        database[srn][BEST] = elo.DEFAULT_RATING
+        database[srn][TIMES_PLAYED] = 0
+        database[srn][LAST_FIVE] = 5
 
-        with open(outfile, 'w') as f:
-            dump(player_dict_dict, f)
-
-        logging.info('Successfully reset database and stored in ' + outfile)
-
-    except IOError:
-        logging.error('Could not open ' + filename)
+    write_database(database, outfile)
+    logging.info('Successfully reset database and stored in ' + outfile)
 
 
 def export_to_csv(filename=DB_FILE, outfile='../scoreboard.csv'):
-
-    player_dict_dict = read_database(filename)
+    """
+    Exports database to CSV file for readable form of scoreboard
+    :param filename: json file where database is stored
+    :param outfile: csv file where database has to be exported
+    :return: None
+    """
+    database = read_database(filename)
 
     csv_table = [["Rank", "SRN", "Name", "Contests", "Rating", "Best"]]
 
     # Remove players who have never played
-    player_srn_list = list(filter(lambda x: player_dict_dict[x][TIMES_PLAYED], player_dict_dict.keys()))
+    srn_list = list(filter(lambda x: database[x][TIMES_PLAYED], database.keys()))
 
     # Sort the remaining players by their rating
-    player_srn_list.sort(key=lambda x: player_dict_dict[x][RATING], reverse=True)
+    srn_list.sort(key=lambda x: database[x][RATING], reverse=True)
 
     # Assign ranks and create rows
-    for rank, player_srn in enumerate(player_srn_list, start=1):
+    for rank, srn in enumerate(srn_list, start=1):
         row = list()
         row.append(rank)
-        row.append(player_srn)
-        row.append(player_dict_dict[player_srn]['name'])
-        row.append(player_dict_dict[player_srn][TIMES_PLAYED])
-        row.append(player_dict_dict[player_srn][RATING])
-        row.append(player_dict_dict[player_srn][BEST])
+        row.append(srn)
+        row.append(database[srn]['name'])
+        row.append(database[srn][TIMES_PLAYED])
+        row.append(database[srn][RATING])
+        row.append(database[srn][BEST])
         csv_table.append(row[:])
 
     with open(outfile, 'w', newline="") as f:
         wr = csv.writer(f)
         wr.writerows(csv_table)
+
+    logging.info('Successfully exported database to ' + outfile)
