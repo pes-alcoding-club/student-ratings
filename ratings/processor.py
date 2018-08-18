@@ -3,8 +3,6 @@ import logging
 from ratings import elo
 from database import json, db_tools
 
-# TODO Add Decay Rule
-
 
 class RatingProcessor:
 
@@ -12,8 +10,9 @@ class RatingProcessor:
         self.player_dict_dict = player_dict_dict
         handle_rank_dict = self.read_contest_ranks(rank_file)
         srn_rank_dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
-        self.N, self.Cf, self.Rb_Vb_list = self.set_contest_details(srn_rank_dict)
+        self.N, self.Cf, self.Rb_Vb_list = self.get_contest_details(srn_rank_dict)
         self.process_competition(srn_rank_dict)
+        self.decay_ratings(srn_rank_dict)
 
     @staticmethod
     def read_contest_ranks(file_path):
@@ -53,7 +52,7 @@ class RatingProcessor:
 
         return srn_rank_dict
 
-    def set_contest_details(self, srn_rank_dict):
+    def get_contest_details(self, srn_rank_dict):
         rating_list = []
         vol_list = []
 
@@ -88,6 +87,7 @@ class RatingProcessor:
         player_dict[json.VOLATILITY] = new_volatility
         player_dict[json.TIMES_PLAYED] = times_played + 1
         player_dict[json.BEST] = max(old_best, new_rating)
+        player_dict[json.LAST_FIVE] = 5
 
         return player_dict
 
@@ -98,8 +98,26 @@ class RatingProcessor:
             player_dict = self._process_player(player_dict, actual_rank)
             self.player_dict_dict[player_srn] = player_dict
 
+    def decay_ratings(self, srn_rank_dict):
+        for player_srn in self.player_dict_dict:
+            if player_srn not in srn_rank_dict:
+                rating = self.player_dict_dict[player_srn][json.RATING]
+                times_played = self.player_dict_dict[player_srn][json.TIMES_PLAYED]
+                last_five = self.player_dict_dict[player_srn][json.LAST_FIVE]-1
+
+                if last_five == 0 and times_played > 0:
+                    rating = rating*0.9
+                    last_five = 5
+
+                self.player_dict_dict[player_srn][json.RATING] = rating
+                self.player_dict_dict[player_srn][json.LAST_FIVE] = last_five
+
 
 def read_argv(argv_format_alert):
+    """
+    :param argv_format_alert: An error message on what the command line arguments should be
+    :return: 2-tuple of rank file and the contest site if argv is valid
+    """
     try:
         assert len(sys.argv) == 3
         rank_file = sys.argv[1]
