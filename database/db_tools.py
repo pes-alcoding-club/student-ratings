@@ -28,11 +28,11 @@ def read_database(filename=DB_FILE):
             try:
                 assert isinstance(player_dict_dict, dict)
                 assert all(isinstance(player_dict_dict[x], dict) for x in player_dict_dict)
-                assert all(RATING in x for x in player_dict_dict)
-                assert all(VOLATILITY in x for x in player_dict_dict)
-                assert all(TIMES_PLAYED in x for x in player_dict_dict)
-                assert all(BEST in x for x in player_dict_dict)
-                assert all(LAST_FIVE in x for x in player_dict_dict)
+                assert all(RATING in player_dict_dict[x] for x in player_dict_dict)
+                assert all(VOLATILITY in player_dict_dict[x] for x in player_dict_dict)
+                assert all(TIMES_PLAYED in player_dict_dict[x] for x in player_dict_dict)
+                assert all(BEST in player_dict_dict[x] for x in player_dict_dict)
+                assert all(LAST_FIVE in player_dict_dict[x] for x in player_dict_dict)
             except AssertionError:
                 logging.error('Database not read in expected format. Missing some fields.')
             return player_dict_dict
