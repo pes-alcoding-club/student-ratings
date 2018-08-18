@@ -128,7 +128,7 @@ class RatingProcessor:
                     last_five = 5
 
                 self.database[srn][db.RATING] = rating
-                self.database[srn][db.LAST_FIVE] = last_five
+                self.database[srn][db.LAST_FIVE] = max(1, last_five)
 
         logging.info('Successfully decayed ratings')
 
@@ -143,9 +143,11 @@ def read_argv(argv_format_alert):
         rank_file = sys.argv[1]
         contest_site = sys.argv[2]
         try:
-            open(rank_file)
+            f = open(rank_file)
+            f.close()
             return rank_file, contest_site
-        except IOError:
+
+        except IOError or FileNotFoundError:
             logging.error('Invalid file path for rank file\n' + argv_format_alert)
 
     except AssertionError:
