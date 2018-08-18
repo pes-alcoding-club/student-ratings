@@ -71,14 +71,22 @@ def reset_database(filename=DB_FILE, outfile=DB_FILE):
         logging.error('Could not open ' + filename)
 
 
-def export_to_csv(filename=DB_FILE, outfile='alcoding/scoreboard.csv'):
-    player_dict_dict = read_database(filename)
-    csv_table = []
+def export_to_csv(filename=DB_FILE, outfile='../scoreboard.csv'):
 
-    for player_srn in player_dict_dict:
-        if player_dict_dict[player_srn][TIMES_PLAYED] == 0:
-            continue
+    player_dict_dict = read_database(filename)
+
+    csv_table = [["Rank", "SRN", "Name", "Contests", "Rating", "Best"]]
+
+    # Remove players who have never played
+    player_srn_list = list(filter(lambda x: player_dict_dict[x][TIMES_PLAYED], player_dict_dict.keys()))
+
+    # Sort the remaining players by their rating
+    player_srn_list.sort(key=lambda x: player_dict_dict[x][RATING], reverse=True)
+
+    # Assign ranks and create rows
+    for rank, player_srn in enumerate(player_srn_list, start=1):
         row = list()
+        row.append(rank)
         row.append(player_srn)
         row.append(player_dict_dict[player_srn]['name'])
         row.append(player_dict_dict[player_srn][TIMES_PLAYED])
@@ -86,13 +94,6 @@ def export_to_csv(filename=DB_FILE, outfile='alcoding/scoreboard.csv'):
         row.append(player_dict_dict[player_srn][BEST])
         csv_table.append(row[:])
 
-    csv_table.sort(key=lambda x: x[3], reverse=True)
-
-    for rank in range(1, len(csv_table)+1):
-        csv_table.insert(0, rank)
-
-    csv_table.insert(0, ["Rank", "SRN", "Name", "Contests", "Rating", "Best"])
-
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', newline="") as f:
         wr = csv.writer(f)
         wr.writerows(csv_table)
