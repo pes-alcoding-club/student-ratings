@@ -3,7 +3,7 @@
 echo "Starting executor"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    alias py python3
+    alias py='python3'
 fi
 
 export PYTHONPATH="${PYTHONPATH}../alcoding"
