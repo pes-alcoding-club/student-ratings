@@ -122,8 +122,8 @@ def export_to_csv(filename=DB_FILE, outfile='scoreboard.csv'):
         row.append(srn)
         row.append(database[srn]['name'])
         row.append(database[srn][TIMES_PLAYED])
-        row.append(database[srn][RATING])
-        row.append(database[srn][BEST])
+        row.append(round(database[srn][RATING]))
+        row.append(round(database[srn][BEST]))
         csv_table.append(row[:])
 
     with open(outfile, 'w', newline="") as f:
