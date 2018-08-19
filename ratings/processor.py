@@ -12,6 +12,11 @@ class RatingProcessor:
     def __init__(self, database, rank_file, contest_site):
         self.database = database
         handle_rank_dict = self.read_contest_ranks(rank_file)
+
+        if len(handle_rank_dict) <= 1:
+            logging.info('Ratings remain same for contests with 0-1 player(s)')
+            quit()
+
         srn_rank_dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
         self.N, self.Cf, self.Rb_Vb_list = self.get_contest_details(srn_rank_dict)
         self.process_competition(srn_rank_dict)
@@ -27,10 +32,11 @@ class RatingProcessor:
         handle_rank_dict = dict()
 
         with open(file_path, 'r') as f:
-            rank = 1
+            rank = 0
             for handle in f:
-                handle_rank_dict[handle] = rank
                 rank += 1
+                handle_rank_dict[handle.strip()] = rank
+
         try:
             assert len(handle_rank_dict) == rank
         except AssertionError:
@@ -124,7 +130,7 @@ class RatingProcessor:
                 last_five = self.database[srn][db.LAST_FIVE] - 1
 
                 if last_five == 0 and times_played > 0:
-                    rating = rating*0.9
+                    rating = rating * 0.9
                     last_five = 5
 
                 self.database[srn][db.RATING] = rating
@@ -149,11 +155,10 @@ def read_argv(argv_format_alert):
 
         except IOError or FileNotFoundError:
             logging.error('Invalid file path for rank file\n' + argv_format_alert)
+            quit()
 
     except AssertionError:
         logging.error('Invalid command line arguments.\n' + argv_format_alert)
-
-    finally:
         quit()
 
 

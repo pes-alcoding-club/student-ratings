@@ -1,9 +1,10 @@
+import sys
 import csv
 import logging
 from json import load, dump
 from ratings import elo
 
-DB_FILE = 'database.json'
+DB_FILE = 'database/database.json'
 
 # Following attributes must be present for all players in the database
 RATING = 'rating'
@@ -97,7 +98,7 @@ def check_database(database):
         quit()
 
 
-def export_to_csv(filename=DB_FILE, outfile='../scoreboard.csv'):
+def export_to_csv(filename=DB_FILE, outfile='scoreboard.csv'):
     """
     Exports database to CSV file for readable form of scoreboard
     :param filename: json file where database is stored
@@ -130,3 +131,13 @@ def export_to_csv(filename=DB_FILE, outfile='../scoreboard.csv'):
         wr.writerows(csv_table)
 
     logging.info('Successfully exported database to ' + outfile)
+
+
+if __name__ == "__main__":
+    # While executing this script, you can specify which function to execute
+    func_str = sys.argv[1]
+    try:
+        func_obj = globals()[func_str]
+        func_obj(*sys.argv[2:])  # Arguments to specified function can be passed
+    except KeyError:
+        logging.error('Provided invalid argument. No function ' + func_str)
