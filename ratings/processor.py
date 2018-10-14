@@ -13,8 +13,8 @@ class RatingProcessor:
         self.database = database
         handle_rank_dict = self.read_contest_ranks(rank_file)
 
-        if len(handle_rank_dict) <= 1:
-            logging.info('Ratings remain same for contests with 0-1 player(s)')
+        if len(handle_rank_dict) == 0:
+            logging.error('Failed to load rankings, rank file empty')
             quit()
 
         srn_rank_dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
@@ -33,15 +33,11 @@ class RatingProcessor:
 
         with open(file_path, 'r') as f:
             rank = 0
-            for handle in f:
+            for handles in f:
                 rank += 1
-                handle_rank_dict[handle.strip()] = rank
-
-        try:
-            assert len(handle_rank_dict) == rank
-        except AssertionError:
-            logging.error('Duplicate handles provided in ' + file_path)
-            quit()
+                handles = handles.split()  # multiple players with same rank
+                for handle in handles:
+                    handle_rank_dict[handle] = rank
 
         return handle_rank_dict
 
