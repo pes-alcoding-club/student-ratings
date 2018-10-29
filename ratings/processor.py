@@ -32,9 +32,7 @@ class RatingProcessor:
         handle_rank_dict = dict()
 
         with open(file_path, 'r') as f:
-            rank = 0
-            for handles in f:
-                rank += 1
+            for rank, handles in enumerate(f, start=1):
                 handles = handles.split()  # multiple players with same rank
                 for handle in handles:
                     handle_rank_dict[handle] = rank
@@ -42,8 +40,8 @@ class RatingProcessor:
         return handle_rank_dict
 
     def create_srn_rank_dict(self, handle_rank_dict, contest_site):
-
         handle_srn_dict = dict()
+
         for srn in self.database:
             if contest_site in self.database[srn]:
                 handle = self.database[srn][contest_site]
