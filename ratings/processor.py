@@ -12,7 +12,6 @@ class RatingProcessor:
     def __init__(self, database, rank_file, contest_site):
         self.database = database
         handle_rank_dict = self.read_contest_ranks(rank_file)
-
         if len(handle_rank_dict) == 0:
             logging.error('Failed to load rankings, rank file empty')
             quit()
@@ -30,12 +29,14 @@ class RatingProcessor:
         :return: dict with key as player's handle of the website and value as rank
         """
         handle_rank_dict = dict()
-
+        current_rank = 1
         with open(file_path, 'r') as f:
-            for rank, handles in enumerate(f, start=1):
+            for handles in f:
                 handles = handles.split()  # multiple players with same rank
+                next_rank = current_rank + len(handles)
                 for handle in handles:
-                    handle_rank_dict[handle] = rank
+                    handle_rank_dict[handle] = current_rank
+                current_rank = next_rank
 
         return handle_rank_dict
 
