@@ -17,3 +17,4 @@ Following is the list of contests that have been considered for rating so far
 3. codejam-1b-2018.in: [Google Codejam 2018 Round 1B](https://codejam.withgoogle.com/2018/challenges/0000000000007764/scoreboard) 
 4. codejam-1c-2018.in: [Google Codejam 2018 Round 1C](https://codejam.withgoogle.com/2018/challenges/0000000000007765/scoreboard)
 6. alcoding-april-2018.in: [PESU Alcoding Club April 2018](https://www.hackerearth.com/challenge/college/pes-alcoding-contest-2018-april/leaderboard/)
+7. codechef-oct18.in: [Codechef October Long Challenge 2018](https://www.codechef.com/OCT18)
