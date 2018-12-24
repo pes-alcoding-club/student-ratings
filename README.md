@@ -3,9 +3,6 @@
 
 Alcoding Club of [PES University](https://pes.edu/) maintains ratings of its students who are active in [competitive programming](https://en.wikipedia.org/wiki/Competitive_programming). This repository contains the ratings and the code which generates it.
 
-## Share your information
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfqeoqzRCIexAnQLlSt6azxlwHcHhYiCilpApHpcpob4Cn-KQ/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-
 ## Purpose
 An intra-college rating is maintained so that the club can identify good coders.  The club will group these students and help them improve at competitive programming by organizing meet-ups, providing resources, arranging contests and develop a coding community in the University.
 
