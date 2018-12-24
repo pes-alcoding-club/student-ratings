@@ -7,10 +7,10 @@ import io
 sleep_time = 2
 
 # Alter these before every round
-scoreboard_url = "https://codejam.withgoogle.com/2018/challenges/0000000000007706/scoreboard"
-items_in_a_row = 21
-useless_elements_start = 13
-useless_elements_end = 5
+scoreboard_url: str = "https://codejam.withgoogle.com/2018/challenges/0000000000007706/scoreboard"
+items_in_a_row: int = 21
+useless_elements_start: int = 13
+useless_elements_end: int = 5
 
 
 driver = webdriver.Chrome()

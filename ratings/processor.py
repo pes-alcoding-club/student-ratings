@@ -9,20 +9,20 @@ class RatingProcessor:
     Uses database and rank file, and uses ELO to update the database with new ratings
     """
 
-    def __init__(self, database, rank_file, contest_site):
+    def __init__(self, database: dict, rank_file: str, contest_site: str):
         self.database = database
         handle_rank_dict = self.read_contest_ranks(rank_file)
         if len(handle_rank_dict) == 0:
             logging.error('Failed to load rankings, rank file empty')
             quit()
 
-        srn_rank_dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
+        srn_rank_dict: dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
         self.N, self.Cf, self.Rb_Vb_list = self.get_contest_details(srn_rank_dict)
         self.process_competition(srn_rank_dict)
         self.decay_ratings(srn_rank_dict)
 
     @staticmethod
-    def read_contest_ranks(file_path):
+    def read_contest_ranks(file_path: str) -> dict:
         """
         Reads the file containing rank list and builds a dict
         :param file_path: .in file containing the rank list
@@ -40,7 +40,7 @@ class RatingProcessor:
 
         return handle_rank_dict
 
-    def create_srn_rank_dict(self, handle_rank_dict, contest_site):
+    def create_srn_rank_dict(self, handle_rank_dict: dict, contest_site: str) -> dict:
         handle_srn_dict = dict()
 
         for srn in self.database:
@@ -63,7 +63,7 @@ class RatingProcessor:
 
         return srn_rank_dict
 
-    def get_contest_details(self, srn_rank_dict):
+    def get_contest_details(self, srn_rank_dict: dict) -> tuple:
         rating_list = []
         vol_list = []
 
@@ -79,7 +79,7 @@ class RatingProcessor:
 
         return n, competition_factor, rating_vol_tup_list
 
-    def _process_player(self, player_dict, actual_rank):
+    def _process_player(self, player_dict: dict, actual_rank: int) -> dict:
         """
         :param player_dict: dictionary containing player's details
         :param actual_rank: rank of the player in the competition
@@ -102,7 +102,7 @@ class RatingProcessor:
 
         return player_dict
 
-    def process_competition(self, srn_rank_dict):
+    def process_competition(self, srn_rank_dict: dict) -> None:
         for srn in srn_rank_dict:
             actual_rank = srn_rank_dict[srn]
             player_dict = self.database[srn]
@@ -111,7 +111,7 @@ class RatingProcessor:
 
         logging.info('Successfully processed competition')
 
-    def decay_ratings(self, srn_rank_dict):
+    def decay_ratings(self, srn_rank_dict: dict) -> None:
         """
         Reduces ratings by 10% for those who have competed at least once
         but have not taken part in the past 5 contests
@@ -134,7 +134,7 @@ class RatingProcessor:
         logging.info('Successfully decayed ratings')
 
 
-def read_argv(argv_format_alert):
+def read_argv(argv_format_alert: str):
     """
     :param argv_format_alert: An error message on what the command line arguments should be
     :return: 2-tuple of rank file and the contest site if argv is valid

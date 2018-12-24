@@ -22,7 +22,7 @@ FACEBOOK = 'facebook'
 CODECHEF = 'codechef'
 
 
-def read_database(filename=DB_FILE):
+def read_database(filename: str=DB_FILE) -> dict:
     """
     Reads json file and returns database of all players
     :param filename: json file
@@ -39,7 +39,7 @@ def read_database(filename=DB_FILE):
         quit()
 
 
-def write_database(database, filename=DB_FILE):
+def write_database(database: dict, filename: str=DB_FILE) -> None:
     """
     Writes database object to a json file
     :param database: data represented as a dict of dicts
@@ -57,7 +57,7 @@ def write_database(database, filename=DB_FILE):
         quit()
 
 
-def reset_database(filename=DB_FILE, outfile=DB_FILE):
+def reset_database(filename: str=DB_FILE, outfile: str=DB_FILE) -> None:
     """
     Resets all players' attributes to default values
     :param filename: json file where database is stored
@@ -77,7 +77,7 @@ def reset_database(filename=DB_FILE, outfile=DB_FILE):
     logging.info('Successfully reset database and stored in ' + outfile)
 
 
-def check_database(database):
+def check_database(database: dict) -> None:
     """
     Checks if the database is in the required format
     :param database: database object expected to be dict of dicts
@@ -98,7 +98,7 @@ def check_database(database):
         quit()
 
 
-def export_to_csv(filename=DB_FILE, outfile='scoreboard.csv'):
+def export_to_csv(filename: str=DB_FILE, outfile: str='scoreboard.csv') -> None:
     """
     Exports database to CSV file for readable form of scoreboard
     :param filename: json file where database is stored
