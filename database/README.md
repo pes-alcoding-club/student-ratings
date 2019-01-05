@@ -13,8 +13,10 @@ It also contains functions necessary to query and update this data.
 Following is the list of contests that have been considered for rating so far
 
 1. codejam_qualification-2018.in: [Google Codejam 2018 Qualification Round](https://codejam.withgoogle.com/2018/challenges/00000000000000cb/scoreboard)
-2. codejam-1a-2018.in: [Google Codejam 2018 Round 1A](https://codejam.withgoogle.com/2018/challenges/0000000000007883/scoreboard)
-3. codejam-1b-2018.in: [Google Codejam 2018 Round 1B](https://codejam.withgoogle.com/2018/challenges/0000000000007764/scoreboard) 
-4. codejam-1c-2018.in: [Google Codejam 2018 Round 1C](https://codejam.withgoogle.com/2018/challenges/0000000000007765/scoreboard)
-6. alcoding-april-2018.in: [PESU Alcoding Club April 2018](https://www.hackerearth.com/challenge/college/pes-alcoding-contest-2018-april/leaderboard/)
-7. codechef-oct18.in: [Codechef October Long Challenge 2018](https://www.codechef.com/OCT18)
+1. codejam-1a-2018.in: [Google Codejam 2018 Round 1A](https://codejam.withgoogle.com/2018/challenges/0000000000007883/scoreboard)
+1. codejam-1b-2018.in: [Google Codejam 2018 Round 1B](https://codejam.withgoogle.com/2018/challenges/0000000000007764/scoreboard) 
+1. codejam-1c-2018.in: [Google Codejam 2018 Round 1C](https://codejam.withgoogle.com/2018/challenges/0000000000007765/scoreboard)
+1. alcoding-april-2018.in: [PESU Alcoding Club April 2018](https://www.hackerearth.com/challenge/college/pes-alcoding-contest-2018-april/leaderboard/)
+1. codechef-oct18.in: [Codechef October Long Challenge 2018](https://www.codechef.com/OCT18)
+1. codechef-nov18.in: [Codechef November Long Challenge 2018](https://www.codechef.com/NOV18)
+1. codechef-dec18.in: [Codechef December Long Challenge 2018](https://www.codechef.com/DEC18)
