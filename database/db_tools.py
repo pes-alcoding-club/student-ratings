@@ -1,10 +1,10 @@
 import sys
 import csv
 import logging
-from json import load, dump
 from ratings import elo
+from tinydb import TinyDB, where
 
-DB_FILE = 'database/database.json'
+DB_FILE = 'database/db.json'
 
 # Following attributes must be present for all players in the database
 RATING = 'rating'
@@ -22,58 +22,19 @@ FACEBOOK = 'facebook'
 CODECHEF = 'codechef'
 
 
-def read_database(filename: str=DB_FILE) -> dict:
-    """
-    Reads json file and returns database of all players
-    :param filename: json file
-    :return: A dictionary with key as SRN and values as dicts with player details
-    """
-    try:
-        with open(filename, 'r') as f:
-            database = load(f)
-        check_database(database)
-        return database
-
-    except IOError or FileNotFoundError:
-        logging.error('Could not open ' + filename)
-        quit()
-
-
-def write_database(database: dict, filename: str=DB_FILE) -> None:
-    """
-    Writes database object to a json file
-    :param database: data represented as a dict of dicts
-    :param filename: json file where database is saved
-    :return: None
-    """
-    check_database(database)
-    try:
-        with open(filename, 'w') as f:
-            dump(database, f)
-        logging.info('Successfully written database to ' + filename)
-
-    except IOError or FileNotFoundError:
-        logging.error('Could not open ' + filename)
-        quit()
-
-
-def reset_database(filename: str=DB_FILE, outfile: str=DB_FILE) -> None:
+def reset_database(filename: str = DB_FILE, outfile: str = DB_FILE) -> None:
     """
     Resets all players' attributes to default values
     :param filename: json file where database is stored
     :param outfile: json file where reset database is to be written
     :return: None
     """
-    database = read_database(filename)
-
-    for srn in database:
-        database[srn][RATING] = elo.DEFAULT_RATING
-        database[srn][VOLATILITY] = elo.DEFAULT_VOLATILITY
-        database[srn][BEST] = elo.DEFAULT_RATING
-        database[srn][TIMES_PLAYED] = 0
-        database[srn][LAST_FIVE] = 5
-
-    write_database(database, outfile)
+    with TinyDB(filename) as database:
+        database.update({RATING: elo.DEFAULT_RATING,
+                         VOLATILITY: elo.DEFAULT_VOLATILITY,
+                         BEST: elo.DEFAULT_RATING,
+                         TIMES_PLAYED: 0,
+                         LAST_FIVE: 5})
     logging.info('Successfully reset database and stored in ' + outfile)
 
 
@@ -98,37 +59,32 @@ def check_database(database: dict) -> None:
         quit()
 
 
-def export_to_csv(filename: str=DB_FILE, outfile: str='scoreboard.csv') -> None:
+def export_to_csv(filename: str = DB_FILE, outfile: str = 'scoreboard.csv') -> None:
     """
     Exports database to CSV file for readable form of scoreboard
     :param filename: json file where database is stored
     :param outfile: csv file where database has to be exported
     :return: None
     """
-    database = read_database(filename)
+    with TinyDB(filename) as database:
 
-    csv_table = [["Rank", "SRN", "Name", "Contests", "Rating", "Best"]]
+        csv_table = [["Rank", "USN", "Name", "Contests", "Rating", "Best"]]
 
-    # Remove players who have never played
-    srn_list = list(filter(lambda x: database[x][TIMES_PLAYED], database.keys()))
+        player_list = database.search(where(TIMES_PLAYED) > 0)
+        player_list.sort(key=lambda x: x[RATING], reverse=True)
 
-    # Sort the remaining players by their rating
-    srn_list.sort(key=lambda x: database[x][RATING], reverse=True)
+        for rank, player_dict in enumerate(player_list, start=1):
+            row = [rank,
+                   player_dict['usn'],
+                   player_dict['name'],
+                   player_dict[TIMES_PLAYED],
+                   round(player_dict[RATING]),
+                   round(player_dict[BEST])]
+            csv_table.append(row[:])
 
-    # Assign ranks and create rows
-    for rank, srn in enumerate(srn_list, start=1):
-        row = list()
-        row.append(rank)
-        row.append(srn)
-        row.append(database[srn]['name'])
-        row.append(database[srn][TIMES_PLAYED])
-        row.append(round(database[srn][RATING]))
-        row.append(round(database[srn][BEST]))
-        csv_table.append(row[:])
-
-    with open(outfile, 'w', newline="") as f:
-        wr = csv.writer(f)
-        wr.writerows(csv_table)
+        with open(outfile, 'w', newline="") as f:
+            wr = csv.writer(f)
+            wr.writerows(csv_table)
 
     logging.info('Successfully exported database to ' + outfile)
 

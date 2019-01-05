@@ -2,84 +2,80 @@ import sys
 import logging
 from ratings import elo
 from database import db_tools as db
+from tinydb import TinyDB, where
 
 
 class RatingProcessor:
-    """
-    Uses database and rank file, and uses ELO to update the database with new ratings
-    """
 
-    def __init__(self, database: dict, rank_file: str, contest_site: str):
-        self.database = database
-        handle_rank_dict = self.read_contest_ranks(rank_file)
-        if len(handle_rank_dict) == 0:
-            logging.error('Failed to load rankings, rank file empty')
-            quit()
+    def __init__(self, database: TinyDB, rank_file, contest_site: str):
+        self.database: TinyDB = database
+        self.contest_site = contest_site
 
-        srn_rank_dict: dict = self.create_srn_rank_dict(handle_rank_dict, contest_site)
-        self.N, self.Cf, self.Rb_Vb_list = self.get_contest_details(srn_rank_dict)
-        self.process_competition(srn_rank_dict)
-        self.decay_ratings(srn_rank_dict)
+        self.N: int = 0
+        self.Cf: float = 0.0
+        self.Rb_Vb_list: list = []
+        self.handle_rank_dict = {}
 
-    @staticmethod
-    def read_contest_ranks(file_path: str) -> dict:
+        self.read_contest_ranks(rank_file)  # sets_handle rank_dict
+        self.set_contest_details()  # sets N, Cf and Rb_Vb_list
+        self.process_competition()  # uses the set attributes to compute new ratings
+
+    def read_contest_ranks(self, rank_file) -> None:
         """
         Reads the file containing rank list and builds a dict
-        :param file_path: .in file containing the rank list
+        :param rank_file: .in file containing the rank list
         :return: dict with key as player's handle of the website and value as rank
         """
-        handle_rank_dict = dict()
         current_rank = 1
-        with open(file_path, 'r') as f:
-            for handles in f:
-                handles = handles.split()  # multiple players with same rank
-                next_rank = current_rank + len(handles)
-                for handle in handles:
-                    handle_rank_dict[handle] = current_rank
-                current_rank = next_rank
+        for handles in rank_file:
+            handles = handles.split()  # multiple players with same rank
+            for handle in handles:
+                self.handle_rank_dict[handle] = current_rank
+            current_rank += len(handles)
 
-        return handle_rank_dict
+    def set_contest_details(self) -> None:
+        """
+        Generates some details about the participants of the contest
+        that are required to update all players' ratings
+        """
 
-    def create_srn_rank_dict(self, handle_rank_dict: dict, contest_site: str) -> dict:
-        handle_srn_dict = dict()
+        # Check if the provided handles are present in the database
+        if not all(self.database.contains(where(self.contest_site) == handle) for handle in self.handle_rank_dict):
+            logging.error('Some provided handle(s) are not in the database')
+            quit(1)
 
-        for srn in self.database:
-            if contest_site in self.database[srn]:
-                handle = self.database[srn][contest_site]
-                handle_srn_dict[handle] = srn
+        # Get all the details of the participants from the provided handles
+        participants = self.database.search(where(self.contest_site).test(lambda x: x in self.handle_rank_dict))
 
-        unassigned_handles = set(handle_rank_dict.keys()) - set(handle_srn_dict.keys())
-        if unassigned_handles:
-            logging.error('Following handles are provided in rank list but not mapped to any player:\n{0}'.format(
-                str(unassigned_handles)))
-            quit()
+        rating_list = [x[db.RATING] for x in participants]
+        vol_list = [x[db.VOLATILITY] for x in participants]
 
-        srn_rank_dict = dict()
+        self.N = len(self.handle_rank_dict)
+        self.Cf = elo.Cf(rating_list, vol_list, self.N)
+        self.Rb_Vb_list = list(zip(rating_list, vol_list))
 
-        for handle in handle_rank_dict:  # Joining the 2 dictionaries using handle
-            srn = handle_srn_dict[handle]
-            rank = handle_rank_dict[handle]
-            srn_rank_dict[srn] = rank
+    @staticmethod
+    def _decay_player(player_dict: dict) -> dict:
+        """
+        Reduces ratings by 10% for those who have competed at least once
+        but have not taken part in the past 5 contests
+        :param player_dict: dict with all details of a player
+        """
+        rating = player_dict[db.RATING]
+        times_played = player_dict[db.TIMES_PLAYED]
+        last_five = player_dict[db.LAST_FIVE] - 1
 
-        return srn_rank_dict
+        if last_five == 0 and times_played > 0:
+            rating = rating * 0.9
+            last_five = 5
 
-    def get_contest_details(self, srn_rank_dict: dict) -> tuple:
-        rating_list = []
-        vol_list = []
+        player_dict[db.RATING] = rating
+        player_dict[db.LAST_FIVE] = max(1, last_five)
 
-        for srn in srn_rank_dict:
-            rating = self.database[srn][db.RATING]
-            volatility = self.database[srn][db.VOLATILITY]
-            rating_list.append(rating)
-            vol_list.append(volatility)
+        logging.info('Successfully decayed ratings')
+        return player_dict
 
-        n = len(srn_rank_dict)
-        competition_factor = elo.Cf(rating_list, vol_list, n)
-        rating_vol_tup_list = list(zip(rating_list, vol_list))
-
-        return n, competition_factor, rating_vol_tup_list
-
-    def _process_player(self, player_dict: dict, actual_rank: int) -> dict:
+    def _update_player(self, player_dict: dict, actual_rank: int) -> dict:
         """
         :param player_dict: dictionary containing player's details
         :param actual_rank: rank of the player in the competition
@@ -102,36 +98,18 @@ class RatingProcessor:
 
         return player_dict
 
-    def process_competition(self, srn_rank_dict: dict) -> None:
-        for srn in srn_rank_dict:
-            actual_rank = srn_rank_dict[srn]
-            player_dict = self.database[srn]
-            player_dict = self._process_player(player_dict, actual_rank)
-            self.database[srn] = player_dict
+    def process_competition(self) -> None:
 
-        logging.info('Successfully processed competition')
-
-    def decay_ratings(self, srn_rank_dict: dict) -> None:
-        """
-        Reduces ratings by 10% for those who have competed at least once
-        but have not taken part in the past 5 contests
-        :param srn_rank_dict: dict with key as srn and value as rank
-        :return: None
-        """
-        for srn in self.database:
-            if srn not in srn_rank_dict:
-                rating = self.database[srn][db.RATING]
-                times_played = self.database[srn][db.TIMES_PLAYED]
-                last_five = self.database[srn][db.LAST_FIVE] - 1
-
-                if last_five == 0 and times_played > 0:
-                    rating = rating * 0.9
-                    last_five = 5
-
-                self.database[srn][db.RATING] = rating
-                self.database[srn][db.LAST_FIVE] = max(1, last_five)
-
-        logging.info('Successfully decayed ratings')
+        rows = self.database.all()
+        for row in rows:
+            if self.contest_site in row and row[self.contest_site] in self.handle_rank_dict:
+                handle = row[self.contest_site]
+                actual_rank = self.handle_rank_dict[handle]
+                new_data = self._update_player(row, actual_rank)
+            else:
+                new_data = self._decay_player(row)
+            row.update(new_data)
+        self.database.write_back(rows)
 
 
 def read_argv(argv_format_alert: str):
@@ -144,8 +122,7 @@ def read_argv(argv_format_alert: str):
         rank_file = sys.argv[1]
         contest_site = sys.argv[2]
         try:
-            f = open(rank_file)
-            f.close()
+            open(rank_file).close()
             return rank_file, contest_site
 
         except IOError or FileNotFoundError:
@@ -160,8 +137,7 @@ def read_argv(argv_format_alert: str):
 if __name__ == "__main__":
     argv_format = 'processor.py rank_file_path contest_site_str'
     rank_file_path, contest_site_str = read_argv(argv_format)
-    old_db = db.read_database()
-    rp = RatingProcessor(old_db, rank_file_path, contest_site_str)
-    new_db = rp.database
-    db.write_database(new_db)
-    logging.info('Ratings processed successfully')
+    database_obj = TinyDB(db.DB_FILE)
+    rank_file_obj = open(rank_file_path)
+    rp = RatingProcessor(database_obj, rank_file_obj, contest_site_str)
+    database_obj.close()
