@@ -40,9 +40,21 @@ class RatingProcessor:
         """
 
         # Check if the provided handles are present in the database
-        if not all(self.database.contains(where(self.contest_site) == handle) for handle in self.handle_rank_dict):
-            logging.error('Some provided handle(s) are not in the database')
-            quit(1)
+        ignore_mode = True
+
+        if ignore_mode:
+            handles_to_remove = set()
+            for handle in self.handle_rank_dict:
+                if not self.database.contains(where(self.contest_site) == handle):
+                    logging.error('Ignoring handle ' + handle)
+                    handles_to_remove.add(handle)
+            for handle in handles_to_remove:
+                self.handle_rank_dict.pop(handle)
+
+        else:
+            if not all(self.database.contains(where(self.contest_site) == handle) for handle in self.handle_rank_dict):
+                logging.error('Some provided handle(s) are not in the database')
+                quit(1)
 
         # Get all the details of the participants from the provided handles
         participants = self.database.search(where(self.contest_site).test(lambda x: x in self.handle_rank_dict))
