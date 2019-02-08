@@ -7,6 +7,10 @@ from tinydb import TinyDB, where
 DB_FILE = 'database/db.json'
 
 # Following attributes must be present for all players in the database
+USN = 'usn'
+NAME = 'name'
+EMAIL = 'email'
+YEAR = 'year'  # year of graduation
 RATING = 'rating'
 VOLATILITY = 'volatility'
 TIMES_PLAYED = 'timesPlayed'
@@ -20,6 +24,7 @@ HACKEREARTH = 'hackerearth'
 HACKERRANK = 'hackerrank'
 FACEBOOK = 'facebook'
 CODECHEF = 'codechef'
+CODEFORCES = 'codeforces'
 
 
 def reset_database(filename: str = DB_FILE, outfile: str = DB_FILE) -> None:
@@ -68,15 +73,16 @@ def export_to_csv(filename: str = DB_FILE, outfile: str = 'scoreboard.csv') -> N
     """
     with TinyDB(filename) as database:
 
-        csv_table = [["Rank", "USN", "Name", "Contests", "Rating", "Best"]]
+        csv_table = [["Rank", "USN", "Name", "Graduation Year", "Contests", "Rating", "Best"]]
 
         player_list = database.search(where(TIMES_PLAYED) > 0)
         player_list.sort(key=lambda x: x[RATING], reverse=True)
 
         for rank, player_dict in enumerate(player_list, start=1):
             row = [rank,
-                   player_dict['usn'],
-                   player_dict['name'],
+                   player_dict[USN],
+                   player_dict[NAME],
+                   player_dict[YEAR],
                    player_dict[TIMES_PLAYED],
                    round(player_dict[RATING]),
                    round(player_dict[BEST])]

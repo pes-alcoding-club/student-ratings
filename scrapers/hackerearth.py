@@ -32,10 +32,12 @@ def get_leaderboard(event_id):
         
         leaderboard.extend(handles)
         page_num += 1
+        print(page_num)
 
     return leaderboard
 
 if __name__ == "__main__":
-    event_id = "598837"
+    event_id = '609849'
     leaderboard = get_leaderboard(event_id)
-    print(leaderboard)
+    f = open("jan-easy-temp.txt", "w")
+    print(leaderboard, file=f)
