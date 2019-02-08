@@ -13,6 +13,9 @@ python ratings/processor.py database/contest_ranks/codejam-1a.in codejam
 python ratings/processor.py database/contest_ranks/codejam-1b.in codejam
 python ratings/processor.py database/contest_ranks/codejam-1c.in codejam
 python ratings/processor.py database/contest_ranks/alcoding2018.in hackerearth
+python ratings/processor.py database/contest_ranks/codechef-oct18.in codechef
+python ratings/processor.py database/contest_ranks/codechef-nov18.in codechef
+python ratings/processor.py database/contest_ranks/codechef-dec18.in codechef
 
 echo "Finished Ratings Update"
 
