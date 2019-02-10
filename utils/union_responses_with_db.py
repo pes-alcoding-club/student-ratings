@@ -6,7 +6,7 @@ from database import db_tools as db
 from tinydb import TinyDB, where
 from ratings import elo
 
-logging.basicConfig(level='INFO')
+logging.basicConfig(level='DEBUG')
 
 # The following fields may need to be adjusted before running the script
 MIN_VALID_GRAD_YEAR = 2019
@@ -28,17 +28,17 @@ incorrect_handles, incorrect_usns = [], []
 
 def get_validated_data(csv_row) -> dict:
     details_dict = {
-        db.EMAIL: row[1],
-        db.USN: row[2],
-        db.NAME: row[3],
-        db.YEAR: int(row[4])}
+        db.EMAIL: row[1].strip(),
+        db.USN: row[2].strip(),
+        db.NAME: row[3].strip(),
+        db.YEAR: int(row[4].strip())}
     handles_dict = {
-        db.CODEJAM: row[5],
-        db.KICKSTART: row[6],
-        db.CODECHEF: row[7],
-        db.HACKEREARTH: row[8],
-        db.HACKERRANK: row[9],
-        db.CODEFORCES: row[10]}
+        db.CODEJAM: row[5].strip(),
+        db.KICKSTART: row[6].strip(),
+        db.CODECHEF: row[7].strip(),
+        db.HACKEREARTH: row[8].strip(),
+        db.HACKERRANK: row[9].strip(),
+        db.CODEFORCES: row[10].strip()}
 
     def is_not_empty_str(candidate_str: str) -> bool:
         return candidate_str.strip() != ""
@@ -48,21 +48,26 @@ def get_validated_data(csv_row) -> dict:
 
     def is_valid_usn(usn: str) -> bool:
         if VALID_USN_PATTERN.match(usn) is None:
-            incorrect_usns.append(csv_row[db.USN])
+            incorrect_usns.append(details_dict[db.USN])
             return False
         return True
 
     def is_valid_handle(handle_str: str, site_str: str) -> bool:
         if is_not_empty_str(handle_str) and\
-                len(handle_str.split()) == 1 and\
-                site_str in [db.CODECHEF, db.CODEFORCES, db.HACKEREARTH, db.HACKERRANK]:
-            while True:
-                try:
-                    r = sess.get(profile_base_url[site_str] + handle_str, timeout=5)
-                    break
-                except:
-                    pass
-            if r.ok:  # if this is saying `ok` for handles with spaces then querying the website is no use
+                len(handle_str.split()) == 1:
+            if site_str in [db.CODECHEF, db.CODEFORCES, db.HACKEREARTH, db.HACKERRANK]:
+                while True:
+                    try:
+                        r = sess.get(profile_base_url[site_str] + handle_str, timeout=5)
+                        break
+                    except:
+                        pass
+                if r.ok:
+                    return True
+                else:
+                    incorrect_handles.append((handle_str, details_dict[db.NAME], site_str))
+                    return False
+            else:
                 return True
         incorrect_handles.append((handle_str, details_dict[db.NAME], site_str))
         return False
@@ -77,17 +82,19 @@ def get_validated_data(csv_row) -> dict:
         validated_data_dict[db.EMAIL] = details_dict[db.EMAIL].strip().lower()
         validated_data_dict[db.YEAR] = int(details_dict[db.YEAR])
         for site, handle in handles_dict.items():
-            if is_valid_handle(site, handle):
+            if is_valid_handle(handle, site):
                 validated_data_dict[site] = handle
     return validated_data_dict
 
 
-with TinyDB(db.DB_FILE) as database:
+with TinyDB("../" + db.DB_FILE) as database:
     with open('list.csv') as fp:
         reader = csv.reader(fp)
         next(reader)
         for row_count, row in enumerate(reader, start=1):
             csv_row_dict = get_validated_data(row)
+            if not csv_row_dict:
+                continue
             if database.get(where(db.USN) == csv_row_dict[db.USN]) is None:
                 csv_row_dict[db.RATING] = elo.DEFAULT_RATING
                 csv_row_dict[db.VOLATILITY] = elo.DEFAULT_VOLATILITY
@@ -97,5 +104,5 @@ with TinyDB(db.DB_FILE) as database:
             database.upsert(csv_row_dict, where(db.USN) == csv_row_dict[db.USN])
             logging.info(f'{row_count} row(s) processed')
 
-logging.debug(f'incorrect_usns:\n{incorrect_usns}')
-logging.debug(f'incorrect_handles:\n{incorrect_handles}')
+logging.debug(f'incorrect_usns ({len(incorrect_usns)}) :\n{incorrect_usns}')
+logging.debug(f'incorrect_handles ({len(incorrect_handles)}):\n{incorrect_handles}')
