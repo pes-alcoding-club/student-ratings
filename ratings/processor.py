@@ -13,9 +13,9 @@ class RatingProcessor:
         self.N: int = 0
         self.Cf: float = 0.0
         self.Rb_Vb_list: list = []
-        self.handle_rank_dict = {}
+        self.usn_rank_dict: dict = {}
 
-        self.read_contest_ranks(rank_file)  # sets_handle rank_dict
+        self.read_contest_ranks(rank_file)  # sets usn_rank_dict
         self.set_contest_details()  # sets N, Cf and Rb_Vb_list
         self.process_competition()  # uses the set attributes to compute new ratings
 
@@ -26,11 +26,11 @@ class RatingProcessor:
         :return: dict with key as player's USN and value as rank
         """
         current_rank = 1
-        for handles in rank_file:
-            handles = handles.split()  # multiple players with same rank
-            for handle in handles:
-                self.handle_rank_dict[handle] = current_rank
-            current_rank += len(handles)
+        for usns in rank_file:
+            usns = usns.split()
+            for usn in usns:  # multiple usn with the same rank is possible
+                self.usn_rank_dict[usn] = current_rank
+            current_rank += len(usns)  # ranks are not 1, 1, 1, 2 but 1, 1, 1, 4
 
     def set_contest_details(self) -> None:
         """
@@ -38,30 +38,21 @@ class RatingProcessor:
         that are required to update all players' ratings
         """
 
-        # Check if the provided handles are present in the database
-        ignore_mode = True
-
-        if ignore_mode:  # ignores handles from ratings if not mapped to a USN
-            handles_to_remove = set()
-            for handle in self.handle_rank_dict:
-                if not self.database.contains(where(db.USN) == handle):
-                    logging.error('Ignoring handle ' + handle)
-                    handles_to_remove.add(handle)
-            for handle in handles_to_remove:
-                self.handle_rank_dict.pop(handle)
-
-        else:  # logs an error and quits if handle is not mapped to a USN
-            if not all(self.database.contains(where(db.USN) == handle) for handle in self.handle_rank_dict):
-                logging.error('Some provided handle(s) are not in the database')
-                quit(1)
+        usns_to_remove = set()  # remove invalid USN
+        for usn in self.usn_rank_dict:
+            if not self.database.contains(where(db.USN) == usn):
+                usns_to_remove.add(usn)
+        for usn in usns_to_remove:
+            self.usn_rank_dict.pop(usn)
+            logging.error(f'Ignoring usn {usn}')
 
         # Get all the details of the participants from the provided USN
-        participants = self.database.search(where(db.USN).test(lambda x: x in self.handle_rank_dict))
+        participants = self.database.search(where(db.USN).test(lambda x: x in self.usn_rank_dict))
 
         rating_list = [x[db.RATING] for x in participants]
         vol_list = [x[db.VOLATILITY] for x in participants]
 
-        self.N = len(self.handle_rank_dict)
+        self.N = len(self.usn_rank_dict)
         self.Cf = elo.Cf(rating_list, vol_list, self.N)
         self.Rb_Vb_list = list(zip(rating_list, vol_list))
 
@@ -113,8 +104,8 @@ class RatingProcessor:
 
         rows = self.database.all()
         for row in rows:
-            if db.USN in row and row[db.USN] in self.handle_rank_dict:
-                actual_rank = self.handle_rank_dict[row[db.USN]]
+            if row[db.USN] in self.usn_rank_dict:
+                actual_rank = self.usn_rank_dict[row[db.USN]]
                 new_data = self._update_player(row, actual_rank)
             else:
                 new_data = self._decay_player(row)
