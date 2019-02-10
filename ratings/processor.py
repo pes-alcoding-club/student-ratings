@@ -7,9 +7,8 @@ from tinydb import TinyDB, where
 
 class RatingProcessor:
 
-    def __init__(self, database: TinyDB, rank_file, contest_site: str):
+    def __init__(self, database: TinyDB, rank_file):
         self.database: TinyDB = database
-        self.contest_site = contest_site
 
         self.N: int = 0
         self.Cf: float = 0.0
@@ -24,7 +23,7 @@ class RatingProcessor:
         """
         Reads the file containing rank list and builds a dict
         :param rank_file: .in file containing the rank list
-        :return: dict with key as player's handle of the website and value as rank
+        :return: dict with key as player's USN and value as rank
         """
         current_rank = 1
         for handles in rank_file:
@@ -42,22 +41,22 @@ class RatingProcessor:
         # Check if the provided handles are present in the database
         ignore_mode = True
 
-        if ignore_mode:
+        if ignore_mode:  # ignores handles from ratings if not mapped to a USN
             handles_to_remove = set()
             for handle in self.handle_rank_dict:
-                if not self.database.contains(where(self.contest_site) == handle):
+                if not self.database.contains(where(db.USN) == handle):
                     logging.error('Ignoring handle ' + handle)
                     handles_to_remove.add(handle)
             for handle in handles_to_remove:
                 self.handle_rank_dict.pop(handle)
 
-        else:
-            if not all(self.database.contains(where(self.contest_site) == handle) for handle in self.handle_rank_dict):
+        else:  # logs an error and quits if handle is not mapped to a USN
+            if not all(self.database.contains(where(db.USN) == handle) for handle in self.handle_rank_dict):
                 logging.error('Some provided handle(s) are not in the database')
                 quit(1)
 
-        # Get all the details of the participants from the provided handles
-        participants = self.database.search(where(self.contest_site).test(lambda x: x in self.handle_rank_dict))
+        # Get all the details of the participants from the provided USN
+        participants = self.database.search(where(db.USN).test(lambda x: x in self.handle_rank_dict))
 
         rating_list = [x[db.RATING] for x in participants]
         vol_list = [x[db.VOLATILITY] for x in participants]
@@ -114,9 +113,8 @@ class RatingProcessor:
 
         rows = self.database.all()
         for row in rows:
-            if self.contest_site in row and row[self.contest_site] in self.handle_rank_dict:
-                handle = row[self.contest_site]
-                actual_rank = self.handle_rank_dict[handle]
+            if db.USN in row and row[db.USN] in self.handle_rank_dict:
+                actual_rank = self.handle_rank_dict[row[db.USN]]
                 new_data = self._update_player(row, actual_rank)
             else:
                 new_data = self._decay_player(row)
@@ -127,15 +125,14 @@ class RatingProcessor:
 def read_argv(argv_format_alert: str):
     """
     :param argv_format_alert: An error message on what the command line arguments should be
-    :return: 2-tuple of rank file and the contest site if argv is valid
+    :return: rank file if argv is valid
     """
     try:
-        assert len(sys.argv) == 3
+        assert len(sys.argv) == 2
         rank_file = sys.argv[1]
-        contest_site = sys.argv[2]
         try:
             open(rank_file).close()
-            return rank_file, contest_site
+            return rank_file
 
         except IOError or FileNotFoundError:
             logging.error('Invalid file path for rank file\n' + argv_format_alert)
@@ -147,9 +144,9 @@ def read_argv(argv_format_alert: str):
 
 
 if __name__ == "__main__":
-    argv_format = 'processor.py rank_file_path contest_site_str'
-    rank_file_path, contest_site_str = read_argv(argv_format)
+    argv_format = 'processor.py rank_file_path'
+    rank_file_path = read_argv(argv_format)
     database_obj = TinyDB(db.DB_FILE)
     rank_file_obj = open(rank_file_path)
-    rp = RatingProcessor(database_obj, rank_file_obj, contest_site_str)
+    RatingProcessor(database_obj, rank_file_obj)
     database_obj.close()
