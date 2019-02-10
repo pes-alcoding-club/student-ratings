@@ -11,7 +11,7 @@ logging.basicConfig(level='DEBUG')
 # The following fields may need to be adjusted before running the script
 MIN_VALID_GRAD_YEAR = 2019
 MAX_VALID_GRAD_YEAR = 2021
-VALID_USN_PATTERN = re.compile(r'(01FB1([567])\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
+VALID_USN_PATTERN = re.compile(r'(1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
 
 profile_base_url = {
     db.CODECHEF: 'https://www.codechef.com/users/',
@@ -87,22 +87,23 @@ def get_validated_data(csv_row) -> dict:
     return validated_data_dict
 
 
-with TinyDB("../" + db.DB_FILE) as database:
-    with open('list.csv') as fp:
-        reader = csv.reader(fp)
-        next(reader)
-        for row_count, row in enumerate(reader, start=1):
-            csv_row_dict = get_validated_data(row)
-            if not csv_row_dict:
-                continue
-            if database.get(where(db.USN) == csv_row_dict[db.USN]) is None:
-                csv_row_dict[db.RATING] = elo.DEFAULT_RATING
-                csv_row_dict[db.VOLATILITY] = elo.DEFAULT_VOLATILITY
-                csv_row_dict[db.BEST] = elo.DEFAULT_RATING
-                csv_row_dict[db.TIMES_PLAYED] = 0
-                csv_row_dict[db.LAST_FIVE] = 5
-            database.upsert(csv_row_dict, where(db.USN) == csv_row_dict[db.USN])
-            logging.info(f'{row_count} row(s) processed')
+if __name__ == "__main__":
+    with TinyDB("../" + db.DB_FILE) as database:
+        with open('list.csv') as fp:
+            reader = csv.reader(fp)
+            next(reader)
+            for row_count, row in enumerate(reader, start=1):
+                csv_row_dict = get_validated_data(row)
+                if not csv_row_dict:
+                    continue
+                if database.get(where(db.USN) == csv_row_dict[db.USN]) is None:
+                    csv_row_dict[db.RATING] = elo.DEFAULT_RATING
+                    csv_row_dict[db.VOLATILITY] = elo.DEFAULT_VOLATILITY
+                    csv_row_dict[db.BEST] = elo.DEFAULT_RATING
+                    csv_row_dict[db.TIMES_PLAYED] = 0
+                    csv_row_dict[db.LAST_FIVE] = 5
+                database.upsert(csv_row_dict, where(db.USN) == csv_row_dict[db.USN])
+                logging.info(f'{row_count} row(s) processed')
 
-logging.debug(f'incorrect_usns ({len(incorrect_usns)}) :\n{incorrect_usns}')
-logging.debug(f'incorrect_handles ({len(incorrect_handles)}):\n{incorrect_handles}')
+    logging.debug(f'incorrect_usns ({len(incorrect_usns)}) :\n{incorrect_usns}')
+    logging.debug(f'incorrect_handles ({len(incorrect_handles)}):\n{incorrect_handles}')
