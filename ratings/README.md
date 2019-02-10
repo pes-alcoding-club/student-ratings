@@ -8,4 +8,4 @@ This module contains the implementation of the rating mechanism. View the [descr
 
 #### Usage
 1. To update the ratings after a contest, run rating_processor.py as follows
-`python3 processor.py rank_file_path contest_site_str`
+`python3 processor.py rank_file_path`

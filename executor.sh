@@ -8,11 +8,11 @@ python3 database/db_tools.py reset_database
 echo "Finished Database Reset"
 
 # List all contests ranks here in chronological order
-python3 ratings/processor.py database/contest_ranks/codejam-qualification.in
-python3 ratings/processor.py database/contest_ranks/codejam-1a.in
-python3 ratings/processor.py database/contest_ranks/codejam-1b.in
-python3 ratings/processor.py database/contest_ranks/codejam-1c.in
-python3 ratings/processor.py database/contest_ranks/alcoding2018.in
+python3 ratings/processor.py database/contest_ranks/codejam-qualification-2018.in
+python3 ratings/processor.py database/contest_ranks/codejam-1a-2018.in
+python3 ratings/processor.py database/contest_ranks/codejam-1b-2018.in
+python3 ratings/processor.py database/contest_ranks/codejam-1c-2018.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-alcoding-2018.in
 python3 ratings/processor.py database/contest_ranks/codechef-oct18.in
 python3 ratings/processor.py database/contest_ranks/codechef-nov18.in
 python3 ratings/processor.py database/contest_ranks/codechef-dec18.in
