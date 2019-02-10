@@ -11,7 +11,7 @@ logging.basicConfig(level='DEBUG')
 # The following fields may need to be adjusted before running the script
 MIN_VALID_GRAD_YEAR = 2019
 MAX_VALID_GRAD_YEAR = 2021
-VALID_USN_PATTERN = re.compile(r'(01FB1(5|6|7)\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
+VALID_USN_PATTERN = re.compile(r'(01FB1([567])\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
 
 profile_base_url = {
     db.CODECHEF: 'https://www.codechef.com/users/',
@@ -28,17 +28,17 @@ incorrect_handles, incorrect_usns = [], []
 
 def get_validated_data(csv_row) -> dict:
     details_dict = {
-        db.EMAIL: row[1].strip(),
-        db.USN: row[2].strip(),
-        db.NAME: row[3].strip(),
-        db.YEAR: int(row[4].strip())}
+        db.EMAIL: csv_row[1].strip(),
+        db.USN: csv_row[2].strip(),
+        db.NAME: csv_row[3].strip(),
+        db.YEAR: int(csv_row[4].strip())}
     handles_dict = {
-        db.CODEJAM: row[5].strip(),
-        db.KICKSTART: row[6].strip(),
-        db.CODECHEF: row[7].strip(),
-        db.HACKEREARTH: row[8].strip(),
-        db.HACKERRANK: row[9].strip(),
-        db.CODEFORCES: row[10].strip()}
+        db.CODEJAM: csv_row[5].strip(),
+        db.KICKSTART: csv_row[6].strip(),
+        db.CODECHEF: csv_row[7].strip(),
+        db.HACKEREARTH: csv_row[8].strip(),
+        db.HACKERRANK: csv_row[9].strip(),
+        db.CODEFORCES: csv_row[10].strip()}
 
     def is_not_empty_str(candidate_str: str) -> bool:
         return candidate_str.strip() != ""

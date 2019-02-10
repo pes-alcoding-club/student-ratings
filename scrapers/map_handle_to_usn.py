@@ -1,9 +1,6 @@
 import sys
 from tinydb import TinyDB
 
-# sys.path.insert(0, "/Users/varunvora/PycharmProjects/alcoding")
-# sys.path.insert(0, "/Users/varunvora/PycharmProjects/alcoding/database/db.json")
-
 from database.db_tools import DB_FILE, USN
 
 
