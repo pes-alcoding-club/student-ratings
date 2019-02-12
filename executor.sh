@@ -4,6 +4,10 @@ echo "Starting executor"
 
 export PYTHONPATH="${PYTHONPATH}../alcoding"
 
+echo "-- Starting tests --"
+python3 tests/*
+echo "-- Tests completed --"
+
 python3 database/db_tools.py reset_database
 echo "Finished Database Reset"
 
@@ -21,6 +25,9 @@ python3 ratings/processor.py database/contest_ranks/codechef-jan19.in
 
 echo "Finished Ratings Update"
 
+echo "-- Starting tests --"
+python3 tests/*
+echo "-- Tests completed --"
 python3 database/db_tools.py export_to_csv
 echo "Exported Scoreboard from database. You can now quit."
 

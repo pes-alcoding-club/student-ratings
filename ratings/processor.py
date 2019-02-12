@@ -44,7 +44,7 @@ class RatingProcessor:
                 usns_to_remove.add(usn)
         for usn in usns_to_remove:
             self.usn_rank_dict.pop(usn)
-            logging.error(f'Ignoring usn {usn}')
+            logging.info(f'Ignoring usn {usn}')
 
         # Get all the details of the participants from the provided USN
         participants = self.database.search(where(db.USN).test(lambda x: x in self.usn_rank_dict))
