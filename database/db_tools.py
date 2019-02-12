@@ -26,6 +26,16 @@ FACEBOOK = 'facebook'
 CODECHEF = 'codechef'
 CODEFORCES = 'codeforces'
 
+SITES = [CODEJAM, KICKSTART, HACKEREARTH, HACKERRANK, FACEBOOK, CODECHEF, CODEFORCES]
+
+# Following are constraints used to check for validity of data
+VALID_MIN_YEAR = 2018
+VALID_MAX_YEAR = 2022
+VALID_USN_REGEX = r"(1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5})"
+VALID_EMAIL_REGEX = r"^[^@]+\@[^@]+$"
+VALID_USERNAME_REGEX = r"^[\w_\-.]{3,}$"
+VALID_NAME_REGEX = r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$"
+
 
 def reset_database(filename: str = DB_FILE, outfile: str = DB_FILE) -> None:
     """
@@ -41,27 +51,6 @@ def reset_database(filename: str = DB_FILE, outfile: str = DB_FILE) -> None:
                          TIMES_PLAYED: 0,
                          LAST_FIVE: 5})
     logging.info('Successfully reset database and stored in ' + outfile)
-
-
-def check_database(database: dict) -> None:
-    """
-    Checks if the database is in the required format
-    :param database: database object expected to be dict of dicts
-    :return: None. Quits if database is not in required format
-    """
-    try:
-        assert isinstance(database, dict)
-        assert all(isinstance(database[x], dict) for x in database)
-        assert all(RATING in database[x] for x in database)
-        assert all(VOLATILITY in database[x] for x in database)
-        assert all(TIMES_PLAYED in database[x] for x in database)
-        assert all(BEST in database[x] for x in database)
-        assert all(LAST_FIVE in database[x] for x in database)
-        logging.info('Successfully checked database')
-
-    except AssertionError:
-        logging.error('Database not read in expected format. Missing some fields.')
-        quit()
 
 
 def export_to_csv(outfile: str = 'scoreboard.csv', filename: str = DB_FILE) -> None:

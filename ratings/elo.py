@@ -7,6 +7,8 @@ from math import log, sqrt
 
 DEFAULT_RATING: float = 1500.0
 DEFAULT_VOLATILITY: float = 125.0
+MAX_VOLATILITY: float = 200.0
+MIN_VOLATILITY: float = 75.0
 
 
 def Eab(Ra: float, Va: float, Rb: float, Vb: float) -> float:  # Probability that player A performs worse than player B
@@ -63,7 +65,7 @@ def Rcap(Ra: float, NRa: float, timesPlayed: int) -> float:  # Cap to how much r
 
 
 def Vcap(Va: float) -> float:  # Cap to how much the volatility can change
-    return max(75.0, min(Va, 200.0))
+    return max(MIN_VOLATILITY, min(Va, MAX_VOLATILITY))
 
 
 def process(Ra: float, Va: float, timesPlayed: int, actual_rank: int, Rb_Vb_list: list, N: int, Cf: float) -> tuple:

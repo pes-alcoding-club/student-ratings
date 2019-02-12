@@ -19,7 +19,8 @@ if __name__ == "__main__":
     with open(file_path) as fp:
         input_data = fp.read()
     handle_usn_dict = get_handle_usn_map(site)
-    for handle, usn in handle_usn_dict.items():
+    for handle in sorted(handle_usn_dict.keys(), key=lambda x: len(x), reverse=True):
+        usn = handle_usn_dict[handle]
         input_data = input_data.replace(handle, usn, 1)
     with open(file_path + "-new", "w") as fp:
         fp.write(input_data)
