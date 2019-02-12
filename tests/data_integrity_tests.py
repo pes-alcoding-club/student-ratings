@@ -9,7 +9,7 @@ mandatory_cols = [db.USN, db.NAME, db.RATING, db.VOLATILITY, db.EMAIL, db.YEAR, 
 sites = [db.CODEJAM, db.KICKSTART, db.CODECHEF, db.HACKERRANK, db.HACKEREARTH, db.CODEFORCES]
 
 
-class MyTestCase(unittest.TestCase):
+class TestDatabaseIntegrity(unittest.TestCase):
 
     def test_mandatory_cols(self):
         for row in database.all():
