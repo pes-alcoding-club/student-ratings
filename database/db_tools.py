@@ -64,7 +64,7 @@ def check_database(database: dict) -> None:
         quit()
 
 
-def export_to_csv(filename: str = DB_FILE, outfile: str = 'scoreboard.csv') -> None:
+def export_to_csv(outfile: str = 'scoreboard.csv', filename: str = DB_FILE) -> None:
     """
     Exports database to CSV file for readable form of scoreboard
     :param filename: json file where database is stored

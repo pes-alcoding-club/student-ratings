@@ -65,11 +65,13 @@ class RatingProcessor:
         """
         rating = player_dict[db.RATING]
         times_played = player_dict[db.TIMES_PLAYED]
-        last_five = player_dict[db.LAST_FIVE] - 1
+        last_five = player_dict[db.LAST_FIVE]
 
-        if last_five == 0 and times_played > 0:
-            rating = rating * 0.9
-            last_five = 5
+        if times_played > 0:  # decay does not take effect for people who have never taken part
+            last_five -= 1
+            if last_five == 0:  # indicates that player has not taken part for last 5 contests
+                rating = rating * 0.9
+                last_five = 5  # reduces the rating and resets last_five
 
         player_dict[db.RATING] = rating
         player_dict[db.LAST_FIVE] = max(1, last_five)

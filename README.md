@@ -29,8 +29,11 @@ You can [report an issue](https://github.com/varunvora/alcoding/issues) if you f
 1. How can I improve my rating?
 
     The only way you can improve your rating is by consistently scoring more than those who are rated higher than you.
+2. Which contests have been considered for these ratings?
+    The contests considered for ratings have been listed [here](database/README.md). This list will be updated after calculating the ratings for each contest.
 2. Which contests are taken into account for rating?
 
     Contests in ['Competitive Programming PESU' Calendar](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) that are marked as "Rated" are considered for ratings.
- 
+3. How can I tell if these ratings are legitimate
+    You can verify the ratings yourself by running [this script](executor.sh). It resets all students' ratings to default values and recomputes it for all contests so far in chronological order. 
    
