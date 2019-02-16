@@ -41,3 +41,6 @@ pip-delete-this-directory.txt
 
 # Unit test
 .pytest_cache/
+
+# Mypy (static type checking)
+.mypy_cache/

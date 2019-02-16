@@ -15,18 +15,16 @@ def Eab(Ra: float, Va: float, Rb: float, Vb: float) -> float:  # Probability tha
     return 1 / (1 + pow(4, ((Ra - Rb) / (sqrt(pow(Va, 2) + pow(Vb, 2))))))
 
 
-def ERank(Ra: float, Va: float, Rb_Vb_list: list) -> int:  # Expected Rank
-    expected_rank: int = 0
-    for Rb, Vb in Rb_Vb_list:
-        expected_rank += Eab(Ra, Va, Rb, Vb)
-    return expected_rank
+def ERank(Ra: float, Va: float, Rb_Vb_list: list) -> float:  # Expected Rank
+    return sum(Eab(Ra, Va, Rb, Vb) for Rb, Vb in Rb_Vb_list)
 
 
-def Perf(rank: int, N: int) -> float:  # Performance
-    return log(N / max(0.0001, rank - 0.9999)) / log(4)
+def Perf(rank: float, N: int) -> float:  # Performance
+    delta: float = 1e-9
+    return log(N / max(delta, rank - (1 - delta))) / log(4)
 
 
-def EPerf(expected_rank: int, N: int) -> float:  # Expected Performance
+def EPerf(expected_rank: float, N: int) -> float:  # Expected Performance
     return Perf(expected_rank, N)
 
 

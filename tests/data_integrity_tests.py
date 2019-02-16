@@ -16,10 +16,16 @@ class TestDatabaseIntegrity(unittest.TestCase):
             for col in mandatory_cols:
                 self.assertIn(col, row)
 
+    def test_valid_cols(self):
+        valid_cols = set(mandatory_cols + sites)
+        for row in database.all():
+            for col in row:
+                self.assertIn(col, valid_cols)
+
     def test_unique_usn(self):
         rows = [x[db.USN] for x in database.all()]
         self.assertEqual(len(database), len(rows))
-        self.assertEqual(len(rows), len(set(rows)))
+        self.assertEqual(len(set(rows)), len(rows))
 
     def test_unique_email(self):
         rows = [x[db.EMAIL] for x in database.all()]

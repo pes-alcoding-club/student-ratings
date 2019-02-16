@@ -10,6 +10,7 @@ echo "-- Tests completed --"
 
 python3 database/db_tools.py reset_database
 echo "Finished Database Reset"
+echo "Processing ratings. Please wait..."
 
 # List all contests ranks here in chronological order
 python3 ratings/processor.py database/contest_ranks/codejam-qualification-2018.in
