@@ -45,7 +45,7 @@ class TestDatabaseIntegrity(unittest.TestCase):
             self.assertRegex(row[db.USN], valid_usn_regex)
 
     def test_valid_handles(self):
-        valid_handle_regex = re.compile(r"^[\w_\-.]{3,}$")
+        valid_handle_regex = re.compile(db.VALID_USERNAME_REGEX)
         for row in database.all():
             for site in sites:
                 if site in row:

@@ -5,6 +5,7 @@ from ratings import elo
 from tinydb import TinyDB, where
 
 DB_FILE = 'database/db.json'
+CONTEST_RANKS_DIR = 'database/contest_ranks'
 
 # Following attributes must be present for all players in the database
 USN = 'usn'
@@ -31,7 +32,7 @@ SITES = [CODEJAM, KICKSTART, HACKEREARTH, HACKERRANK, FACEBOOK, CODECHEF, CODEFO
 # Following are constraints used to check for validity of data
 VALID_MIN_YEAR = 2018
 VALID_MAX_YEAR = 2022
-VALID_USN_REGEX = r"(1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5})"
+VALID_USN_REGEX = r"^((1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5}))$"
 VALID_EMAIL_REGEX = r"^[^@]+\@[^@]+$"
 VALID_USERNAME_REGEX = r"^[\w_\-.]{3,}$"
 VALID_NAME_REGEX = r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$"
