@@ -70,7 +70,7 @@ class RatingProcessor:
         if times_played > 0:  # decay does not take effect for people who have never taken part
             last_five -= 1
             if last_five == 0:  # indicates that player has not taken part for last 5 contests
-                rating = rating * 0.9
+                rating = rating * 0.99
                 last_five = 5  # reduces the rating and resets last_five
 
         player_dict[db.RATING] = rating

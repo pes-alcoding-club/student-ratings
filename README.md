@@ -11,7 +11,7 @@ An intra-college rating is maintained so that the club can identify good coders.
 The ratings are calculated by students' performances in [specified contests](database/README.md).
 
 ### Mechanism
-A [rank list](database/contest_ranks) of registered students is generated at the end of each contest. A rating is computed from the rank list, which indicates their relative performance. The implementation is almost the same as [Codechef's Rating Mechanism](https://www.codechef.com/ratings) which is a modified version of [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). To avoid students from [protecting their ratings](https://en.wikipedia.org/wiki/Elo_rating_system#Game_activity_versus_protecting_one's_rating) and encourage participation, a decay rule is also added which decrements a student's rating by 10% if she does not take part in 5 consecutive contests.
+A [rank list](database/contest_ranks) of registered students is generated at the end of each contest. A rating is computed from the rank list, which indicates their relative performance. The implementation is almost the same as [Codechef's Rating Mechanism](https://www.codechef.com/ratings) which is a modified version of [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). To avoid students from [protecting their ratings](https://en.wikipedia.org/wiki/Elo_rating_system#Game_activity_versus_protecting_one's_rating) and encourage participation, a decay rule is also added which decrements a student's rating by 1% if she does not take part in 5 consecutive contests.
 
 
 ### Verification
