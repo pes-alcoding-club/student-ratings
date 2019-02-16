@@ -42,16 +42,16 @@ PES University, Bengaluru
 -
 '''
 
-score_list = re.findall(r"\w+\sPES University, Bengaluru\s\d+", data)
+score_list = re.findall(r"(\d+)\sIndia..(\w+)\sPES University, Bengaluru\s\d+", data)
 if not score_list:
     logging.error('Verify input file and regex')
     quit()
 
-lowest_so_far = int(score_list[0].split('\n')[2])
+lowest_so_far = int(score_list[0][0])
 for row in score_list:
-    handle, university, score = row.split('\n')
-    score = int(score)
-    if score < lowest_so_far:
+    rank, handle = row
+    rank = int(rank)
+    if rank > lowest_so_far:
         print()
-        lowest_so_far = score
+        lowest_so_far = rank
     print(handle, end=' ')
