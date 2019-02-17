@@ -6,6 +6,7 @@ from tinydb import TinyDB, where
 
 DB_FILE = 'database/db.json'
 CONTEST_RANKS_DIR = 'database/contest_ranks'
+UNMAPPED_HANDLES_FILE = 'database/unmapped_handles.out'
 
 # Following attributes must be present for all players in the database
 USN = 'usn'
