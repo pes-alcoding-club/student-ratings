@@ -8,8 +8,13 @@ echo "-- Starting tests --"
 python3 -m unittest discover -s tests -p '*_tests.py'
 echo "-- Tests completed --"
 
+# Reset the database to default values for everyone
 python3 database/db_tools.py reset_database
 echo "Finished Database Reset"
+
+# Map usernames to USNs in all rank files
+python3 database/db_tools.py map_username_to_usn
+
 echo "Processing ratings. Please wait..."
 start=$SECONDS
 

@@ -1,4 +1,3 @@
-import re
 import unittest
 from os import listdir, path
 
@@ -14,12 +13,11 @@ class ContestsRanksIntegrityTests(unittest.TestCase):
             self.assertEqual(len(usn_or_handle_list), len(set(usn_or_handle_list)))
 
     def test_valid_entries(self):
-        valid_usn_or_handle_regex = re.compile(VALID_USN_REGEX + r"|" + VALID_USERNAME_REGEX)
         for file_path in listdir(CONTEST_RANKS_DIR):
             with open(path.join(CONTEST_RANKS_DIR, file_path)) as fp:
                 usn_or_handle_list = fp.read().split()
             for usn_or_handle in usn_or_handle_list:
-                self.assertRegex(usn_or_handle, valid_usn_or_handle_regex)
+                self.assertTrue(VALID_USN_REGEX.match(usn_or_handle) or VALID_USERNAME_REGEX.match(usn_or_handle))
 
     def test_non_empty_lines(self):
         for file_path in listdir(CONTEST_RANKS_DIR):

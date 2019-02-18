@@ -1,5 +1,4 @@
 import unittest
-import re
 from tinydb import TinyDB, where
 import database.db_tools as db
 from ratings import elo
@@ -40,16 +39,14 @@ class TestDatabaseIntegrity(unittest.TestCase):
             self.assertEqual(len(results), len(set(handles)))
 
     def test_valid_usn(self):
-        valid_usn_regex = re.compile(db.VALID_USN_REGEX)
         for row in database.all():
-            self.assertRegex(row[db.USN], valid_usn_regex)
+            self.assertRegex(row[db.USN], db.VALID_USN_REGEX)
 
     def test_valid_handles(self):
-        valid_handle_regex = re.compile(db.VALID_USERNAME_REGEX)
         for row in database.all():
             for site in sites:
                 if site in row:
-                    self.assertRegex(row[site], valid_handle_regex)
+                    self.assertRegex(row[site], db.VALID_USERNAME_REGEX)
 
     def test_valid_year(self):
         for row in database.all():
@@ -57,14 +54,12 @@ class TestDatabaseIntegrity(unittest.TestCase):
             self.assertLessEqual(row[db.YEAR], db.VALID_MAX_YEAR)
 
     def test_valid_name(self):
-        valid_name_regex = re.compile(db.VALID_NAME_REGEX)
         for row in database.all():
-            self.assertRegex(row[db.NAME], valid_name_regex)
+            self.assertRegex(row[db.NAME], db.VALID_NAME_REGEX)
 
     def test_valid_email(self):
-        valid_email_reqex = re.compile(db.VALID_EMAIL_REGEX)
         for row in database.all():
-            self.assertRegex(row[db.EMAIL], valid_email_reqex)
+            self.assertRegex(row[db.EMAIL], db.VALID_EMAIL_REGEX)
 
     def test_valid_rating_and_best(self):
         for row in database.all():
