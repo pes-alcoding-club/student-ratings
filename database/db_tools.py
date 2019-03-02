@@ -49,7 +49,7 @@ VALID_NAME_REGEX = re.compile(r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$")
 
 def reset_database() -> None:
     """
-    Resets all players' attributes to default values
+    Resets all players' attributes to default values.
     """
     with TinyDB(DB_FILE) as database:
         database.update({RATING: elo.DEFAULT_RATING,
@@ -99,11 +99,10 @@ def map_username_to_usn() -> None:
         :param file_name: Rank list file.
         :return: name of the contest site.
         """
-        try:
-            contest_site: str = file_name.split("-")[0]
-            assert contest_site in SITES
-            return contest_site
-        except IndexError or AssertionError:
+        file_name_parts = file_name.split("-")
+        if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
+            return file_name_parts[0]
+        else:
             logging.error(f"Invalid filename '{file_path}' in contest ranks. File name convention is"
                           f"'site-contest-details.in'")
             return ""
@@ -131,6 +130,7 @@ def map_username_to_usn() -> None:
             fp.write(output_data)
         site_handle_tuple_list += [(site, x) for x in output_data.split()]
         log_unmapped_handles(site_handle_tuple_list)
+    logging.info('Mapped ')
 
 
 def export_to_csv() -> None:
@@ -138,23 +138,23 @@ def export_to_csv() -> None:
     Exports database to CSV file for readable form of scoreboard
     """
     with TinyDB(DB_FILE) as database:
-
-        csv_table: List[tuple] = [
-            ("Rank", "USN", "Name", "Graduation Year", "Contests", "Rating", "Best")]
-
         player_list: List[dict] = database.search(where(TIMES_PLAYED) > 0)
-        player_list.sort(key=lambda x: x[RATING], reverse=True)
 
-        for rank, player_dict in enumerate(player_list, start=1):
-            row: Tuple[int, str, str, int, int, int, int]\
-                = (rank, player_dict[USN], player_dict[NAME],
-                   player_dict[YEAR], player_dict[TIMES_PLAYED],
-                   round(player_dict[RATING]), round(player_dict[BEST]))
-            csv_table.append(row[:])
+    csv_table: List[tuple] = [
+        ("Rank", "USN", "Name", "Graduation Year", "Contests", "Rating", "Best")]
 
-        with open(SCOREBOARD_FILE, 'w', newline="") as f:
-            wr = csv.writer(f)
-            wr.writerows(csv_table)
+    player_list.sort(key=lambda x: x[RATING], reverse=True)
+
+    for rank, player_dict in enumerate(player_list, start=1):
+        row: Tuple[int, str, str, int, int, int, int]\
+            = (rank, player_dict[USN], player_dict[NAME],
+               player_dict[YEAR], player_dict[TIMES_PLAYED],
+               round(player_dict[RATING]), round(player_dict[BEST]))
+        csv_table.append(row[:])
+
+    with open(SCOREBOARD_FILE, 'w', newline="") as fp:
+        wr = csv.writer(fp)
+        wr.writerows(csv_table)
 
     logging.info(f'Successfully exported database to {SCOREBOARD_FILE}')
 

@@ -1,1 +1,4 @@
 tinydb
+requests
+bs4
+selenium

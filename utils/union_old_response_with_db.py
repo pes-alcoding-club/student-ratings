@@ -7,11 +7,6 @@ from ratings import elo
 
 logging.basicConfig(level='DEBUG')
 
-# The following fields may need to be adjusted before running the script
-MIN_VALID_GRAD_YEAR = 2019
-MAX_VALID_GRAD_YEAR = 2021
-VALID_USN_PATTERN = re.compile(r'(1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
-
 incorrect_handles, incorrect_usns = [], []
 
 
@@ -28,10 +23,10 @@ def get_validated_data(csv_row) -> dict:
         return candidate_str.strip() != ""
 
     def is_valid_year(year_of_graduation: int) -> bool:
-        return MIN_VALID_GRAD_YEAR <= year_of_graduation <= MAX_VALID_GRAD_YEAR
+        return db.VALID_MIN_YEAR <= year_of_graduation <= db.VALID_MAX_YEAR
 
     def is_valid_usn(usn: str) -> bool:
-        if VALID_USN_PATTERN.match(usn) is None:
+        if db.VALID_USN_REGEX.match(usn) is None:
             incorrect_usns.append(details_dict[db.USN])
             return False
         return True
