@@ -23,3 +23,4 @@ Following is the list of contests that have been considered for rating so far
 1. hackerearth-jan-easy-2019.in [Hackearth January Easy 2019](https://www.hackerearth.com/challenge/competitive/january-easy-19/)
 1. codechef-jan19.in: [Codechef January Long Challenge 2019](https://www.codechef.com/JAN19)
 1. codechef-feb19.in: [Codechef February Long Challenge 2019](https://www.codechef.com/FEB19)
+1. codechef-feb-cookoff19.in: [Codechef February Cookoff 2019](https://www.codechef.com/COOK103A)
