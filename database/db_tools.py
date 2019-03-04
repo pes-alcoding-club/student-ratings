@@ -135,7 +135,7 @@ def map_username_to_usn() -> None:
 
 def export_to_csv() -> None:
     """
-    Exports database to CSV file for readable form of scoreboard
+    Exports database to CSV file for readable form of scoreboard.
     """
     with TinyDB(DB_FILE) as database:
         player_list: List[dict] = database.search(where(TIMES_PLAYED) > 0)
@@ -157,6 +157,14 @@ def export_to_csv() -> None:
         wr.writerows(csv_table)
 
     logging.info(f'Successfully exported database to {SCOREBOARD_FILE}')
+
+
+def prettify() -> None:
+    """
+    Indents database Json file to make it more readable and easier to assess diffs.
+    """
+    with TinyDB(DB_FILE, sort_keys=True, indent=4) as fp:
+        fp.write_back(fp.all())
 
 
 if __name__ == "__main__":

@@ -39,6 +39,7 @@ echo "-- Starting tests --"
 python3 -m unittest discover -s tests -p '*_tests.py'
 echo "-- Tests completed --"
 python3 database/db_tools.py export_to_csv
+python3 database/db_tools.py prettify
 echo "Exported Scoreboard from database. You can now quit."
 
 read # Prevents the terminal from closing
