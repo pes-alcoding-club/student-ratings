@@ -117,7 +117,7 @@ def map_username_to_usn() -> None:
         counter = Counter(unmapped_handles)
         with open(UNMAPPED_HANDLES_FILE, "w") as ptr:
             print(len(counter), file=ptr)
-            print(*counter.most_common(), sep='\n', file=ptr)
+            print(*sorted(counter.items(), key=lambda x:(x[1], x[0][0], x[0][1]), reverse=True), sep='\n', file=ptr)
 
     site_handle_tuple_list: List[Tuple[str, str]] = list()
     for file_path in listdir(CONTEST_RANKS_DIR):  # go through all contest rank files
@@ -135,7 +135,7 @@ def map_username_to_usn() -> None:
 
 def export_to_csv() -> None:
     """
-    Exports database to CSV file for readable form of scoreboard
+    Exports database to CSV file for readable form of scoreboard.
     """
     with TinyDB(DB_FILE) as database:
         player_list: List[dict] = database.search(where(TIMES_PLAYED) > 0)
@@ -157,6 +157,14 @@ def export_to_csv() -> None:
         wr.writerows(csv_table)
 
     logging.info(f'Successfully exported database to {SCOREBOARD_FILE}')
+
+
+def prettify() -> None:
+    """
+    Indents database Json file to make it more readable and easier to assess diffs.
+    """
+    with TinyDB(DB_FILE, sort_keys=True, indent=4) as fp:
+        fp.write_back(fp.all())
 
 
 if __name__ == "__main__":

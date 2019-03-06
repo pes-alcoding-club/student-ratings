@@ -31,6 +31,7 @@ python3 ratings/processor.py database/contest_ranks/hackerearth-jan-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-jan19.in
 python3 ratings/processor.py database/contest_ranks/codechef-feb19.in
 python3 ratings/processor.py database/contest_ranks/codechef-feb-cookoff19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-feb-circuits19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
@@ -38,6 +39,7 @@ echo "-- Starting tests --"
 python3 -m unittest discover -s tests -p '*_tests.py'
 echo "-- Tests completed --"
 python3 database/db_tools.py export_to_csv
+python3 database/db_tools.py prettify
 echo "Exported Scoreboard from database. You can now quit."
 
 read # Prevents the terminal from closing

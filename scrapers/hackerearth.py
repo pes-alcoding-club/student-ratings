@@ -1,9 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
+from tinydb import TinyDB
+from database.db_tools import DB_FILE, HACKEREARTH
 
 # 0 - event_id
 # 1 - page number
 leaderboard_base_url = 'https://www.hackerearth.com/AJAX/feed/newsfeed/icpc-leaderboard/event/{0}/{1}/'
+
 
 def get_handles(html_doc):
     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -18,6 +21,7 @@ def get_handles(html_doc):
     handles = list(map(lambda d: d.find_all('div')[1].text, soup.select('div.hof-user-info')))
     return handles
 
+
 def get_leaderboard(event_id):
     page_num = 1
     leaderboard = []
@@ -25,7 +29,6 @@ def get_leaderboard(event_id):
     while True:
         r = requests.get(leaderboard_base_url.format(event_id, page_num))
         handles = get_handles(r.content)
-
         # url returns last page for page_num greater than last page number
         if leaderboard[-len(handles):] == handles:
             break
@@ -36,8 +39,15 @@ def get_leaderboard(event_id):
 
     return leaderboard
 
+
 if __name__ == "__main__":
-    event_id = '609849'
+    event_id = '640665'
     leaderboard = get_leaderboard(event_id)
-    f = open("jan-easy-temp.txt", "w")
-    print(leaderboard, file=f)
+    print(len(leaderboard))
+    leaderboard = set(leaderboard)
+
+
+    with TinyDB(DB_FILE) as database:
+        for row in database.all():
+            if  HACKEREARTH in row and row[HACKEREARTH] in leaderboard:
+                print(row["hackerearth"])
