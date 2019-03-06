@@ -15,6 +15,8 @@ scoreList=[]
 rankList=[]
 nameList=[]
 
+
+
 # Wait for scoreboard to load
 while not driver.find_elements_by_class_name(scoreClass):
     sleep(1)    
@@ -39,18 +41,19 @@ for page in range(numberOfPages):
     if page<numberOfPages-1:
         nextPageButton=driver.find_elements_by_tag_name("button")[-1]
         nextPageButton.click()
-        while 1:
-            if driver.find_elements_by_class_name(rankClass)[-1].text != rankList[-1]:
+        while True:
+            lastNameOnPage=driver.find_elements_by_class_name(nameClass)[-1].find_element_by_tag_name("p").text
+            if lastNameOnPage!=nameList[-1]:
                 break
             sleep(1)
     
+'''    
 # Write to csv    
 with open("kickstart.csv","w") as scoreFile:
     scoreFile.write("Rank,UserName,Score\n")
     for i in range(len(nameList)):
         scoreFile.write(rankList[i]+","+nameList[i]+","+scoreList[i]+"\n")
+'''
 
-
-
-
-
+for username in nameList:
+    print(username,end=" ")
