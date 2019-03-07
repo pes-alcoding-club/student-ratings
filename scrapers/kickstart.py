@@ -1,59 +1,48 @@
 from selenium import webdriver
 from time import sleep
+from csv import writer
 
+IS_OUTPUT_CSV = True
 
-scoreboard_url: str = "https://codingcompetitions.withgoogle.com/kickstart/round/0000000000051060"
-
-driver = webdriver.Chrome()
+scoreboard_url = "https://codingcompetitions.withgoogle.com/codejam/round/0000000000007766"
+chromeOptions = webdriver .ChromeOptions()
+prefs = {'profile.managed_default_content_settings.images': 2,  # does not load images on web page
+         'disk-cache-size': 1024}  # use disk cache to reduce page load time
+chromeOptions.add_experimental_option("prefs", prefs)
+driver = webdriver.Chrome(options=chromeOptions)
 driver.get(scoreboard_url)
 
-scoreClass="user-total-score"
-rankClass="ranking-table__row-cell__rank"
-nameClass="ranking-table__row-cell__displayname"
-
-scoreList=[]
-rankList=[]
-nameList=[]
-
-
+score_class = "user-total-score"
+rank_class = "ranking-table__row-cell__rank"
+name_class = "ranking-table__row-cell__displayname"
+scraped_scoreboard = list()
 
 # Wait for scoreboard to load
-while not driver.find_elements_by_class_name(scoreClass):
-    sleep(1)    
+while not driver.find_elements_by_class_name(score_class):
+    sleep(1)
 
 # Find number of pages in the scoreboard
-numberOfPages=int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
+total_pages = int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
 
+for page in range(total_pages):
+    score_elements = driver.find_elements_by_class_name(score_class)
+    rank_elements = driver.find_elements_by_class_name(rank_class)[1:]
+    name_elements = driver.find_elements_by_class_name(name_class)
+    scraped_scoreboard.extend(list(zip(
+        [x.find_element_by_tag_name("p").text for x in name_elements],
+        [y.text for y in rank_elements],
+        [z.text for z in score_elements])))
+    if page == total_pages-1:  # Reached last_page
+        break
+    driver.find_elements_by_tag_name("button")[-1].click()  # click to go to next page
+    last_name = scraped_scoreboard[-1][0]
+    while driver.find_elements_by_class_name(name_class)[-1].find_element_by_tag_name("p").text == last_name:
+        sleep(0.1)  # Wait until next page has loaded
+driver.close()
 
-
-for page in range(numberOfPages):
-    
-    scoreElements=driver.find_elements_by_class_name(scoreClass)
-    rankElements=driver.find_elements_by_class_name(rankClass)[1:]
-    nameElements=driver.find_elements_by_class_name(nameClass)
-
-    for i in range(len(scoreElements)):
-        nameList.append(nameElements[i].find_element_by_tag_name("p").text)
-        rankList.append(rankElements[i].text)
-        scoreList.append(scoreElements[i].text)
-
-    # If page is not the last page, wait till next page has loaded
-    if page<numberOfPages-1:
-        nextPageButton=driver.find_elements_by_tag_name("button")[-1]
-        nextPageButton.click()
-        while True:
-            lastNameOnPage=driver.find_elements_by_class_name(nameClass)[-1].find_element_by_tag_name("p").text
-            if lastNameOnPage!=nameList[-1]:
-                break
-            sleep(1)
-    
-'''    
-# Write to csv    
-with open("kickstart.csv","w") as scoreFile:
-    scoreFile.write("Rank,UserName,Score\n")
-    for i in range(len(nameList)):
-        scoreFile.write(rankList[i]+","+nameList[i]+","+scoreList[i]+"\n")
-'''
-
-for username in nameList:
-    print(username,end=" ")
+if IS_OUTPUT_CSV:
+    with open(f"{scoreboard_url.split('/')[-1]}.csv", "w") as fp:
+        csv_writer = writer(fp)
+        csv_writer.writerows(scraped_scoreboard)
+else:
+    print(*[x[0] for x in scraped_scoreboard], sep="\n")
