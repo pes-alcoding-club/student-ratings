@@ -77,4 +77,4 @@ if IS_OUTPUT_CSV:
         csv_writer = writer(fp)
         csv_writer.writerows(scraped_scoreboard)
 else:
-    print(*[x[0] for x in scraped_scoreboard], sep=" ")
+    print(*[x[0] for x in scraped_scoreboard], sep="\n")
