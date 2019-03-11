@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from tinydb import TinyDB
+from tinydb import TinyDB, where
 from database.db_tools import DB_FILE, HACKEREARTH
 
 # 0 - event_id
@@ -44,18 +44,11 @@ if __name__ == "__main__":
     event_id = '640665'
     leaderboard = get_leaderboard(event_id)
     print(len(leaderboard))
-    
-    PESHackerearthUsers=[]
 
-  
-    with TinyDB(DB_FILE) as database:    
-        for row in database.all():
-            if  HACKEREARTH in row:
-                PESHackerearthUsers.append(row[HACKEREARTH])        
+    with TinyDB(DB_FILE) as database:
+        pes_hackerearth_users = {x[HACKEREARTH] for x in database.search(where(HACKEREARTH))}
 
-        PESHackerearthUsers=set(PESHackerearthUsers)
+    pes_leaderboard = filter(pes_hackerearth_users.__contains__, leaderboard)
+    print(*pes_leaderboard, sep='\n')
 
-        for userName in leaderboard:
-            if userName in PESHackerearthUsers:
-                print(userName,end="\n")
 
