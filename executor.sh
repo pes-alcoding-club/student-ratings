@@ -29,10 +29,11 @@ python3 ratings/processor.py database/contest_ranks/codechef-nov18.in
 python3 ratings/processor.py database/contest_ranks/codechef-dec18.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-jan-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-jan19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-feb-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-feb19.in
 python3 ratings/processor.py database/contest_ranks/codechef-feb-cookoff19.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-feb-circuits19.in
-python3 ratings/processor.py database/contest_ranks/hackerearth-feb-easy-2019.in
+
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
