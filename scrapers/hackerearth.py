@@ -44,10 +44,18 @@ if __name__ == "__main__":
     event_id = '640665'
     leaderboard = get_leaderboard(event_id)
     print(len(leaderboard))
-    leaderboard = set(leaderboard)
+    
+    PESHackerearthUsers=[]
 
-
-    with TinyDB(DB_FILE) as database:
+  
+    with TinyDB(DB_FILE) as database:    
         for row in database.all():
-            if  HACKEREARTH in row and row[HACKEREARTH] in leaderboard:
-                print(row["hackerearth"])
+            if  HACKEREARTH in row:
+                PESHackerearthUsers.append(row[HACKEREARTH])        
+
+        PESHackerearthUsers=set(PESHackerearthUsers)
+
+        for userName in leaderboard:
+            if userName in PESHackerearthUsers:
+                print(userName,end="\n")
+

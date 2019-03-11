@@ -11,5 +11,5 @@ This module contains scripts responsible for scraping contest pages.
 
 #### Usage
 
-1. Modify the first few variables in the file and run `python3 codejam.py`. Ensure you have selenium driver from Chrome.
+1. Modify the scoreboard url in google.py, Run it, make necessary changes in the scoreboard(Change default view to 20, so on...), Press enter to continue.
 2. Copy the raw scoreboard from codechef to a file say `codechef-contest-year.in` and run `python3 codechef.py codechef-contest-year.in` 
