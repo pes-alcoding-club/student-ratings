@@ -34,7 +34,7 @@ You can [report an issue](https://github.com/varunvora/alcoding/issues) if you f
     The contests considered for ratings have been listed [here](database/README.md). This list will be updated after calculating the ratings for each contest.
 2. Which contests are taken into account for rating?
 
-    Contests in ['Competitive Programming PESU' Calendar](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) that are marked as "Rated" are considered for ratings.
+    Contests in ['Competitive Programming PESU' Calendar](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) are considered for ratings.
 3. How can I tell if these ratings are legitimate?
 
     You can verify the ratings yourself by running [this script](executor.sh). It resets all students' ratings to default values and recomputes it for all contests so far in chronological order. 
