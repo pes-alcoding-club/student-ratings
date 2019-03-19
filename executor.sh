@@ -24,6 +24,10 @@ python3 ratings/processor.py database/contest_ranks/codejam-1a-2018.in
 python3 ratings/processor.py database/contest_ranks/codejam-1b-2018.in
 python3 ratings/processor.py database/contest_ranks/codejam-1c-2018.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-alcoding-2018.in
+python3 ratings/processor.py database/contest_ranks/codechef-june18.in
+python3 ratings/processor.py database/contest_ranks/codechef-july18.in
+python3 ratings/processor.py database/contest_ranks/codechef-aug18.in
+python3 ratings/processor.py database/contest_ranks/codechef-sept18.in
 python3 ratings/processor.py database/contest_ranks/codechef-oct18.in
 python3 ratings/processor.py database/contest_ranks/codechef-nov18.in
 python3 ratings/processor.py database/contest_ranks/codechef-dec18.in
