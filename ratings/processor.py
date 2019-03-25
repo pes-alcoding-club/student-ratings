@@ -28,23 +28,20 @@ class RatingProcessor:
         current_rank = 1
         for usns in rank_file:
             usns = usns.split()
+            usn_considered = 0  # number of players with same rank
             for usn in usns:  # multiple usn with the same rank is possible
-                self.usn_rank_dict[usn] = current_rank
-            current_rank += len(usns)  # ranks are not 1, 1, 1, 2 but 1, 1, 1, 4
+                if self.database.contains(where(db.USN) == usn):
+                    self.usn_rank_dict[usn] = current_rank
+                    usn_considered += 1
+                else:
+                    logging.info(f'Ignoring usn {usn}')
+            current_rank += usn_considered # ranks are not 1, 1, 1, 2 but 1, 1, 1, 4
 
     def set_contest_details(self) -> None:
         """
         Generates some details about the participants of the contest
         that are required to update all players' ratings
         """
-
-        usns_to_remove = set()  # remove invalid USN
-        for usn in self.usn_rank_dict:
-            if not self.database.contains(where(db.USN) == usn):
-                usns_to_remove.add(usn)
-        for usn in usns_to_remove:
-            self.usn_rank_dict.pop(usn)
-            logging.info(f'Ignoring usn {usn}')
 
         # Get all the details of the participants from the provided USN
         participants = self.database.search(where(db.USN).test(lambda x: x in self.usn_rank_dict))
