@@ -105,7 +105,7 @@ def map_username_to_usn() -> None:
         else:
             logging.error(f"Invalid filename '{file_path}' in contest ranks. File name convention is"
                           f"'site-contest-details.in'")
-            return ""
+            quit()
 
     def log_unmapped_handles(site_username_tuple_list: List[Tuple[str, str]]) -> None:
         """
@@ -117,7 +117,10 @@ def map_username_to_usn() -> None:
         counter = Counter(unmapped_handles)
         with open(UNMAPPED_HANDLES_FILE, "w") as ptr:
             print(len(counter), file=ptr)
-            print(*sorted(counter.items(), key=lambda x:(x[1], x[0][0], x[0][1]), reverse=True), sep='\n', file=ptr)
+            print(*sorted(counter.items(),
+                          key=lambda x: (x[1], x[0][0], x[0][1]),
+                          reverse=True),
+                  sep='\n', file=ptr)
 
     site_handle_tuple_list: List[Tuple[str, str]] = list()
     for file_path in listdir(CONTEST_RANKS_DIR):  # go through all contest rank files

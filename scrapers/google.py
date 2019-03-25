@@ -4,9 +4,9 @@ from csv import writer
 
 IS_OUTPUT_CSV = False
 
-scoreboard_url = "https://codingcompetitions.withgoogle.com/codejam/round/00000000000000cb"
+scoreboard_url = "https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e01"
 
-chromeOptions = webdriver .ChromeOptions()
+chromeOptions = webdriver.ChromeOptions()
 prefs = {'profile.managed_default_content_settings.images': 2,  # does not load images on web page
          'disk-cache-size': 1024}  # use disk cache to reduce page load time
 
@@ -47,9 +47,10 @@ scraped_scoreboard = list()
 while not driver.find_elements_by_class_name(score_class):
     sleep(1)
 
-# Pause while user changes default page view to 20 rows - useful for large scoreboard size
-# Make necessary changes in page, press enter to continue
-input()
+input("""
+Pause while user changes default page view to 20 rows - useful for large scoreboard size
+Make necessary changes in page, press enter to continue...
+""")
 
 # Find number of pages in the scoreboard
 total_pages = int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
