@@ -31,3 +31,5 @@ Following is the list of contests that have been considered for rating so far
 1. codechef-feb-cookoff19.in: [Codechef February Cookoff 2019](https://www.codechef.com/COOK103)
 1. hackerearth-feb-circuits19.in: [Hackerearth February Circuits 2019](https://www.hackerearth.com/challenges/competitive/february-circuits-19/)
 1. codechef-mar19.in: [Codechef March Long Challenge 2019](https://www.codechef.com/MARCH19)
+1. kickstart-a-2019.in: [Google Kickstart 2019 Round A](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e01)
+1. codechef-mar-cookoff19.in: [Codechef March Cookoff 2019](https://www.codechef.com/COOK104)
