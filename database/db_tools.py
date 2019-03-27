@@ -59,6 +59,19 @@ def reset_database() -> None:
                          LAST_FIVE: 5})
     logging.info(f'Successfully reset database and stored in {DB_FILE}')
 
+def get_site_name_from_file_name(file_name: str) -> str:
+    """
+    Derives the name of the contest site from the name of the rank file.
+    :param file_name: Rank list file.
+    :return: name of the contest site.
+    """
+    file_name_parts = file_name.split("-")
+    if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
+        return file_name_parts[0]
+    else:
+        logging.error(f"Invalid filename '{file_name}' in contest ranks. File name convention is"
+                      f"'site-contest-details.in'")
+        quit()
 
 def map_username_to_usn() -> None:
     """
@@ -93,19 +106,6 @@ def map_username_to_usn() -> None:
             data = data.replace(find_item, replace_item, 1)
         return data
 
-    def get_site_name_from_file_name(file_name: str) -> str:
-        """
-        Derives the name of the contest site from the name of the rank file.
-        :param file_name: Rank list file.
-        :return: name of the contest site.
-        """
-        file_name_parts = file_name.split("-")
-        if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
-            return file_name_parts[0]
-        else:
-            logging.error(f"Invalid filename '{file_path}' in contest ranks. File name convention is"
-                          f"'site-contest-details.in'")
-            quit()
 
     def log_unmapped_handles(site_username_tuple_list: List[Tuple[str, str]]) -> None:
         """
@@ -138,6 +138,20 @@ def map_username_to_usn() -> None:
             site_handle_tuple_list += [(site, x) for x in output_data.split()]
         log_unmapped_handles(site_handle_tuple_list)
     logging.info('Mapped ')
+
+
+def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
+    """
+    TODO
+    get_site_name_from_file_name
+    get mapped handles from tinydb
+    open file_name
+    replace mapped handles with usn
+    replace unmapped handles with empty string
+    remove empty lines
+    write back to file name
+    """
+    pass
 
 
 def export_to_csv() -> None:
