@@ -132,6 +132,12 @@ def map_username_to_usn() -> None:
         with open(join(CONTEST_RANKS_DIR, file_path), "w") as fp:
             fp.write(output_data)
         site_handle_tuple_list += [(site, x) for x in output_data.split()]
+
+        # log only codechef & hackerrank because we are sure those are unmapped
+        # only sites provide university filter
+        # remaining contest ranks will have players that do not need to be mapped
+        if site not in [CODECHEF, HACKERRANK]:
+            continue
         log_unmapped_handles(site_handle_tuple_list)
     logging.info('Mapped ')
 
