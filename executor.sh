@@ -38,7 +38,7 @@ python3 ratings/processor.py database/contest_ranks/codechef-feb19.in
 python3 ratings/processor.py database/contest_ranks/codechef-feb-cookoff19.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-feb-circuits19.in
 python3 ratings/processor.py database/contest_ranks/codechef-mar19.in
-# python3 ratings/processor.py database/contest_ranks/kickstart-a-2019.in #-- waiting for form responses
+python3 ratings/processor.py database/contest_ranks/kickstart-a-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-mar-cookoff19.in
 
 
