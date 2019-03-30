@@ -43,7 +43,7 @@ VALID_MIN_YEAR: int = 2018
 VALID_MAX_YEAR: int = 2022
 VALID_USN_REGEX = re.compile(r"^((1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES1201[7-8]\d{5}))$")
 VALID_EMAIL_REGEX = re.compile(r"^[^@]+@[^@]+$")
-VALID_USERNAME_REGEX = re.compile(r"^[\w_\-.]{3,}$")
+VALID_USERNAME_REGEX = re.compile(r"^\S+$")
 VALID_NAME_REGEX = re.compile(r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$")
 
 
@@ -52,12 +52,28 @@ def reset_database() -> None:
     Resets all players' attributes to default values.
     """
     with TinyDB(DB_FILE) as database:
-        database.update({RATING: elo.DEFAULT_RATING,
-                         VOLATILITY: elo.DEFAULT_VOLATILITY,
-                         BEST: elo.DEFAULT_RATING,
-                         TIMES_PLAYED: 0,
-                         LAST_FIVE: 5})
+        database.update({
+            RATING: elo.DEFAULT_RATING,
+            VOLATILITY: elo.DEFAULT_VOLATILITY,
+            BEST: elo.DEFAULT_RATING,
+            TIMES_PLAYED: 0,
+            LAST_FIVE: 5})
     logging.info(f'Successfully reset database and stored in {DB_FILE}')
+
+
+def get_site_name_from_file_name(file_name: str) -> str:
+    """
+    Derives the name of the contest site from the name of the rank file.
+    :param file_name: Rank list file.
+    :return: name of the contest site.
+    """
+    file_name_parts = file_name.split("-")
+    if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
+        return file_name_parts[0]
+    else:
+        logging.error(f"Invalid filename '{file_name}' in contest ranks. File name convention is"
+                      f"'site-contest-details.in'")
+        quit()
 
 
 def map_username_to_usn() -> None:
@@ -90,29 +106,15 @@ def map_username_to_usn() -> None:
         """
         for find_item in sorted(find_replace_dict.keys(), key=str.__len__, reverse=True):
             replace_item: str = find_replace_dict[find_item]
-            data = data.replace(find_item, replace_item, 1)
+            data = re.sub(rf"\b{find_item}\b", replace_item, data, re.IGNORECASE)
         return data
-
-    def get_site_name_from_file_name(file_name: str) -> str:
-        """
-        Derives the name of the contest site from the name of the rank file.
-        :param file_name: Rank list file.
-        :return: name of the contest site.
-        """
-        file_name_parts = file_name.split("-")
-        if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
-            return file_name_parts[0]
-        else:
-            logging.error(f"Invalid filename '{file_path}' in contest ranks. File name convention is"
-                          f"'site-contest-details.in'")
-            quit()
 
     def log_unmapped_handles(site_username_tuple_list: List[Tuple[str, str]]) -> None:
         """
         Makes a list of all the usernames that were not mapped to any USN.
         These will be ignored in ratings until the mapping is added to the database.
         """
-        unmapped_handles: List[Tuple[str, str]]\
+        unmapped_handles: List[Tuple[str, str]] \
             = list(filter(lambda x: not VALID_USN_REGEX.match(x[1]), site_username_tuple_list))
         counter = Counter(unmapped_handles)
         with open(UNMAPPED_HANDLES_FILE, "w") as ptr:
@@ -131,9 +133,28 @@ def map_username_to_usn() -> None:
         output_data: str = replace_username_with_usn(input_data, handle_usn_dict)
         with open(join(CONTEST_RANKS_DIR, file_path), "w") as fp:
             fp.write(output_data)
-        site_handle_tuple_list += [(site, x) for x in output_data.split()]
+        if site in [CODECHEF, HACKERRANK]:  # only sites that provide university filter
+            site_handle_tuple_list += [(site, x) for x in output_data.split()]
         log_unmapped_handles(site_handle_tuple_list)
     logging.info('Mapped ')
+
+
+def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
+    """
+    Removes unmapped handles from outdated rank files
+    to reduce space and time it takes for the script to run
+    """
+    """
+    TODO
+    get_site_name_from_file_name
+    get mapped handles from tinydb
+    open file_name
+    replace mapped handles with usn
+    replace unmapped handles with empty string
+    remove empty lines
+    write back to file name
+    """
+    pass
 
 
 def export_to_csv() -> None:
@@ -149,7 +170,7 @@ def export_to_csv() -> None:
     player_list.sort(key=lambda x: x[RATING], reverse=True)
 
     for rank, player_dict in enumerate(player_list, start=1):
-        row: Tuple[int, str, str, int, int, int, int]\
+        row: Tuple[int, str, str, int, int, int, int] \
             = (rank, player_dict[USN], player_dict[NAME],
                player_dict[YEAR], player_dict[TIMES_PLAYED],
                round(player_dict[RATING]), round(player_dict[BEST]))
