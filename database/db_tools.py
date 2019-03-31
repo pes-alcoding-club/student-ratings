@@ -6,10 +6,9 @@ from os import listdir
 from os.path import join
 from collections import Counter
 from functools import lru_cache
-from typing import List, Set, Tuple, Dict, Callable
+from typing import List, Set, Tuple, Dict, Callable, Any
 from tinydb import TinyDB, where
 from ratings import elo
-
 
 DB_FILE: str = 'database/db.json'
 CONTEST_RANKS_DIR: str = 'database/contest_ranks'
@@ -47,18 +46,18 @@ VALID_USERNAME_REGEX = re.compile(r"^\S+$")
 VALID_NAME_REGEX = re.compile(r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$")
 
 
-def reset_database() -> None:
+def reset_database(db_file: str = DB_FILE) -> None:
     """
     Resets all players' attributes to default values.
     """
-    with TinyDB(DB_FILE) as database:
+    with TinyDB(db_file) as database:
         database.update({
             RATING: elo.DEFAULT_RATING,
             VOLATILITY: elo.DEFAULT_VOLATILITY,
             BEST: elo.DEFAULT_RATING,
             TIMES_PLAYED: 0,
             LAST_FIVE: 5})
-    logging.info(f'Successfully reset database and stored in {DB_FILE}')
+    logging.info(f'Successfully reset database and stored in {db_file}')
 
 
 def get_site_name_from_file_name(file_name: str) -> str:
@@ -68,15 +67,16 @@ def get_site_name_from_file_name(file_name: str) -> str:
     :return: name of the contest site.
     """
     file_name_parts = file_name.split("-")
-    if len(file_name_parts) >= 2 and file_name_parts[0] in SITES:
-        return file_name_parts[0]
-    else:
+    if len(file_name_parts) < 2 or file_name_parts[0] not in SITES:
         logging.error(f"Invalid filename '{file_name}' in contest ranks. File name convention is"
                       f"'site-contest-details.in'")
         quit()
+    return file_name_parts[0]
 
 
-def map_username_to_usn() -> None:
+def map_username_to_usn(db_file: str = DB_FILE,
+                        ranks_dir: str = CONTEST_RANKS_DIR,
+                        unmapped_handles_file: str = UNMAPPED_HANDLES_FILE) -> None:
     """
     Maps usernames in contests' scoreboards to PESU USNs.
     Ensures that change in username on the site preserves past ranks.
@@ -91,7 +91,7 @@ def map_username_to_usn() -> None:
         :return: dictionary with key value as username and value as USN.
         """
         handle_usn_map: Dict[str, str] = dict()
-        with TinyDB(DB_FILE) as database:
+        with TinyDB(db_file) as database:
             for doc in database:
                 if site_name in doc:
                     handle_usn_map[doc[site_name]] = doc[USN]
@@ -117,7 +117,7 @@ def map_username_to_usn() -> None:
         unmapped_handles: List[Tuple[str, str]] \
             = list(filter(lambda x: not VALID_USN_REGEX.match(x[1]), site_username_tuple_list))
         counter = Counter(unmapped_handles)
-        with open(UNMAPPED_HANDLES_FILE, "w") as ptr:
+        with open(unmapped_handles_file, "w") as ptr:
             print(len(counter), file=ptr)
             print(*sorted(counter.items(),
                           key=lambda x: (x[1], x[0][0], x[0][1]),
@@ -125,17 +125,25 @@ def map_username_to_usn() -> None:
                   sep='\n', file=ptr)
 
     site_handle_tuple_list: List[Tuple[str, str]] = list()
-    for file_path in listdir(CONTEST_RANKS_DIR):  # go through all contest rank files
+
+    for file_path in listdir(ranks_dir):  # go through all contest rank files
         site: str = get_site_name_from_file_name(file_path)
+
         handle_usn_dict: Dict[str, str] = get_handle_usn_map(site)
-        with open(join(CONTEST_RANKS_DIR, file_path)) as fp:
+
+        with open(join(ranks_dir, file_path)) as fp:
             input_data: str = fp.read()
+
         output_data: str = replace_username_with_usn(input_data, handle_usn_dict)
-        with open(join(CONTEST_RANKS_DIR, file_path), "w") as fp:
+
+        with open(join(ranks_dir, file_path), "w") as fp:
             fp.write(output_data)
+
         if site in [CODECHEF, HACKERRANK]:  # only sites that provide university filter
             site_handle_tuple_list += [(site, x) for x in output_data.split()]
+
         log_unmapped_handles(site_handle_tuple_list)
+
     logging.info('Mapped ')
 
 
@@ -157,12 +165,12 @@ def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
     pass
 
 
-def export_to_csv() -> None:
+def export_to_csv(db_file: str = DB_FILE, scoreboard_file: str = SCOREBOARD_FILE) -> None:
     """
     Exports database to CSV file for readable form of scoreboard.
     """
-    with TinyDB(DB_FILE) as database:
-        player_list: List[dict] = database.search(where(TIMES_PLAYED) > 0)
+    with TinyDB(db_file) as database:
+        player_list: List[Dict[str, Any]] = database.search(where(TIMES_PLAYED) > 0)
 
     csv_table: List[tuple] = [
         ("Rank", "USN", "Name", "Graduation Year", "Contests", "Rating", "Best")]
@@ -176,18 +184,18 @@ def export_to_csv() -> None:
                round(player_dict[RATING]), round(player_dict[BEST]))
         csv_table.append(row[:])
 
-    with open(SCOREBOARD_FILE, 'w', newline="") as fp:
+    with open(scoreboard_file, 'w', newline="") as fp:
         wr = csv.writer(fp)
         wr.writerows(csv_table)
 
-    logging.info(f'Successfully exported database to {SCOREBOARD_FILE}')
+    logging.info(f'Successfully exported database from {db_file} to {scoreboard_file}')
 
 
-def prettify() -> None:
+def prettify(db_file: str = DB_FILE) -> None:
     """
     Indents database Json file to make it more readable and easier to assess diffs.
     """
-    with TinyDB(DB_FILE, sort_keys=True, indent=4) as fp:
+    with TinyDB(db_file, sort_keys=True, indent=4) as fp:
         fp.write_back(fp.all())
 
 

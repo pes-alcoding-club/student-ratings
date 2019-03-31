@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 echo "Starting executor"
 
 export PYTHONPATH="${PYTHONPATH}../alcoding"
