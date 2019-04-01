@@ -104,10 +104,14 @@ def map_username_to_usn(db_file: str = DB_FILE,
         :param find_replace_dict: mapping with key as username and value as usn.
         :return: text after replacements.
         """
-        for find_item in sorted(find_replace_dict.keys(), key=str.__len__, reverse=True):
-            replace_item: str = find_replace_dict[find_item]
-            data = re.sub(rf"\b{find_item}\b", replace_item, data, re.IGNORECASE)
-        return data
+        find_replace_dict = {' ' + x + ' ': find_replace_dict[x] for x in find_replace_dict}
+        # adding spaces around username ensures only the entire username
+        # is replaced and not any substring of it
+        data = re.sub(r"(\S+)", r" \1 ", data) # add spaces around all terms in rank file
+
+        data = re.sub('({})'.format('|'.join(map(re.escape, find_replace_dict.keys()))),
+                      lambda m: ' ' + find_replace_dict[m.group()] + ' ', data)
+        return re.sub(r" (\S+) ", r"\1", data)  # remove spaces
 
     def log_unmapped_handles(site_username_tuple_list: List[Tuple[str, str]]) -> None:
         """
