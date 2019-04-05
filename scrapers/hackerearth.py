@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from tinydb import TinyDB, where
 from database.db_tools import DB_FILE, HACKEREARTH
+import logging
 
 # 0 - event_id
 # 1 - page number
@@ -28,27 +29,30 @@ def get_leaderboard(event_id):
     
     while True:
         r = requests.get(leaderboard_base_url.format(event_id, page_num))
-        handles = get_handles(r.content)
+        handles = get_handles(r.text)
         # url returns last page for page_num greater than last page number
         if leaderboard[-len(handles):] == handles:
             break
         
         leaderboard.extend(handles)
         page_num += 1
-        print(page_num)
+        logging.info(page_num)
 
     return leaderboard
 
 
 if __name__ == "__main__":
-    event_id = '640665'
+    logging.basicConfig(level='INFO')
+    event_id = '672028'
     leaderboard = get_leaderboard(event_id)
-    print(len(leaderboard))
+    print(*leaderboard, sep='\n')
 
+"""Uncomment to output mapped PES handles only
     with TinyDB(DB_FILE) as database:
         pes_hackerearth_users = {x[HACKEREARTH] for x in database.search(where(HACKEREARTH))}
 
     pes_leaderboard = filter(pes_hackerearth_users.__contains__, leaderboard)
     print(*pes_leaderboard, sep='\n')
+"""
 
 
