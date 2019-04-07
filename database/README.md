@@ -35,3 +35,4 @@ Following is the list of contests that have been considered for rating so far
 1. codechef-mar-cookoff19.in: [Codechef March Cookoff 2019](https://www.codechef.com/COOK104)
 1. codechef-mar-lunchtime19.in: [Codechef March Lunchtime 2019](https://www.codechef.com/LTIME70)
 1. hackerearth-mar-circuits-2019.in [Hackerearth March Circuits 2019](https://www.hackerearth.com/challenges/competitive/march-circuits-19/)
+1. hackerearth-april-easy-2019.in [Hackerearth April Easy 2019](https://www.hackerearth.com/challenge/competitive/april-easy-19/)
