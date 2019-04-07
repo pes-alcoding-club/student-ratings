@@ -22,9 +22,9 @@ The [code that generates the rating](ratings/processor.py) is open. Along with t
 ## Calendar
 Alcoding Club maintains a [Google calendar for competitive programming](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ). Contests that are marked as "Rated" will be considered for these ratings. 
 ## Contribute
-This project is still very small so there are no strict guidelines for contribution. For now we are following [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/). It would be helpful if you use [our Github labels](https://github.com/varunvora/alcoding/labels) for all issues and pull requests.
+This project is still very small so there are no strict guidelines for contribution. For now we are following [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
 
-You can [report an issue](https://github.com/varunvora/alcoding/issues) if you find a bug or any other change you would like to make. You may also make a [pull request](https://github.com/varunvora/alcoding/pulls). Be sure to clearly document and describe any issues or changes.
+You can [report an issue](https://github.com/varunvora/alcoding/issues) if you find a bug or any other change you would like to make. You may also make a [pull request](https://github.com/varunvora/alcoding/pulls). It would be helpful if you use [our Github labels](https://github.com/varunvora/alcoding/labels) for all issues and pull requests. Be sure to clearly document and describe any issues or changes.
 
 ## FAQ
 
