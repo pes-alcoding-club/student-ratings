@@ -36,3 +36,5 @@ Following is the list of contests that have been considered for rating so far
 1. codechef-mar-lunchtime19.in: [Codechef March Lunchtime 2019](https://www.codechef.com/LTIME70)
 1. hackerearth-mar-circuits-2019.in [Hackerearth March Circuits 2019](https://www.hackerearth.com/challenges/competitive/march-circuits-19/)
 1. hackerearth-april-easy-2019.in [Hackerearth April Easy 2019](https://www.hackerearth.com/challenge/competitive/april-easy-19/)
+1. codejam_qualification-2019.in: [Google Codejam 2019 Qualification Round](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705)
+1. codejam-1a-2019.in: [Google Codejam 2019 Round 1A](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635)
