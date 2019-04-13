@@ -152,17 +152,17 @@ def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
     Removes unmapped handles from outdated rank files
     to reduce space and time it takes for the script to run
     """
-    with open(join(CONTEST_RANKS_DIR,file_name),'r') as rank_file:
-        input_data:str=rank_file.read()
+    with open(join(CONTEST_RANKS_DIR, file_name), 'r') as rank_file:
+        input_data: str = rank_file.read()
 
-    with open(CONTEST_RANKS_DIR,file_name,'w') as rank_file:
+    with open(join(CONTEST_RANKS_DIR, file_name), 'w') as rank_file:
         for user_name_line in input_data.split("\n"):
-            check_occurence_in_line:bool=False
+            check_occurrence_in_line: bool = False
             for user_name in user_name_line.split():
-                if(VALID_USN_REGEX.match(user_name)):
-                    check_occurence_in_line=True
-                    rank_file.write(user_name+" ")
-            if(check_occurence_in_line):
+                if VALID_USN_REGEX.match(user_name):
+                    check_occurrence_in_line = True
+                    rank_file.write(user_name + " ")
+            if check_occurrence_in_line:
                 rank_file.write("\n")
     logging.info(f'Cleaned {file_name}')
 
