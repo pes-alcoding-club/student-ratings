@@ -1,17 +1,12 @@
 import csv
 import requests
 import logging
-import re
+from datetime import datetime
 from database import db_tools as db
 from tinydb import TinyDB, where
 from ratings import elo
 
 logging.basicConfig(level='DEBUG')
-
-# The following fields may need to be adjusted before running the script
-MIN_VALID_GRAD_YEAR = 2019
-MAX_VALID_GRAD_YEAR = 2021
-VALID_USN_PATTERN = re.compile(r'(1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES12017\d{5})', re.IGNORECASE)
 
 profile_base_url = {
     db.CODECHEF: 'https://www.codechef.com/users/',
@@ -24,6 +19,7 @@ sess = requests.Session()
 sess.headers.update({'User-Agent': 'Mozilla/5.0'})
 
 incorrect_handles, incorrect_usns = [], []
+FORM_RESPONSES_CSV_FILE = 'list.csv'
 
 
 def get_validated_data(csv_row) -> dict:
@@ -44,10 +40,10 @@ def get_validated_data(csv_row) -> dict:
         return candidate_str.strip() != ""
 
     def is_valid_year(year_of_graduation: int) -> bool:
-        return MIN_VALID_GRAD_YEAR <= year_of_graduation <= MAX_VALID_GRAD_YEAR
+        return db.VALID_MIN_YEAR <= year_of_graduation <= db.VALID_MAX_YEAR
 
     def is_valid_usn(usn: str) -> bool:
-        if VALID_USN_PATTERN.match(usn) is None:
+        if db.VALID_USN_REGEX.match(usn) is None:
             incorrect_usns.append(details_dict[db.USN])
             return False
         return True
@@ -88,11 +84,15 @@ def get_validated_data(csv_row) -> dict:
 
 
 if __name__ == "__main__":
-    with TinyDB("../" + db.DB_FILE) as database:
-        with open('list.csv') as fp:
+    LAST_UPDATED = datetime(2019, 4, 10)
+    # last update before the current run. See metadata sheet in response form.
+    with TinyDB(db.DB_FILE) as database:
+        with open(FORM_RESPONSES_CSV_FILE) as fp:
             reader = csv.reader(fp)
             next(reader)
             for row_count, row in enumerate(reader, start=1):
+                if datetime.strptime(row[0], "%m/%d/%Y %H:%M:%S") < LAST_UPDATED:
+                    continue
                 csv_row_dict = get_validated_data(row)
                 if not csv_row_dict:
                     continue
