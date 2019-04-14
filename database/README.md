@@ -38,3 +38,4 @@ Following is the list of contests that have been considered for rating so far
 1. hackerearth-april-easy-2019.in [Hackerearth April Easy 2019](https://www.hackerearth.com/challenge/competitive/april-easy-19/)
 1. codejam_qualification-2019.in: [Google Codejam 2019 Qualification Round](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051705)
 1. codejam-1a-2019.in: [Google Codejam 2019 Round 1A](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051635)
+1. hackerearth-hourstorm#10-2019.in [Hackerearth HourStorm #10 2019](https://www.hackerearth.com/challenges/competitive/hourstorm-10/)
