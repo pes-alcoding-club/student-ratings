@@ -49,7 +49,7 @@ python3 ratings/processor.py database/contest_ranks/codejam-1a-2019.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-hourstorm#10-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-april19.in
 python3 ratings/processor.py database/contest_ranks/kickstart-b-2019.in
-
+python3 ratings/processor.py database/contest_ranks/codechef-april-cookoff19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
