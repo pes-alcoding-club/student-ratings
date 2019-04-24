@@ -41,3 +41,4 @@ Following is the list of contests that have been considered for rating so far
 1. hackerearth-hourstorm#10-2019.in [Hackerearth HourStorm #10 2019](https://www.hackerearth.com/challenges/competitive/hourstorm-10/)
 1. codechef-april19.in [Codechef April Long Challenge 2019](https://www.codechef.com/APRIL19)
 1. kickstart-b-2019.in [Google Kickstart 2019 Round B](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050eda)
+1. codechef-april-cookoff19.in: [Codechef April Cookoff 2019](https://www.codechef.com/COOK105)
