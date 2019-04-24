@@ -17,8 +17,7 @@ class RatingProcessor:
         self.usn_rank_dict: dict = {}
 
         self.read_contest_ranks(rank_file)  # sets usn_rank_dict
-        if len(self.usn_rank_dict)>1:
-            self.set_contest_details()  # sets N, Cf and Rb_Vb_list
+        self.set_contest_details()  # sets N, Cf and Rb_Vb_list
         self.process_competition()  # uses the set attributes to compute new ratings
 
     def read_contest_ranks(self, rank_file) -> None:
@@ -107,11 +106,11 @@ class RatingProcessor:
         rows = self.database.all()
         for row in rows:
             logging.debug(f'Before: {row}')
-            if row[db.USN] not in self.usn_rank_dict:
-                self._decay_player(row)
-            elif len(self.usn_rank_dict)>1: # Only if atleast 2 people participate will their ratings change
+            if row[db.USN] in self.usn_rank_dict:
                 actual_rank = self.usn_rank_dict[row[db.USN]]
-                self._update_player(row, actual_rank)                
+                self._update_player(row, actual_rank)
+            else:
+                self._decay_player(row)
             logging.debug(f'After: {row}')
         self.database.write_back(rows)
 
