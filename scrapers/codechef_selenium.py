@@ -54,6 +54,7 @@ for division in divisions:
         driver.get(f"{scoreboard_base_url}/{contest_code}{division}{scoreboard_filter_query}&page={page+2}") # go to next page
         while int(driver.find_elements_by_class_name("active")[-1].text) == page+1: # wait till next page has loaded
             sleep(0.1)
+driver.close()
 
 easy_points=len(problems['B']-problems['A'])*easy_points
 
