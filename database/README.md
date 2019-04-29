@@ -42,5 +42,5 @@ Following is the list of contests that have been considered for rating so far
 1. codechef-april19.in [Codechef April Long Challenge 2019](https://www.codechef.com/APRIL19)
 1. kickstart-b-2019.in [Google Kickstart 2019 Round B](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050eda)
 1. codechef-april-cookoff19.in: [Codechef April Cookoff 2019](https://www.codechef.com/COOK105)
-1. codechef-april-lunchtime19.in: [Codechef April Lunchtime 2019](https://www.codechef.com/COOK105)
-1. codejam-1b-2019.in: [Codechef April Cookoff 2019](https://www.codechef.com/COOK105)
+1. codechef-april-lunchtime19.in: [Codechef April Lunchtime 2019](https://www.codechef.com/LTIME71)
+1. codejam-1b-2019.in: [Google Codejam 2019 Round 1B](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706)
