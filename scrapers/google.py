@@ -3,7 +3,7 @@ from time import sleep
 from csv import writer
 
 IS_OUTPUT_CSV = False
-scoreboard_url = "https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050eda"
+scoreboard_url = "https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706"
 
 chromeOptions = webdriver.ChromeOptions()
 prefs = {'profile.managed_default_content_settings.images': 2,  # does not load images on web page
@@ -52,7 +52,7 @@ Make necessary changes in page, press enter to continue...'''
 
 # Find number of pages in the scoreboard
 total_pages = int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
-
+lowest_so_far="1"
 
 for page in range(total_pages):
     score_elements = driver.find_elements_by_class_name(score_class)
@@ -76,4 +76,8 @@ if IS_OUTPUT_CSV:
         csv_writer = writer(fp)
         csv_writer.writerows(scraped_scoreboard)
 else:
-    print(*[x[0] for x in scraped_scoreboard], sep="\n")
+    for row in scraped_scoreboard:
+        if not row[1]==lowest_so_far:
+            print()
+            lowest_so_far=row[1]
+        print(row[0],end=" ") 
