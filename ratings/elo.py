@@ -33,8 +33,8 @@ def APerf(actual_rank: int, N: int) -> float:  # Actual Performance
 
 
 def Cf(R_list: list, V_list: list, N: int) -> float:  # Competition Factor
-    Ravg: float = sum(R_list) / len(R_list)
-    term1: float = sum(map(lambda x: x * x, V_list)) / N
+    Ravg: float = sum(R_list) / (len(R_list)+0.0001)
+    term1: float = sum(map(lambda x: x * x, V_list)) / (N+0.0001)
     term2: float = sum(map(lambda x: (x - Ravg) ** 2, R_list)) / (N - 0.9999)
     return sqrt(term1 + term2)
 
