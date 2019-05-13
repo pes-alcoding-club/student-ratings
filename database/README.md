@@ -46,3 +46,4 @@ Following is the list of contests that have been considered for rating so far
 1. codejam-1b-2019.in: [Google Codejam 2019 Round 1B](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051706)
 1. codejam-1c-2019.in: [Google Codejam 2019 Round 1C](https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9)
 1. hackerearth-april-circuits19.in [Hackerearth April Circuits 2019](https://www.hackerearth.com/challenges/competitive/april-circuits-19/)
+1. codechef-may19.in [Codechef May Long Challenge 2019](https://www.codechef.com/MAY19)

@@ -54,6 +54,7 @@ python3 ratings/processor.py database/contest_ranks/codechef-april-lunchtime19.i
 python3 ratings/processor.py database/contest_ranks/codejam-1b-2019.in
 python3 ratings/processor.py database/contest_ranks/codejam-1c-2019.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-april-circuits19.in
+python3 ratings/processor.py database/contest_ranks/codechef-may19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
