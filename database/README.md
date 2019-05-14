@@ -23,7 +23,7 @@ Following is the list of contests that have been considered for rating so far
 | 7. | [Codechef July Long Challenge 2018](https://www.codechef.com/JULY18) | codechef-july18.in | 06/06/2018(15:00) | 16/07/2018(15:00) |
 | 8. | [Codechef August Long Challenge 2018](https://www.codechef.com/AUG18) | codechef-aug18.in | 03/08/2018(15:00) | 13/08/2018(15:00) |
 | 9. | [Codechef September Long Challenge 2018](https://www.codechef.com/SEPT18) | codechef-sept18.in | 07/09/2018(15:00) | 17/09/2018(15:00) |
-| 10. | [Codechef October Long Challenge 2018](https://www.codechef.com/OCT18) 05/10/2018 | codechef-oct18.in | (15:00) | 17/10/2018(15:00) |
+| 10. | [Codechef October Long Challenge 2018](https://www.codechef.com/OCT18) | codechef-oct18.in | 05/10/2018 (15:00) | 17/10/2018(15:00) |
 | 11. | [Codechef November Long Challenge 2018](https://www.codechef.com/NOV18) | codechef-nov18.in | 02/11/2018(15:00) | 12/11/2018(15:00) |
 | 12. | [Codechef December Long Challenge 2018](https://www.codechef.com/DEC18) | codechef-dec18.in | 07/12/2018(15:00) | 17/12/2018(15:00) |
 | 13. | [Hackearth January Easy 2019](https://www.hackerearth.com/challenge/competitive/january-easy-19/) | hackerearth-jan-easy-2019.in | 06/01/2019(21:00) | 07/01/2019(00:00) |
@@ -31,9 +31,9 @@ Following is the list of contests that have been considered for rating so far
 | 15. | [Hackearth February Easy 2019](https://www.hackerearth.com/challenges/competitive/february-easy-19/) | hackerearth-feb-easy-2019.in | 01/02/2019(21:00) | 02/02/2019(00:00) |
 | 16. | [Codechef February Long Challenge 2019](https://www.codechef.com/FEB19) | codechef-feb19.in | 01/02/2019(15:00) | 11/02/2019(15:00) |
 | 17. | [Codechef February Cookoff 2019](https://www.codechef.com/COOK103) | codechef-feb-cookoff19.in | 17/02/2019(21:30) | 18/02/2019(00:00) |
-| 18. | [Hackerearth February Circuits 2019](https://www.hackerearth.com/challenges/competitive/february-circuits-19/) | hackerearth-feb-circuits19.in: | 15/02/2019(21:00) | 24/02/2019(21:00) |
+| 18. | [Hackerearth February Circuits 2019](https://www.hackerearth.com/challenges/competitive/february-circuits-19/) | hackerearth-feb-circuits19.in | 15/02/2019(21:00) | 24/02/2019(21:00) |
 | 19. | [Codechef March Long Challenge 2019](https://www.codechef.com/MARCH19) | codechef-mar19.in | 01/03/2019(15:00) | 11/03/2019(15:00) |
-| 20. | [Google Kickstart 2019 Round A](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e01) | kickstart-a-2019.in: | 24/03/2019(09:30) | 24/03/2019(12:45) |
+| 20. | [Google Kickstart 2019 Round A](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e01) | kickstart-a-2019.in | 24/03/2019(09:30) | 24/03/2019(12:45) |
 | 21. | [Codechef March Cookoff 2019](https://www.codechef.com/COOK104) | codechef-mar-cookoff19.in | 24/03/2019(21:30) | 25/03/2019(00:00) |
 | 22. | [Codechef March Lunchtime 2019](https://www.codechef.com/LTIME70) | codechef-mar-lunchtime19.in | 30/03/2019(19:30) | 30/03/2019(22:30) |
 | 23. | [Hackerearth March Circuits 2019](https://www.hackerearth.com/challenges/competitive/march-circuits-19/) | hackerearth-mar-circuits-2019.in | 22/03/2019(21:00) | 31/03/2019(21:00) |
