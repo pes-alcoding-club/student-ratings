@@ -18,7 +18,7 @@ Following is the list of contests that have been considered for rating so far
 | 2. | [Google Codejam 2018 Round 1A](https://codejam.withgoogle.com/2018/challenges/0000000000007883/scoreboard) | codejam-1a-2018.in | 14/04/2018(06:30) | 14/04/2018(09:00) |
 | 3. | [Google Codejam 2018 Round 1B](https://codejam.withgoogle.com/2018/challenges/0000000000007764/scoreboard) | codejam-1b-2018.in | 29/04/2018(21:30) | 30/04/2018(00:00) |
 | 4. | [Google Codejam 2018 Round 1C](https://codejam.withgoogle.com/2018/challenges/0000000000007765/scoreboard) | codejam-1c-2018.in | 05/05/2018(14:30) | 05/05/2018(20:00) |
-| 5. | [PESU Alcoding Club April 2018](https://www.hackerearth.com/challenge/college/pes-alcoding-contest-2018-april/leaderboard/) | hackerearth-alcoding-2018.in | - | - |
+| 5. | [PESU Alcoding Club April 2018](https://www.hackerearth.com/challenge/college/pes-alcoding-contest-2018-april/leaderboard/) | hackerearth-alcoding-2018.in | 18/04/2018(16:00) | 18/04/2018(20:30) |
 | 6. | [Codechef June Long Challenge 2018](https://www.codechef.com/JUNE18) | codechef-june18.in | 01/06/2018(15:00) | 11/06/2018(15:00) |
 | 7. | [Codechef July Long Challenge 2018](https://www.codechef.com/JULY18) | codechef-july18.in | 06/06/2018(15:00) | 16/07/2018(15:00) |
 | 8. | [Codechef August Long Challenge 2018](https://www.codechef.com/AUG18) | codechef-aug18.in | 03/08/2018(15:00) | 13/08/2018(15:00) |
