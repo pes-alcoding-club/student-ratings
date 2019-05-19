@@ -7770,7 +7770,11 @@
         "592": {
             "best": 1539.9712970272326,
             "codechef": "aryarajiv",
+            "codejam": "AryaRajivChaloli",
             "email": "aryarajivchaloli@gmail.com",
+            "hackerearth": "arya127",
+            "hackerrank": "aryarajiv",
+            "kickstart": "AryaRajivChaloli",
             "lastFive": 3,
             "name": "Arya Rajiv Chaloli",
             "rating": 1479.2902834388847,
@@ -8782,6 +8786,8 @@
             "best": 1615.5818922027277,
             "codechef": "ketan35",
             "email": "ketanpanwar7@gmail.com",
+            "hackerearth": "ketan182",
+            "hackerrank": "ketanpanwar7",
             "lastFive": 4,
             "name": "Ketan Panwar",
             "rating": 1615.5818922027277,
@@ -14918,6 +14924,32 @@
             "timesPlayed": 1,
             "usn": "PES1201801721",
             "volatility": 80.67788162524153,
+            "year": 2022
+        },
+        "1226": {
+            "best": 1500.0,
+            "email": "gaurikapoplai@gmail.com",
+            "hackerrank": "gaurikapoplai",
+            "lastFive": 5,
+            "name": "Gaurika Poplai",
+            "rating": 1500.0,
+            "timesPlayed": 0,
+            "usn": "PES1201800374",
+            "volatility": 125.0,
+            "year": 2022
+        },
+        "1227": {
+            "best": 1500.0,
+            "codejam": "RDxR10",
+            "email": "risirajdey@gmail.com",
+            "hackerearth": "RDxR10",
+            "hackerrank": "RDxR10",
+            "lastFive": 5,
+            "name": "Risiraj Dey",
+            "rating": 1500.0,
+            "timesPlayed": 0,
+            "usn": "PES1201800613",
+            "volatility": 125.0,
             "year": 2022
         }
     }

@@ -84,7 +84,7 @@ def get_validated_data(csv_row) -> dict:
 
 
 if __name__ == "__main__":
-    LAST_UPDATED = datetime(2019, 4, 10)
+    LAST_UPDATED = datetime(2019, 5, 18)
     # last update before the current run. See metadata sheet in response form.
     with TinyDB(db.DB_FILE) as database:
         with open(FORM_RESPONSES_CSV_FILE) as fp:
