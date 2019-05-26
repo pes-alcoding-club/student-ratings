@@ -3,7 +3,7 @@ from time import sleep
 from csv import writer
 
 IS_OUTPUT_CSV = False
-scoreboard_url = "https://codingcompetitions.withgoogle.com/codejam/round/00000000000516b9"
+scoreboard_url = "https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050ff2"
 
 chromeOptions = webdriver.ChromeOptions()
 prefs = {'profile.managed_default_content_settings.images': 2,  # does not load images on web page

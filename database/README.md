@@ -52,3 +52,5 @@ Following is the list of contests that have been considered for rating so far
 | 36. | [Hackerearth May Easy 2019](https://www.hackerearth.com/challenge/competitive/may-easy-19/) | hackerearth-may-easy-2019.in | 13/05/2019(21:30) | 14/05/2019(00:00) |
 | 37. | [Google Codejam 2019 Round 2](https://codingcompetitions.withgoogle.com/codejam/round/0000000000051679) | codejam-round2-2019.in | 18/05/2019(19:30) | 18/05/2019(22:00) |
 | 38. | [Codechef May Cookoff 2019](https://www.codechef.com/COOK106) | codechef-may-cookoff19.in | 19/05/2019(21:30) | 19/05/2019(00:00) |
+| 39. | [Codechef May Lunchtime 2019](https://www.codechef.com/LTIME72) | codechef-may-lunchtime19.in | 25/05/2019(19:30) | 25/05/2019(22:30) |
+| 40. | [Google Kickstart 2019 Round C](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050ff2) | kickstart-c-2019.in | 26/05/2019(14:30) | 26/05/2019(17:30) |
