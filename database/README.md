@@ -55,3 +55,4 @@ Following is the list of contests that have been considered for rating so far
 | 39. | [Codechef May Lunchtime 2019](https://www.codechef.com/LTIME72) | codechef-may-lunchtime19.in | 25/05/2019(19:30) | 25/05/2019(22:30) |
 | 40. | [Google Kickstart 2019 Round C](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050ff2) | kickstart-c-2019.in | 26/05/2019(14:30) | 26/05/2019(17:30) |
 | 41. | [Hackerearth May Circuits 2019](https://www.hackerearth.com/challenges/competitive/may-circuits-19/) | hackerearth-may-circuits19.in | 24/05/2019(21:00) | 02/06/2019(21:00) |
+| 42. | [Hackerearth June Easy 2019](https://www.hackerearth.com/challenge/competitive/june-easy-19/) | hackerearth-june-easy-2019.in | 2/06/2019(21:30) | 3/05/2019(00:30) |
