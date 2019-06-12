@@ -66,10 +66,6 @@ else:
         sleep(0.5)
         number_of_rows = len(driver.find_elements_by_class_name(score_class))
 
-#input()
-'''Pause while user changes default page view to 20 rows - useful for large scoreboard size
-Make necessary changes in page, press enter to continue...'''
-
 # Find number of pages in the scoreboard
 total_pages = int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
 lowest_so_far="1"
