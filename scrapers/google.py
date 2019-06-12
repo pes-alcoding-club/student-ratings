@@ -40,13 +40,33 @@ UserName is stored in a <p> which is the child element of the <a> with className
 score_class = "user-total-score"
 rank_class = "ranking-table__row-cell__rank"
 name_class = "ranking-table__row-cell__displayname"
+dropdown_class = "mdc-select__selected-text"
+dropdown_50_css = "li[data-value='50']"
 scraped_scoreboard = list()
 
 # Wait for scoreboard to load
 while not driver.find_elements_by_class_name(score_class):
     sleep(1)
 
-input()
+# Changing the scoreboard to 50 rows
+driver.find_element_by_class_name(dropdown_class).click()           # Click drop-down to change rows
+sleep(0.5)
+driver.find_element_by_css_selector(dropdown_50_css).click()        # Click on 50 (to change to 50 rows)
+
+# Wait till the number of scoreboard loads
+number_of_rows = len(driver.find_elements_by_class_name(score_class))
+total_pages = int(driver.find_element_by_class_name("ranking-table-page-number-total-pages").text.split()[1])
+if number_of_rows < 30:
+    pass    # Less than 30 people, do nothing
+elif number_of_rows == 30 and total_pages == 1:
+    pass    # Exactly 30 people, do nothing
+else:
+    # More than 30 people, wait for scoreboard to reload
+    while number_of_rows == 30:
+        sleep(0.5)
+        number_of_rows = len(driver.find_elements_by_class_name(score_class))
+
+#input()
 '''Pause while user changes default page view to 20 rows - useful for large scoreboard size
 Make necessary changes in page, press enter to continue...'''
 
