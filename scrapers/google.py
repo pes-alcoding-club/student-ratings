@@ -96,4 +96,3 @@ else:
             print()
             lowest_so_far=row[1]
         print(row[0],end=" ") 
-    print(len(scraped_scoreboard))
