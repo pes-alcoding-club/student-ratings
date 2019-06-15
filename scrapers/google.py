@@ -3,7 +3,7 @@ from time import sleep
 from csv import writer
 
 IS_OUTPUT_CSV = False
-scoreboard_url = "https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050ff2"
+scoreboard_url = "https://codingcompetitions.withgoogle.com/codejam/round/0000000000051707"
 
 chromeOptions = webdriver.ChromeOptions()
 prefs = {'profile.managed_default_content_settings.images': 2,  # does not load images on web page
@@ -41,7 +41,7 @@ score_class = "user-total-score"
 rank_class = "ranking-table__row-cell__rank"
 name_class = "ranking-table__row-cell__displayname"
 dropdown_class = "mdc-select__selected-text"
-dropdown_50_css = "li[data-value='50']"
+dropdown_css = "ul.mdc-list>li.mdc-list-item"
 scraped_scoreboard = list()
 
 # Wait for scoreboard to load
@@ -60,7 +60,7 @@ else:
     # More than 30 people, Changing the scoreboard to 50 rows
     driver.find_element_by_class_name(dropdown_class).click()           # Click drop-down to change rows
     sleep(0.5)
-    driver.find_element_by_css_selector(dropdown_50_css).click()        # Click on 50 (to change to 50 rows)
+    driver.find_elements_by_css_selector(dropdown_css)[-1].click()        # Click on 50 (last option) in the drop-down
     while number_of_rows == 30:
         sleep(0.5)
         number_of_rows = len(driver.find_elements_by_class_name(score_class))
