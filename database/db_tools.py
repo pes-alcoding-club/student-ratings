@@ -139,7 +139,7 @@ def map_username_to_usn(db_file: str = DB_FILE,
         with open(join(ranks_dir, file_path), "w") as fp:
             fp.write(output_data)
 
-        if site in [CODECHEF, HACKERRANK]:  # only sites that provide university filter
+        if site in [CODECHEF, '''HACKERRANK''']:  # only sites that provide university filter
             site_handle_tuple_list += [(site, x) for x in output_data.split()]
 
         log_unmapped_handles(site_handle_tuple_list)

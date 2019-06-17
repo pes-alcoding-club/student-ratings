@@ -29,7 +29,7 @@ def get_leaderboard(contest_name):
 
 if __name__=="__main__":
     logging.basicConfig(level='INFO')
-    contest_name="alcoding-summer-weekly-contest-1"
+    contest_name="alcoding-summer-weekly-contest-2"
     scraped_scoreboard=get_leaderboard(contest_name)
     if scraped_scoreboard:
         lowest_so_far = int(scraped_scoreboard[0][0])
