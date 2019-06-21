@@ -11,7 +11,7 @@ driver = webdriver.Chrome(options=chromeOptions)
 scoreboard_base_url:str = "https://www.codechef.com/rankings"
 site_url="https://www.codechef.com"
 scoreboard_filter_query:str = "?filterBy=Institution%3DPES%20University%2C%20Bengaluru&order=asc&sortBy=rank"
-contest_code:str="COOK106"
+contest_code:str="JUNE19"
 name_class:str="user-name"
 
 division=namedtuple('division',['problems','scraped_scoreboard'])
