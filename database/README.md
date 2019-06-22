@@ -59,3 +59,4 @@ Following is the list of contests that have been considered for rating so far
 | 43. | [Hackerrank Alcoding Summer Week 1](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-1/challenges) | hackerrank-alcoding-summer19-1.in | 7/06/2019(21:00) | 8/06/2019(00:00) |
 | 44. | [Hackerrank Alcoding Summer Week 2](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-2/challenges) | hackerrank-alcoding-summer19-2.in | 14/06/2019(21:00) | 15/06/2019(00:00) |
 | 45. | [Codechef June Long Challenge 2019](https://www.codechef.com/JUNE19) | codechef-june19.in | 07/06/2019(15:00) | 17/05/2019(16:00) |
+| 46. | [Hackerrank Alcoding Summer Week 3](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-3/challenges) | hackerrank-alcoding-summer19-3.in | 21/06/2019(21:00) | 22/06/2019(00:00) |

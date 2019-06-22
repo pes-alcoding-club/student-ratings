@@ -1,7 +1,7 @@
 import requests
 import logging
 
-# Base Url - 0:contest_name, 1:participant_offset, 3:number of participants from offset (max 100)
+# Base Url - 0:contest_name, 1:participant_offset, 2:number of participants from offset (max 100)
 base_url="https://www.hackerrank.com/rest/contests/{0}/leaderboard?offset={1}&limit={2}"  
 
 """
@@ -29,7 +29,7 @@ def get_leaderboard(contest_name):
 
 if __name__=="__main__":
     logging.basicConfig(level='INFO')
-    contest_name="alcoding-summer-weekly-contest-2"
+    contest_name="alcoding-summer-weekly-contest-3"
     scraped_scoreboard=get_leaderboard(contest_name)
     if scraped_scoreboard:
         lowest_so_far = int(scraped_scoreboard[0][0])
