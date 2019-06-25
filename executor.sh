@@ -66,7 +66,7 @@ python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19
 python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19-2.in
 python3 ratings/processor.py database/contest_ranks/codechef-june19.in
 python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19-3.in
-
+python3 ratings/processor.py database/contest_ranks/codechef-june-cookoff19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 

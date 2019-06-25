@@ -11,7 +11,7 @@ driver = webdriver.Chrome(options=chromeOptions)
 scoreboard_base_url:str = "https://www.codechef.com/rankings"
 site_url="https://www.codechef.com"
 scoreboard_filter_query:str = "?filterBy=Institution%3DPES%20University%2C%20Bengaluru&order=asc&sortBy=rank"
-contest_code:str="JUNE19"
+contest_code:str="COOK107"
 name_class:str="user-name"
 
 division=namedtuple('division',['problems','scraped_scoreboard'])
@@ -64,7 +64,6 @@ easy_points=len(divisions['B'].problems-divisions['A'].problems)*easy_points
 
 for i in range(len(divisions['A'].scraped_scoreboard)): # Add easy points to all div-A participants
     divisions['A'].scraped_scoreboard[i]=divisions['A'].scraped_scoreboard[i][0],divisions['A'].scraped_scoreboard[i][1]+easy_points
-print(divisions)
 final_scoreboard.extend(divisions['A'].scraped_scoreboard)
 final_scoreboard.extend(divisions['B'].scraped_scoreboard)
 final_scoreboard=sorted(final_scoreboard,key=lambda x:x[1],reverse=True) # Sort list in desc. order based on points. (username, points)
