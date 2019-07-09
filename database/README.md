@@ -64,3 +64,4 @@ Following is the list of contests that have been considered for rating so far
 | 48. | [Hackerrank Alcoding Summer Week 4](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-4/challenges) | hackerrank-alcoding-summer19-4.in | 28/06/2019(21:00) | 29/06/2019(00:00) |
 | 49. | [Codechef June Lunchtime 2019](https://www.codechef.com/LTIME73) | codechef-may-lunchtime19.in | 29/06/2019(19:30) | 29/06/2019(22:30) |
 | 50. | [Hackerearth June Circuits 2019](https://www.hackerearth.com/challenges/competitive/june-circuits-19/) | hackerearth-june-circuits19.in | 21/06/2019(21:00) | 30/06/2019(21:00) |
+| 51. | [Hackerrank Alcoding Summer Week 5](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-5/challenges) | hackerrank-alcoding-summer19-4.in | 05/07/2019(21:00) | 05/07/2019(00:00) |
