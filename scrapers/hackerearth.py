@@ -43,7 +43,7 @@ def get_leaderboard(event_id):
 
 if __name__ == "__main__":
     logging.basicConfig(level='INFO')
-    event_id = '736148'
+    event_id = '775084'
     leaderboard = get_leaderboard(event_id)
     print(*leaderboard, sep='\n')
 
