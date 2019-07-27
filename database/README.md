@@ -69,3 +69,4 @@ Following is the list of contests that have been considered for rating so far
 | 53. | [Codechef July Long Challenge 2019](https://www.codechef.com/JULY19) | codechef-july19.in | 05/07/2019(15:00) | 15/07/2019(15:00) |
 | 54. | [Hackerrank Alcoding Summer Week 6](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-6/challenges) | hackerrank-alcoding-summer19-6.in | 19/07/2019(21:00) | 20/07/2019(00:00) |
 | 55. | [Codechef July Cookoff 2019](https://www.codechef.com/COOK108) | codechef-july-cookoff19.in | 21/07/2019(21:30) | 22/07/2019(00:00) |
+| 56. | [Hackerrank Alcoding Summer Week 7](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-7/challenges) | hackerrank-alcoding-summer19-7.in | 26/07/2019(21:00) | 27/07/2019(00:00) |

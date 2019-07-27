@@ -73,8 +73,9 @@ python3 ratings/processor.py database/contest_ranks/hackerearth-june-circuits19.
 python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19-5.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-july-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-july19.in
-python3 ratings/processor.py database/contest_ranks/codechef-july-cookoff19.in
 python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19-6.in
+python3 ratings/processor.py database/contest_ranks/codechef-july-cookoff19.in
+python3 ratings/processor.py database/contest_ranks/hackerrank-alcoding-summer19-7.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
