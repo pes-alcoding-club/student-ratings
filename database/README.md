@@ -62,7 +62,7 @@ Following is the list of contests that have been considered for rating so far
 | 46. | [Hackerrank Alcoding Summer Week 3](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-3/challenges) | hackerrank-alcoding-summer19-3.in | 21/06/2019(21:00) | 22/06/2019(00:00) |
 | 47. | [Codechef June Cookoff 2019](https://www.codechef.com/COOK107) | codechef-june-cookoff19.in | 23/06/2019(21:30) | 24/06/2019(00:00) |
 | 48. | [Hackerrank Alcoding Summer Week 4](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-4/challenges) | hackerrank-alcoding-summer19-4.in | 28/06/2019(21:00) | 29/06/2019(00:00) |
-| 49. | [Codechef June Lunchtime 2019](https://www.codechef.com/LTIME73) | codechef-may-lunchtime19.in | 29/06/2019(19:30) | 29/06/2019(22:30) |
+| 49. | [Codechef June Lunchtime 2019](https://www.codechef.com/LTIME73) | codechef-june-lunchtime19.in | 29/06/2019(19:30) | 29/06/2019(22:30) |
 | 50. | [Hackerearth June Circuits 2019](https://www.hackerearth.com/challenges/competitive/june-circuits-19/) | hackerearth-june-circuits19.in | 21/06/2019(21:00) | 30/06/2019(21:00) |
 | 51. | [Hackerrank Alcoding Summer Week 5](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-5/challenges) | hackerrank-alcoding-summer19-5.in | 05/07/2019(21:00) | 05/07/2019(00:00) |
 | 52. | [Hackerearth July Easy 2019](https://www.hackerearth.com/challenge/competitive/july-easy-19/) | hackerearth-july-easy-2019.in | 07/07/2019(09:30) | 07/07/2019(12:30) |
@@ -70,3 +70,5 @@ Following is the list of contests that have been considered for rating so far
 | 54. | [Hackerrank Alcoding Summer Week 6](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-6/challenges) | hackerrank-alcoding-summer19-6.in | 19/07/2019(21:00) | 20/07/2019(00:00) |
 | 55. | [Codechef July Cookoff 2019](https://www.codechef.com/COOK108) | codechef-july-cookoff19.in | 21/07/2019(21:30) | 22/07/2019(00:00) |
 | 56. | [Hackerrank Alcoding Summer Week 7](https://www.hackerrank.com/contests/alcoding-summer-weekly-contest-7/challenges) | hackerrank-alcoding-summer19-7.in | 26/07/2019(21:00) | 27/07/2019(00:00) |
+| 57. | [Codechef July Lunchtime 2019](https://www.codechef.com/LTIME74) | codechef-july-lunchtime19.in | 27/07/2019(19:30) | 29/06/2019(22:30) |
+| 58. | [Google Kickstart 2019 Round D](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000051061) | kickstart-d-2019.in | 28/07/2019(10:30) | 28/07/2019(13:30) |
