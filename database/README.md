@@ -74,3 +74,8 @@ Following is the list of contests that have been considered for rating so far
 | 58. | [Google Kickstart 2019 Round D](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000051061) | kickstart-d-2019.in | 28/07/2019(10:30) | 28/07/2019(13:30) |
 | 59. | [Hackerearth August Easy 2019](https://www.hackerearth.com/challenge/competitive/august-easy-19/) | hackerearth-august-easy-2019.in | 04/08/2019(09:30) | 04/08/2019(12:30) |
 | 60. | [Codechef August Long Challenge 2019](https://www.codechef.com/AUG19) | codechef-aug19.in | 02/08/2019(15:00) | 12/08/2019(15:00) |
+| 61. | [Codechef August Cookoff 2019](https://www.codechef.com/COOK109) | codechef-aug-cookoff19.in | 18/08/2019(21:30) | 19/08/2019(00:00) |
+| 62. | [Google Kickstart 2019 Round E](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050edb) | kickstart-e-2019.in | 25/08/2019(10:30) | 25/08/2019(13:30) |
+| 63. | [Hackerearth August Circuits 2019](https://www.hackerearth.com/challenges/competitive/august-circuits-19/) | hackerearth-aug-circuits19.in | 24/08/2019(21:00) | 31/08/2019(21:00) |
+| 64. | [Codechef August Lunchtime 2019](https://www.codechef.com/LTIME75) | codechef-aug-lunchtime19.in | 31/08/2019(20:00) | 31/08/2019(23:00) |
+| 65. | [Codechef Alcoding Global Challenge](https://www.codechef.com/ALCM2019) | codechef-alcoding-global-challenge.in | 01/09/2019(21:00) | 02/09/2019(00:00) |
