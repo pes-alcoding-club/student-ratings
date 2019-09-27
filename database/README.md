@@ -79,3 +79,6 @@ Following is the list of contests that have been considered for rating so far
 | 63. | [Hackerearth August Circuits 2019](https://www.hackerearth.com/challenges/competitive/august-circuits-19/) | hackerearth-aug-circuits19.in | 24/08/2019(21:00) | 31/08/2019(21:00) |
 | 64. | [Codechef August Lunchtime 2019](https://www.codechef.com/LTIME75) | codechef-aug-lunchtime19.in | 31/08/2019(20:00) | 31/08/2019(23:00) |
 | 65. | [Codechef Alcoding Global Challenge](https://www.codechef.com/ALCM2019) | codechef-alcoding-global-challenge.in | 01/09/2019(21:00) | 02/09/2019(00:00) |
+| 66. | [Hackerearth September Easy 2019](https://www.hackerearth.com/challenge/competitive/september-easy-19/) | hackerearth-sept-easy-2019.in | 07/09/2019(09:30) | 07/09/2019(12:30) |
+| 67. | [Codechef September Long Challenge 2019](https://www.codechef.com/SEPT19) | codechef-sept19.in | 06/09/2019(15:00) | 16/09/2019(15:00) |
+| 68. | [Codechef September Cookoff 2019](https://www.codechef.com/COOK110) | codechef-sept-cookoff19.in | 22/09/2019(21:30) | 23/09/2019(00:00) |

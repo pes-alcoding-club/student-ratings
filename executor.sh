@@ -85,6 +85,9 @@ python3 ratings/processor.py database/contest_ranks/kickstart-e-2019.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-aug-circuits19.in
 python3 ratings/processor.py database/contest_ranks/codechef-aug-lunchtime19.in
 python3 ratings/processor.py database/contest_ranks/codechef-alcoding-global-challenge.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-sept-easy-2019.in
+python3 ratings/processor.py database/contest_ranks/codechef-sept19.in
+python3 ratings/processor.py database/contest_ranks/codechef-sept-cookoff19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
