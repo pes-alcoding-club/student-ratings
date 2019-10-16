@@ -88,6 +88,10 @@ python3 ratings/processor.py database/contest_ranks/codechef-alcoding-global-cha
 python3 ratings/processor.py database/contest_ranks/hackerearth-sept-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-sept19.in
 python3 ratings/processor.py database/contest_ranks/codechef-sept-cookoff19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-sept-circuits19.in
+python3 ratings/processor.py database/contest_ranks/codechef-sept-lunchtime19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-oct-easy-2019.in
+python3 ratings/processor.py database/contest_ranks/codechef-oct19.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
