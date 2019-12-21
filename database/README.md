@@ -86,3 +86,13 @@ Following is the list of contests that have been considered for rating so far
 | 70. | [Codechef September Lunchtime 2019](https://www.codechef.com/LTIME76) | codechef-sept-lunchtime19.in | 28/09/2019(19:30) | 28/09/2019(22:30) |
 | 71. | [Hackerearth October Easy 2019](https://www.hackerearth.com/challenge/competitive/october-easy-19/) | hackerearth-oct-easy-2019.in | 04/10/2019(23:00) | 05/10/2019(03:30) |
 | 72. | [Codechef October Long Challenge 2019](https://www.codechef.com/OCT19) | codechef-oct19.in | 04/10/2019(15:00) | 14/10/2019(15:00) |
+| 73. | [Codechef October Cookoff 2019](https://www.codechef.com/COOK111) | codechef-oct-cookoff19.in | 20/10/2019(21:30) | 21/10/2019(00:00) |
+| 74. | [Hackerearth October Circuits 2019](https://www.hackerearth.com/challenges/competitive/october-circuits-19/) | hackerearth-oct-circuits19.in | 19/10/2019(21:00) | 26/10/2019(21:00) |
+| 75. | [Codechef October Lunchtime 2019](https://www.codechef.com/LTIME77) | codechef-oct-lunchtime19.in | 26/10/2019(19:30) | 26/10/2019(22:30) |
+| 76. | [Hackerearth November Easy 2019](https://www.hackerearth.com/challenge/competitive/november-easy-19/) | hackerearth-nov-easy-2019.in | 02/11/2019(09:30) | 02/11/2019(12:30) |
+| 77. | [Codechef November Long Challenge 2019](https://www.codechef.com/NOV19) | codechef-nov19.in | 01/11/2019(15:00) | 11/11/2019(15:00) |
+| 78. | [Codechef November Cookoff 2019](https://www.codechef.com/COOK112) | codechef-nov-cookoff19.in | 17/11/2019(21:30) | 18/11/2019(00:00) |
+| 79. | [Hackerearth November Circuits 2019](https://www.hackerearth.com/challenges/competitive/november-circuits-19/) | hackerearth-nov-circuits19.in | 16/11/2019(21:00) | 23/11/2019(21:00) |
+| 80. | [Codechef November Lunchtime 2019](https://www.codechef.com/LTIME78) | codechef-nov-lunchtime19.in | 30/11/2019(19:30) | 30/11/2019(22:30) |
+| 81. | [Codechef December Long Challenge 2019](https://www.codechef.com/DEC19) | codechef-dec19.in | 06/12/2019(15:00) | 16/12/2019(15:00) |
+| 82. | [Hackerearth December Easy 2019](https://www.hackerearth.com/challenge/competitive/december-easy-19/) | hackerearth-dec-easy-2019.in | 07/12/2019(09:30) | 07/12/2019(12:30) |

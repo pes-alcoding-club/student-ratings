@@ -92,6 +92,16 @@ python3 ratings/processor.py database/contest_ranks/hackerearth-sept-circuits19.
 python3 ratings/processor.py database/contest_ranks/codechef-sept-lunchtime19.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-oct-easy-2019.in
 python3 ratings/processor.py database/contest_ranks/codechef-oct19.in
+python3 ratings/processor.py database/contest_ranks/codechef-oct-cookoff19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-oct-circuits19.in
+python3 ratings/processor.py database/contest_ranks/codechef-oct-lunchtime19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-nov-easy-2019.in
+python3 ratings/processor.py database/contest_ranks/codechef-nov19.in
+python3 ratings/processor.py database/contest_ranks/codechef-nov-cookoff19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-nov-circuits19.in
+python3 ratings/processor.py database/contest_ranks/codechef-nov-lunchtime19.in
+python3 ratings/processor.py database/contest_ranks/codechef-dec19.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-dec-easy-2019.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 
