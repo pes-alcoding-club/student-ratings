@@ -96,3 +96,12 @@ Following is the list of contests that have been considered for rating so far
 | 80. | [Codechef November Lunchtime 2019](https://www.codechef.com/LTIME78) | codechef-nov-lunchtime19.in | 30/11/2019(19:30) | 30/11/2019(22:30) |
 | 81. | [Codechef December Long Challenge 2019](https://www.codechef.com/DEC19) | codechef-dec19.in | 06/12/2019(15:00) | 16/12/2019(15:00) |
 | 82. | [Hackerearth December Easy 2019](https://www.hackerearth.com/challenge/competitive/december-easy-19/) | hackerearth-dec-easy-2019.in | 07/12/2019(09:30) | 07/12/2019(12:30) |
+| 83. | [Codechef December Cookoff 2019](https://www.codechef.com/COOK113) | codechef-dec-cookoff19.in | 22/12/2019(21:30) | 23/12/2019(00:00) |
+| 84. | [Hackerearth December Circuits 2019](https://www.hackerearth.com/challenges/competitive/december-circuits-19/) | hackerearth-dec-circuits19.in | 21/12/2019(21:00) | 28/12/2019(21:30) |
+| 85. | [Codechef December Lunchtime 2019](https://www.codechef.com/LTIME79) | codechef-dec-lunchtime19.in | 28/12/2019(19:30) | 28/12/2019(22:30) |
+| 86. | [Hackerearth January Easy 2019](https://www.hackerearth.com/challenge/competitive/january-easy-20/) | hackerearth-jan-easy-2019.in | 04/01/2020(09:30) | 04/01/2020(12:30) |
+| 87. | [Codechef January Long Challenge 2020](https://www.codechef.com/JAN20) | codechef-jan20.in | 03/01/2020(15:00) | 13/01/2020(15:00) |
+| 88. | [Codechef January Cookoff 2019](https://www.codechef.com/COOK114) | codechef-jan-cookoff20.in | 19/01/2020(21:30) | 20/01/2020(00:00) |
+| 89. | [Hackerearth January Circuits 2020](https://www.hackerearth.com/challenges/competitive/january-circuits-20/) | hackerearth-jan-circuits20.in | 18/01/2020(21:00) | 25/01/2020(21:00) |
+| 90. | [Codechef January Lunchtime 2020](https://www.codechef.com/LTIME80) | codechef-jan-lunchtime20.in | 25/01/2020(19:30) | 25/01/2020(22:30) |
+| 91. | [Hackerearth February Easy 2019](https://www.hackerearth.com/challenge/competitive/february-easy-20/) | hackerearth-feb-easy-2020.in | 01/02/2020(09:30) | 01/02/2020(12:30) |
