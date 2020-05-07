@@ -39,8 +39,8 @@ SITES: Set[str] = {CODEJAM, KICKSTART, HACKEREARTH, HACKERRANK, FACEBOOK, CODECH
 
 # Following are constraints used to check for validity of data
 VALID_MIN_YEAR: int = 2018
-VALID_MAX_YEAR: int = 2022
-VALID_USN_REGEX = re.compile(r"^((1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES1201[7-8]\d{5}))$")
+VALID_MAX_YEAR: int = 2023
+VALID_USN_REGEX = re.compile(r"^((1PI14\w{2}\d{3})|(01FB1([4567])\w{3}\d{3})|(PES[1-2]((UG19\w{2}\d{3})|(201[7-9]\d{5}))))$")
 VALID_EMAIL_REGEX = re.compile(r"^[^@]+@[^@]+$")
 VALID_USERNAME_REGEX = re.compile(r"^\S+$")
 VALID_NAME_REGEX = re.compile(r"^([A-Z][a-z]*\s)*[A-Z][a-z]*$")
