@@ -111,6 +111,24 @@ python3 ratings/processor.py database/contest_ranks/codechef-jan-cookoff20.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-jan-circuits20.in
 python3 ratings/processor.py database/contest_ranks/codechef-jan-lunchtime20.in
 python3 ratings/processor.py database/contest_ranks/hackerearth-feb-easy-2020.in
+python3 ratings/processor.py database/contest_ranks/codechef-feb-cookoff20.in
+python3 ratings/processor.py database/contest_ranks/codechef-feb20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-feb-circuits20.in
+python3 ratings/processor.py database/contest_ranks/codechef-feb-lunchtime20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-march-easy-2020.in
+python3 ratings/processor.py database/contest_ranks/codechef-march20.in
+python3 ratings/processor.py database/contest_ranks/kickstart-a-2020.in
+python3 ratings/processor.py database/contest_ranks/codechef-march-cookoff20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-march-circuits20.in
+python3 ratings/processor.py database/contest_ranks/codechef-march-lunchtime20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-april-easy-2020.in
+python3 ratings/processor.py database/contest_ranks/codejam-qualification-2020.in
+python3 ratings/processor.py database/contest_ranks/codechef-april20.in
+python3 ratings/processor.py database/contest_ranks/kickstart-b-2020.in
+python3 ratings/processor.py database/contest_ranks/codechef-april-cookoff20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-april-circuits20.in
+python3 ratings/processor.py database/contest_ranks/codechef-april-lunchtime20.in
+python3 ratings/processor.py database/contest_ranks/hackerearth-may-easy-2020.in
 
 echo "Finished Ratings Update in $(( SECONDS - start ))s"
 

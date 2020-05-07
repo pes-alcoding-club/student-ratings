@@ -33,7 +33,7 @@ class TestDatabaseIntegrity(unittest.TestCase):
 
     def test_unique_handles(self):
         for site in sites:
-            results = database.search(where(site))
+            results = database.search(where(site).exists())
             handles = [result[site] for result in results]
             self.assertEqual(len(results), len(handles))
             self.assertEqual(len(results), len(set(handles)))

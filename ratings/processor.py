@@ -128,7 +128,7 @@ def read_argv(argv_format_alert: str):
             return rank_file
 
         except IOError or FileNotFoundError:
-            logging.error(f'Invalid file path for rank file\n{argv_format_alert}')
+            logging.error(f'Invalid file path for rank file: {rank_file}\n{argv_format_alert}')
             quit()
 
     except AssertionError:

@@ -105,3 +105,21 @@ Following is the list of contests that have been considered for rating so far
 | 89. | [Hackerearth January Circuits 2020](https://www.hackerearth.com/challenges/competitive/january-circuits-20/) | hackerearth-jan-circuits20.in | 18/01/2020(21:00) | 25/01/2020(21:00) |
 | 90. | [Codechef January Lunchtime 2020](https://www.codechef.com/LTIME80) | codechef-jan-lunchtime20.in | 25/01/2020(19:30) | 25/01/2020(22:30) |
 | 91. | [Hackerearth February Easy 2019](https://www.hackerearth.com/challenge/competitive/february-easy-20/) | hackerearth-feb-easy-2020.in | 01/02/2020(09:30) | 01/02/2020(12:30) |
+| 92. | [Codechef February Cookoff 2020](https://www.codechef.com/COOK115) | codechef-feb-cookoff20.in | 16/02/2020(21:30) | 17/02/2020(00:00) |
+| 93. | [Codechef February Long Challenge 2020](https://www.codechef.com/JAN20) | codechef-feb20.in | 07/02/2020(15:00) | 17/02/2020(15:00) |
+| 94. | [Hackerearth February Circuits 2020](https://www.hackerearth.com/challenges/competitive/february-circuits-20/) | hackerearth-feb-circuits20.in | 15/02/2020(21:30) | 22/02/2020(21:30) |
+| 95. | [Codechef February Lunchtime 2020](https://www.codechef.com/LTIME81) | codechef-feb-lunchtime20.in | 29/02/2020(19:30) | 29/02/2020(22:30) |
+| 96. | [Hackerearth March Easy 2020](https://www.hackerearth.com/challenge/competitive/march-easy-20/) | hackerearth-march-easy-2019.in | 07/03/2020(09:30) | 07/03/2020(12:30) |
+| 97. | [Codechef March Long Challenge 2020](https://www.codechef.com/FEB20) | codechef-march20.in | 06/03/2020(15:00) | 16/03/2020(15:00) |
+| 98. | [Google Kickstart 2020 Round A](https://codingcompetitions.withgoogle.com/kickstart/round/000000000019ffc7) | kickstart-a-2020.in | 22/03/2020(09:30) | 22/03/2019(12:30) |
+| 99. | [Codechef March Cookoff 2020](https://www.codechef.com/COOK116) | codechef-march-cookoff20.in | 22/03/2020(21:30) | 23/03/2020(00:00) |
+| 100. | [Hackerearth March Circuits 2020](https://www.hackerearth.com/challenges/competitive/march-circuits-20/) | hackerearth-march-circuits20.in | 21/03/2020(21:00) | 28/03/2020(21:00) |
+| 101. | [Codechef March Lunchtime 2020](https://www.codechef.com/LTIME82) | codechef-march-lunchtime20.in | 28/03/2020(19:30) | 28/03/2020(22:30) |
+| 102. | [Hackerearth April Easy 2020](https://www.hackerearth.com/challenge/competitive/april-easy-20/) | hackerearth-april-easy-2019.in | 04/04/2020(09:30) | 04/04/2020(12:30) |
+| 103. | [Google Codejam 2020 Qualification Round](https://codingcompetitions.withgoogle.com/codejam/round/000000000019fd27) | codejam-qualification-2020.in | 04/04/2020(04:30) | 05/04/2020(07:30) |
+| 104. | [Codechef April Long Challenge 2020](https://www.codechef.com/MARCH20) | codechef-mar20.in | 03/04/2020(15:00) | 13/04/2020(15:00) |
+| 105. | [Google Kickstart 2020 Round B](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e01) | kickstart-a-2020.in | 19/04/2020(04:30) | 19/04/2020(07:30) |
+| 106. | [Codechef April Cookoff 2020](https://www.codechef.com/COOK117) | codechef-april-cookoff20.in | 20/04/2020(21:30) | 21/04/2020(00:00) |
+| 107. | [Hackerearth April Circuits 2020](https://www.hackerearth.com/challenges/competitive/april-circuits-20/) | hackerearth-april-circuits20.in | 18/04/2020(21:00) | 25/04/2020(21:00) |
+| 108. | [Codechef April Lunchtime 2020](https://www.codechef.com/LTIME83) | codechef-april-lunchtime20.in | 25/04/2020(19:30) | 25/04/2020(22:30) |
+| 109. | [Hackerearth May Easy 2020](https://www.hackerearth.com/challenge/competitive/may-easy-20/) | hackerearth-may-easy-2019.in | 02/05/2020(09:30) | 02/05/2020(12:30) |
