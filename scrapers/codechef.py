@@ -55,6 +55,7 @@ def get_rankings(site, contest_code):
         if page == total_pages-1: # Reached Last Page
             break    
         driver.get(site + f'&page={page+2}') # go to next page
+    return scraped_scoreboard
 
 def scrape(contest_codes):
     scoreboard_base_url:str = "https://www.codechef.com/rankings"
@@ -70,11 +71,10 @@ def scrape(contest_codes):
             easy_points=100000 # Initial value set to points per problem
 
         for Division in divisions: # Build the scraped scoreboard
-            divisions[Division].problems = get_problems(f"{site_url}/{contest_code}{Division}")
-            divisions[Division].scraped_scoreboard = get_rankings(f"{scoreboard_base_url}/{contest_code}{Division}{scoreboard_filter_query}", contest_code)
+            divisions[Division] = divisions[Division]._replace(problems = get_problems(f"{site_url}/{contest_code}{Division}"))
+            divisions[Division] = divisions[Division]._replace(scraped_scoreboard = get_rankings(f"{scoreboard_base_url}/{contest_code}{Division}{scoreboard_filter_query}", contest_code))
 
         easy_points=len(divisions['B'].problems-divisions['A'].problems)*easy_points # Points to add to div-A participants
-
         for i in range(len(divisions['A'].scraped_scoreboard)): # Add easy points to all div-A participants
             divisions['A'].scraped_scoreboard[i]=divisions['A'].scraped_scoreboard[i][0],divisions['A'].scraped_scoreboard[i][1]+easy_points
             
