@@ -1,22 +1,23 @@
 import sys
-import logging
 from time import time
 from ratings import elo
 from database import db_tools as db
 from tinydb import TinyDB, where
-
+from utils import log
 
 class RatingProcessor:
 
-    def __init__(self, database: TinyDB, rank_file):
+    def __init__(self, database: TinyDB, rank_file_path):
         self.database: TinyDB = database
 
         self.N: int = 0
         self.Cf: float = 0.0
         self.Rb_Vb_list: list = []
         self.usn_rank_dict: dict = {}
+        self.rank_file_path = rank_file_path
+        self.rank_file = open(rank_file_path)
 
-        self.read_contest_ranks(rank_file)  # sets usn_rank_dict
+        self.read_contest_ranks(self.rank_file)  # sets usn_rank_dict
         self.set_contest_details()  # sets N, Cf and Rb_Vb_list
         self.process_competition()  # uses the set attributes to compute new ratings
 
@@ -35,9 +36,9 @@ class RatingProcessor:
                     self.usn_rank_dict[usn] = current_rank
                     same_rank_count += 1
                 else:
-                    logging.info(f'Ignoring usn {usn}')
+                    log.info(f'Ignoring SRN {usn}')
             current_rank += same_rank_count  # ranks are not 1, 1, 1, 2 but 1, 1, 1, 4
-        logging.debug(self.usn_rank_dict)
+        log.debug(self.usn_rank_dict)
 
     def set_contest_details(self) -> None:
         """
@@ -54,12 +55,12 @@ class RatingProcessor:
         self.N = len(self.usn_rank_dict)
         self.Cf = elo.Cf(rating_list, vol_list, self.N)
         self.Rb_Vb_list = list(zip(rating_list, vol_list))
-        logging.debug(f'Contest: {rank_file_path}\nPlayers: {self.N}\nCompetition Factor: {self.Cf}')
+        log.debug(f'Contest: {self.rank_file_path}\nPlayers: {self.N}\nCompetition Factor: {self.Cf}')
 
     @staticmethod
     def _decay_player(player_dict: dict) -> None:
         """
-        Reduces ratings by 10% for those who have competed at least once
+        Reduces ratings by 1% for those who have competed at least once
         but have not taken part in the past 5 contests
         :param player_dict: dict with all details of a player
         """
@@ -76,7 +77,7 @@ class RatingProcessor:
         player_dict[db.RATING] = rating
         player_dict[db.LAST_FIVE] = max(1, last_five)
 
-        logging.debug('Successfully decayed ratings')
+        log.debug('Successfully decayed ratings')
 
     def _update_player(self, player_dict: dict, actual_rank: int) -> None:
         """
@@ -99,27 +100,27 @@ class RatingProcessor:
         player_dict[db.BEST] = max(old_best, new_rating)
         player_dict[db.LAST_FIVE] = 5
 
-        logging.debug('Successfully updated ratings')
+        log.debug('Successfully updated ratings')
 
     def process_competition(self) -> None:
 
         rows = self.database.all()
         for row in rows:
-            logging.debug(f'Before: {row}')
+            log.debug(f'Before: {row}')
             if row[db.USN] in self.usn_rank_dict:
                 actual_rank = self.usn_rank_dict[row[db.USN]]
                 self._update_player(row, actual_rank)
             else:
                 self._decay_player(row)
-            logging.debug(f'After: {row}')
+            log.debug(f'After: {row}')
         self.database.write_back(rows)
 
 
-def read_argv(argv_format_alert: str):
-    """
+"""def read_argv(argv_format_alert: str):
+    '''
     :param argv_format_alert: An error message on what the command line arguments should be
     :return: rank file if argv is valid
-    """
+    '''
     try:
         assert len(sys.argv) == 2
         rank_file = sys.argv[1]
@@ -128,15 +129,28 @@ def read_argv(argv_format_alert: str):
             return rank_file
 
         except IOError or FileNotFoundError:
-            logging.error(f'Invalid file path for rank file: {rank_file}\n{argv_format_alert}')
+            error(f'Invalid file path for rank file: {rank_file}\n{argv_format_alert}')
             quit()
 
     except AssertionError:
-        logging.error(f'Invalid command line arguments.\n{argv_format_alert}')
-        quit()
+        error(f'Invalid command line arguments.\n{argv_format_alert}')
+        quit()"""
+
+def process(rank_file_path):
+    start_time = time()
+    # Main logic starts here
+    database_obj = TinyDB(db.DB_FILE)
+    RatingProcessor(database_obj, rank_file_path)
+    database_obj.close()
+
+    duration = time()-start_time
+    log.debug(f'Updated ratings for {rank_file_path}')
+    if duration > 10:
+        log.critical(f'Ratings update for {rank_file_path} took {duration} seconds.\n'
+                         f'Consider removing unnecessary handles or optimize ratings algorithm')
 
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
     start_time = time()
 
     argv_format = 'processor.py rank_file_path'
@@ -149,7 +163,7 @@ if __name__ == "__main__":
     database_obj.close()
 
     duration = time()-start_time
-    logging.debug(f'Updated ratings for {rank_file_path}')
+    log.debug(f'Updated ratings for {rank_file_path}')
     if duration > 10:
-        logging.critical(f'Ratings update for {rank_file_path} took {duration} seconds.\n'
-                         f'Consider removing unnecessary handles or optimize ratings algorithm')
+        logging.log.critical(f'Ratings update for {rank_file_path} took {duration} seconds.\n'
+                         f'Consider removing unnecessary handles or optimize ratings algorithm')'''

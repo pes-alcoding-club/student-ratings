@@ -3,11 +3,7 @@ import random
 from datetime import datetime
 import sys
 import os
-sys.path.append( # Add absolute path of utils to sys.path
-    os.path.join( os.path.dirname( os.path.realpath( __file__ )), 
-    '../../student-ratings' ))
-from utils import selenium_utils
-from utils.log import info
+from utils import selenium_utils, log
 
 driver = selenium_utils.make_driver()  
 load_all = selenium_utils.load_all(driver)
@@ -17,12 +13,11 @@ name_class: str = "user-name"
 
 division = namedtuple('division',['problems','scraped_scoreboard'])
 divisions: dict = {'A':division(set(), list()),'B':division(set(), list())}
-month = ['jan', 'feb', 'march', 'april', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'dec']
 
 
 def get_problems(site):
     driver.get(site)
-    info(f'Initialised website: {site}')
+    log.info(f'Initialised website: {site}')
     problem_list = list(load(r'tbody', 'tag').text.split('\n'))[1::4]
     problems = set()
     for question in problem_list:
@@ -31,7 +26,7 @@ def get_problems(site):
 
 def get_rankings(site, contest_code):
     driver.get(site)
-    info(f'Initialised website: {site}')
+    log.info(f'Initialised website: {site}')
     total_pages = int(load_all(r'jump', 'class')[-1].text)
     scraped_scoreboard = []
     for page in range(total_pages):    
@@ -63,7 +58,7 @@ def scrape(contest_codes):
     scoreboard_filter_query:str = "?filterBy=Institution%3DPES%20University&itemsPerPage=100&order=asc&sortBy=rank"
     leaderboards = []
     for contest_code in contest_codes:
-        info(f'Codechef contest {contest_code}:')
+        log.info(f'Codechef contest {contest_code}:')
         final_scoreboard:list=list()
         easy_points:int=100 # Points to add to division A participants assuming they can solve all easy div B problems
 
@@ -84,7 +79,6 @@ def scrape(contest_codes):
 
         if final_scoreboard: # If scoreboard's not empty
             rank_list = []
-            #contest_ranks_file = f'database/contest_ranks/{contest_name}'
             if contest_code[0:5]=="LTIME" or contest_code[0:4]=="COOK": 
                 rank_list = [x[0] for x in final_scoreboard]
             else: # Shared ranking possible for long contests.
@@ -102,5 +96,4 @@ def scrape(contest_codes):
                         shared_rank.append(user[0])
             leaderboards.append(rank_list)
     return leaderboards
-        #info(f'Leaderboard written to {contest_ranks_file}')
     driver.close()

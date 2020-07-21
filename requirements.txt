@@ -1,4 +1,6 @@
-tinydb
-requests
-bs4
-selenium
+requests==2.22.0
+beautifulsoup4==4.9.1
+google_api_python_client==1.10.0
+google_auth_oauthlib==0.4.1
+selenium==3.141.0
+tinydb==3.15.2

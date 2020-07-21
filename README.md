@@ -3,28 +3,28 @@
 
 [![Build Status](https://travis-ci.com/varunvora/alcoding.svg?branch=master)](https://travis-ci.com/varunvora/alcoding)
 
-Alcoding Club of [PES University](https://pes.edu/) maintains ratings of its students who are active in [competitive programming](https://en.wikipedia.org/wiki/Competitive_programming). This repository contains the ratings and the code which generates it.
+Alcoding Club of [PES University](https://pes.edu/) maintains ratings of its students who are active in [competitive programming](https://en.wikipedia.org/wiki/Competitive_programming). This repository contains the ratings and the code that generates it.
 
 ## Purpose
-An intra-college rating is maintained so that the club can identify good coders.  The club will group these students and help them improve at competitive programming by organizing meet-ups, providing resources, arranging contests and develop a coding community in the University.
+An intra-college rating is maintained to aid the club in identifying good coders. The club aims to help these students improve their competitive programming skills by organizing meet-ups, providing resources, arranging contests and developing a coding community in the University.
 
 
 ## Ratings
-The ratings are calculated by students' performances in [specified contests](database/README.md).
+The ratings are calculated using students' performances in [specified contests](database/README.md).
 
 ### Mechanism
-A [rank list](database/contest_ranks) of registered students is generated at the end of each contest. A rating is computed from the rank list, which indicates their relative performance. The implementation is almost the same as [Codechef's Rating Mechanism](https://www.codechef.com/ratings) which is a modified version of [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). To avoid students from [protecting their ratings](https://en.wikipedia.org/wiki/Elo_rating_system#Game_activity_versus_protecting_one's_rating) and encourage participation, a decay rule is also added which decrements a student's rating by 1% if she does not take part in 5 consecutive contests.
+A [rank list](database/contest_ranks) of registered students is generated at the end of each contest. A rating is computed from the rank list, which indicates their relative performance. The implementation is very similar to [Codechef's Rating Mechanism](https://www.codechef.com/ratings) which is a modified version of the [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). To prevent students from [protecting their ratings](https://en.wikipedia.org/wiki/Elo_rating_system#Game_activity_versus_protecting_one's_rating) and encourage participation, a decay rule, which decrements a student's rating by 1% if they do not take part in 5 consecutive rated contests, is also added.
 
 
 ### Verification
-The [code that generates the rating](ratings/processor.py) is open. Along with that we have provided [a script with which you can verify](executor.sh) that the displayed ratings are correct. This script resets all students' ratings, and computes the ratings after all the contest ranks are considered. You may [report an issue](https://github.com/varunvora/alcoding/issues) if you find any discrepancy.
+The [code that generates the rating](ratings/processor.py) is open. Further, we also provide [a method with which you can verify](run.py) the displayed ratings. This method resets all students' ratings, and recomputes the ratings of every student after considering all contest ranks. Please do [report an issue](https://github.com/pes-alcoding-club/student-ratings/issues) if you find any discrepancy.
 
 ## Calendar
-Alcoding Club maintains a [Google calendar for competitive programming](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ). Contests that are marked as "Rated" will be considered for these ratings. 
+Alcoding Club maintains a [Google Calendar for competitive programming](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ). Contests that are marked "Rated" will be considered for these ratings. 
 ## Contribute
-This project is still very small so there are no strict guidelines for contribution. For now we are following [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
+At the moment, there are no strict guidelines for contribution. As a standard, we follow the [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
 
-You can [report an issue](https://github.com/varunvora/alcoding/issues) if you find a bug or any other change you would like to make. You may also make a [pull request](https://github.com/varunvora/alcoding/pulls). It would be helpful if you use [our Github labels](https://github.com/varunvora/alcoding/labels) for all issues and pull requests. Be sure to clearly document and describe any issues or changes.
+Feel free to [report an issue](https://github.com/pes-alcoding-club/student-ratings/issues) if you find a bug, or have any other change you would like to see. You may also create a [pull request](https://github.com/pes-alcoding-club/student-ratings/pulls). It would be helpful if you use [our Github labels](https://github.com/pes-alcoding-club/student-ratings/labels) for all issues and pull requests. Be sure to clearly document and describe any issues or changes.
 
 ## FAQ
 
@@ -37,11 +37,11 @@ You can [report an issue](https://github.com/varunvora/alcoding/issues) if you f
 1. Which contests are taken into account for rating?
 
     Contests in ['Competitive Programming PESU' Calendar](https://calendar.google.com/calendar?cid=N3RsZGt1dXEwcW1mOW9ub2Jxb3ByZ2Z1cDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) are considered for ratings.
-1. How can I tell if these ratings are legitimate?
+1. How can I tell whether these ratings are legitimate?
 
-    You can verify the ratings yourself by running [this script](executor.sh). It resets all students' ratings to default values and recomputes it for all contests so far in chronological order. 
+    You can verify the ratings yourself by calling the [make_scoreboard] function in [run.py](run.py). It resets all students' ratings to default values and recomputes it for all contests so far in chronological order. 
    
-1. How can I get the scoreboard only for some particular contest(s)?
-
-    Clone this repository, open [executor.sh](executor.sh) and remove the contests you do not want the scoreboard for. Run this script and check [scoreboard.csv](scoreboard.csv).
-   
+1. How can I make a scoreboard for a few particular contests?
+    Firstly, clone this repository.
+    Create your own [contest_names_file.in](database/contest_names_file.in) and add the contest names in the format [platform]-[month]-[contest_code]. In [run.py](run.py), change the [contest_names_file_path] variable's value to your file's path.
+    Now call the [make_scoreboard] function in [run.py](run.py) with the required parameters and check [scoreboard.csv](scoreboard.csv).

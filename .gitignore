@@ -44,3 +44,7 @@ pip-delete-this-directory.txt
 
 # Mypy (static type checking)
 .mypy_cache/
+
+# Credentials for calendar
+credentials.json
+token.pickle

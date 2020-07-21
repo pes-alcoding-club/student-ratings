@@ -1,7 +1,6 @@
 import re
 import sys
 import csv
-import logging
 from os import listdir
 from os.path import join
 from collections import Counter
@@ -9,6 +8,7 @@ from functools import lru_cache
 from typing import List, Set, Tuple, Dict, Callable, Any
 from tinydb import TinyDB, where
 from ratings import elo
+from utils import log
 
 DB_FILE: str = 'database/db.json'
 CONTEST_RANKS_DIR: str = 'database/contest_ranks'
@@ -57,7 +57,7 @@ def reset_database(db_file: str = DB_FILE) -> None:
             BEST: elo.DEFAULT_RATING,
             TIMES_PLAYED: 0,
             LAST_FIVE: 5})
-    logging.info(f'Successfully reset database and stored in {db_file}')
+    log.info(f'Successfully reset database and stored in {db_file}')
 
 
 def get_site_name_from_file_name(file_name: str) -> str:
@@ -68,8 +68,8 @@ def get_site_name_from_file_name(file_name: str) -> str:
     """
     file_name_parts = file_name.split("-")
     if len(file_name_parts) < 2 or file_name_parts[0] not in SITES:
-        logging.error(f"Invalid filename '{file_name}' in contest ranks. File name convention is"
-                      f"'site-contest-details.in'")
+        log.error(f"Invalid filename '{file_name}' in contest ranks. File name convention is"
+                      f"'site-month-contestCode.in'")
         quit()
     return file_name_parts[0]
 
@@ -144,7 +144,7 @@ def map_username_to_usn(db_file: str = DB_FILE,
 
         log_unmapped_handles(site_handle_tuple_list)
 
-    logging.info('Mapped ')
+    log.info('Mapped usernames to SRNs')
 
 
 def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
@@ -152,10 +152,10 @@ def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
     Removes unmapped handles from outdated rank files
     to reduce space and time it takes for the script to run
     """
-    with open(join(CONTEST_RANKS_DIR, file_name), 'r') as rank_file:
+    with open(file_name, 'r') as rank_file:
         input_data: str = rank_file.read()
-
-    with open(join(CONTEST_RANKS_DIR, file_name), 'w') as rank_file:
+    count = 0
+    with open(file_name, 'w') as rank_file:
         for user_name_line in input_data.split("\n"):
             check_occurrence_in_line: bool = False
             for user_name in user_name_line.split():
@@ -164,7 +164,9 @@ def remove_unmapped_handles_from_rank_file(file_name: str) -> None:
                     rank_file.write(user_name + " ")
             if check_occurrence_in_line:
                 rank_file.write("\n")
-    logging.info(f'Cleaned {file_name}')
+                count+=1
+    loginfo = file_name.split('/')[2]
+    log.info(f'Cleaned {loginfo}')
 
 
 def export_to_csv(db_file: str = DB_FILE, scoreboard_file: str = SCOREBOARD_FILE) -> None:
@@ -190,7 +192,7 @@ def export_to_csv(db_file: str = DB_FILE, scoreboard_file: str = SCOREBOARD_FILE
         wr = csv.writer(fp)
         wr.writerows(csv_table)
 
-    logging.info(f'Successfully exported database from {db_file} to {scoreboard_file}')
+    log.info(f'Successfully exported database from {db_file} to {scoreboard_file}')
 
 
 def prettify(db_file: str = DB_FILE) -> None:
@@ -201,11 +203,11 @@ def prettify(db_file: str = DB_FILE) -> None:
         fp.write_back(fp.all())
 
 
-if __name__ == "__main__":
+'''if __name__ == "__main__":
     # While executing this script, you can specify which function to execute
     func_str: str = sys.argv[1]
     try:
         func_obj: Callable = globals()[func_str]
         func_obj(*sys.argv[2:])  # Arguments to specified function can be passed
-    except KeyError:
-        logging.error(f'Provided invalid argument. No function {func_str}')
+    except KeyError:'
+        log.error(f'Provided invalid argument. No function {func_str}')'''
